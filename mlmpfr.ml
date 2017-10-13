@@ -15,6 +15,8 @@ type mpfr_exception =
 external mpfr_init2 : int -> mpfr_t = "mpfr_init2_ml"
 external mpfr_inits2 : int -> int -> mpfr_t list = "mpfr_inits2_ml"
 external mpfr_clear : mpfr_t -> unit = "mpfr_clear_ml"
+let mpfr_clears ops =
+  List.iter (fun op -> mpfr_clear op) ops
 
 
 (* 5.2 Assignment Functions *)

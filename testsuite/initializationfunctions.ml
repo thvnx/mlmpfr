@@ -5,9 +5,8 @@ let init2 prec =
   mpfr_clear m
 
 let inits2 prec n =
-  List.iter (
-      fun m -> mpfr_clear m
-    ) (mpfr_inits2 prec n)
+  let m = mpfr_inits2 prec n in
+  mpfr_clears m
 
 let _ =
   init2 2;
