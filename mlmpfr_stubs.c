@@ -78,13 +78,22 @@ CAMLprim value mpfr_set_d_ml (value op, value d, value rnd)
 				   rounding_mode2mpfr_rnd_t (Int_val (rnd)))));
 }
 
-CAMLprim value mpfr_out_str_ml (value fn, value base, value n, value op, value rnd)
+CAMLprim value mpfr_get_str_ml (value base, value n, value op, value rnd)
 {
-  CAMLparam5 (fn, base, n, op, rnd);
-  char *of = String_val (fn);
-  FILE *fd = fopen (of, "a");
-  int wc = mpfr_out_str (fd, Int_val (base), Int_val (n), Mpfr_val (op),
-			 rounding_mode2mpfr_rnd_t (Int_val (rnd)));
-  fclose(fd);
-  CAMLreturn (Val_int (wc));
+  CAMLparam4 (base, n, op, rnd);
+
+  char *ret;
+  mpfr_exp_t expptr;
+  value result;
+
+  ret = mpfr_get_str (NULL, &expptr, Int_val (base), Int_val (n), Mpfr_val (op),
+		      rounding_mode2mpfr_rnd_t (Int_val (rnd)));
+
+  result = caml_alloc_tuple (2);
+
+  Store_field (result, 0, caml_copy_string (ret));
+  Store_field (result, 1, Val_int (expptr));
+  mpfr_free_str (ret);
+
+  CAMLreturn (result);
 }
