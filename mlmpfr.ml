@@ -14,6 +14,12 @@ type mpfr_exception =
 (* 5.1 Initialization Functions *)
 external mpfr_init2 : int -> mpfr_t = "mpfr_init2_ml"
 
+external mpfr_clear : mpfr_t -> unit = "mpfr_clear_ml"
+
+
+(* 5.2 Assignment Functions *)
+external mpfr_set_d : mpfr_t -> float -> rounding_mode -> int = "mpfr_set_d_ml"
+
 
 (* 5.8 Input and Output Functions *)
-external mpfr_out_str : int -> int -> mpfr_t -> rounding_mode -> int = "mpfr_out_str_ml"
+external mpfr_out_str : string -> int -> int -> mpfr_t -> rounding_mode -> int = "mpfr_out_str_ml"
