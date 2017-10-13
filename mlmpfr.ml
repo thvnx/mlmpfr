@@ -13,7 +13,7 @@ type mpfr_exception =
 
 (* 5.1 Initialization Functions *)
 external mpfr_init2 : int -> mpfr_t = "mpfr_init2_ml"
-
+external mpfr_inits2 : int -> int -> mpfr_t list = "mpfr_inits2_ml"
 external mpfr_clear : mpfr_t -> unit = "mpfr_clear_ml"
 
 

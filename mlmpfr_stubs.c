@@ -42,6 +42,28 @@ CAMLprim value mpfr_init2_ml (value prec)
   CAMLreturn (initialized_value);
 }
 
+CAMLprim value mpfr_inits2_ml (value prec, value n)
+{
+  CAMLparam2 (prec, n);
+  CAMLlocal2 (list, tmp);
+
+  if (Int_val (n) <= 0) // if n is zero, return empty list
+    CAMLreturn (Val_int (0));
+
+  // build a list of size n
+  list = caml_alloc (2, 0);
+  Store_field (list, 0, mpfr_init2_ml (prec));
+  Store_field (list, 1, Val_int(0));
+  for (int i = 1; i < Int_val (n); i++)
+    {
+      tmp = caml_alloc (2, 0);
+      Store_field (tmp, 0, mpfr_init2_ml (prec));
+      Store_field (tmp, 1, list);
+      list = tmp;
+    }
+  CAMLreturn (list);
+}
+
 CAMLprim value mpfr_clear_ml (value op)
 {
   CAMLparam1 (op);
