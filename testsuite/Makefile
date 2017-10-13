@@ -1,6 +1,6 @@
 all:
-	ocamlc -custom -o assignmentfunctions.ocaml unix.cma ../mlmpfr.cmo assignmentfunctions.c ../mlmpfr_stubs.o -cclib -lmpfr
-	ocamlc -custom -o initializationfunctions.ocaml unix.cma ../mlmpfr.cmo initializationfunctions.c ../mlmpfr_stubs.o -cclib -lmpfr
+	ocamlc -I .. -custom -o assignmentfunctions.ocaml unix.cma ../mlmpfr.cmo assignmentfunctions.ml ../mlmpfr_stubs.o -cclib -lmpfr
+	ocamlc -I .. -custom -o initializationfunctions.ocaml unix.cma ../mlmpfr.cmo initializationfunctions.ml ../mlmpfr_stubs.o -cclib -lmpfr
 	gcc -o assignmentfunctions.gcc assignmentfunctions.c -lmpfr
 	gcc -o initializationfunctions.gcc initializationfunctions.c -lmpfr
 
