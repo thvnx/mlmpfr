@@ -1,4 +1,10 @@
 all:
 	ocamlc -c mlmpfr.ml
 	ocamlc -c mlmpfr_stubs.c
-	ocamlc -custom -o mlmpfr unix.cma mlmpfr.cmo test.ml mlmpfr_stubs.o -cclib -lmpfr
+
+check: all
+	cd testsuite && make check
+
+clean:
+	rm -f *.cmi *.cmo *.o
+	cd testsuite && make clean
