@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <mpfr.h>
 
 int main()
@@ -11,6 +12,12 @@ int main()
   mpfr_clears (x, y,  (mpfr_ptr) 0);
   mpfr_inits (x, y, (mpfr_ptr) 0);
   mpfr_clears (x, y,  (mpfr_ptr) 0);
+  mpfr_prec_t p = 64;
+  mpfr_set_default_prec (p);
+  if (mpfr_get_default_prec () == p)
+    printf("1\n");
+  else
+    printf("0\n");
   
   return 0;
 }

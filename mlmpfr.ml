@@ -19,6 +19,8 @@ let mpfr_clears ops =
   List.iter (fun op -> mpfr_clear op) ops
 external mpfr_init : unit -> mpfr_t = "mpfr_init_ml"
 external mpfr_inits : int -> mpfr_t list = "mpfr_inits_ml"
+external mpfr_set_default_prec : int -> unit = "mpfr_set_default_prec_ml"
+external mpfr_get_default_prec : unit -> int = "mpfr_get_default_prec_ml"
 
 
 (* 5.2 Assignment Functions *)

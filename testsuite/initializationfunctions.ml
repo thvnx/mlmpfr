@@ -1,4 +1,5 @@
 open Mlmpfr
+open Printf
 
 let init2 prec =
   let m = mpfr_init2 prec in
@@ -9,15 +10,24 @@ let inits2 prec n =
   mpfr_clears m
 
 let init _ =
-  let m = mpfr_init in
+  let m = mpfr_init () in
   mpfr_clear m
 
 let inits n =
   let m = mpfr_inits n in
   mpfr_clears m
 
+let set_default_prec n =
+  mpfr_set_default_prec n
+
+let get_default_prec _ =
+  mpfr_get_default_prec ()
+
 let _ =
   init2 2;
   inits2 2 2;
   init ();
-  inits 2
+  inits 2;
+  let p = 64 in
+  set_default_prec p;
+  printf "%d\n" (if p == (get_default_prec ()) then 1 else 0)
