@@ -9,4 +9,3 @@ let _ =
   let r = set_d m 1. MPFR_RNDN in
   printf "%d\n" r;
   mpfr_clear m
-  

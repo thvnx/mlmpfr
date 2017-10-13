@@ -9,4 +9,3 @@ int main ()
   mpfr_clear (m);
   return 0;
 }
- 
