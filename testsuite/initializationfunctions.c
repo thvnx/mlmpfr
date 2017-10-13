@@ -18,6 +18,10 @@ int main()
     printf("1\n");
   else
     printf("0\n");
+  mpfr_init (x);
+  mpfr_set_prec (x, 1234);
+  printf ("%ld\n", mpfr_get_prec (x));
+  mpfr_clear (x);
   
   return 0;
 }

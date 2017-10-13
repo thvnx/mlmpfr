@@ -128,6 +128,19 @@ CAMLprim value mpfr_get_default_prec_ml ()
   CAMLreturn (Val_int (prec));
 }
 
+CAMLprim value mpfr_set_prec_ml (value op, value prec)
+{
+  CAMLparam2 (op, prec);
+  mpfr_set_prec (Mpfr_val (op), Int_val (prec));
+  CAMLreturn (Val_unit);
+}
+
+CAMLprim value mpfr_get_prec_ml (value op)
+{
+  CAMLparam1 (op);
+  CAMLreturn (Val_int (mpfr_get_prec (Mpfr_val (op))));
+}
+
 CAMLprim value mpfr_set_d_ml (value op, value d, value rnd)
 {
   CAMLparam3 (op, d, rnd);
