@@ -33,6 +33,18 @@ int rounding_mode2mpfr_rnd_t (r)
     }
 }
 
+CAMLprim value mpfr_prec_min_ml ()
+{
+  CAMLparam0 ();
+  CAMLreturn (Val_int (MPFR_PREC_MIN));
+}
+
+CAMLprim value mpfr_prec_max_ml ()
+{
+  CAMLparam0 ();
+  CAMLreturn (Val_int (MPFR_PREC_MAX));
+}
+
 CAMLprim value mpfr_init2_ml (value prec)
 {
   CAMLparam1 (prec);

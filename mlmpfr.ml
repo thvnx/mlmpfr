@@ -10,6 +10,11 @@ type mpfr_t
 type mpfr_exception =
   Underflow | Overflow | DivideByZero | NaN | Inexact | RangeError
 
+external get_mpfr_prec_min_macro : unit -> int = "mpfr_prec_min_ml"
+external get_mpfr_prec_max_macro : unit -> int = "mpfr_prec_max_ml"
+let mpfr_prec_min = get_mpfr_prec_min_macro ()
+let mpfr_prec_max = get_mpfr_prec_max_macro ()                  
+
 
 (* 5.1 Initialization Functions *)
 external mpfr_init2 : int -> mpfr_t = "mpfr_init2_ml"
