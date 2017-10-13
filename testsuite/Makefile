@@ -13,4 +13,4 @@ check: all
 	diff /tmp/out1 /tmp/out2
 
 clean:
-	rm -f *.ocaml *.gcc *.o
+	rm -f *.ocaml *.gcc *.o *.cmi *.cmo
