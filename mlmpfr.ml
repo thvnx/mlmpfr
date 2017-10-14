@@ -31,7 +31,15 @@ external mpfr_get_prec : mpfr_t -> int = "mpfr_get_prec_ml"
 
 
 (* 5.2 Assignment Functions *)
-external mpfr_set_d : mpfr_t -> float -> rounding_mode -> int = "mpfr_set_d_ml"
+external mpfr_set : mpfr_t -> mpfr_t -> rounding_mode -> int = "mpfr_set_ml"
+external mpfr_set_int : mpfr_t -> int -> rounding_mode -> int = "mpfr_set_si_ml"
+external mpfr_set_float : mpfr_t -> float -> rounding_mode -> int = "mpfr_set_d_ml"
+external mpfr_set_str : mpfr_t -> string -> int -> rounding_mode -> int = "mpfr_set_str_ml"
+external mpfr_strtofr : mpfr_t -> string -> int -> rounding_mode -> int = "mpfr_strtofr_ml"
+external mpfr_set_nan : mpfr_t -> unit = "mpfr_set_nan_ml"
+external mpfr_set_inf : mpfr_t -> int -> unit = "mpfr_set_inf_ml"
+external mpfr_set_zero : mpfr_t -> int -> unit = "mpfr_set_zero_ml"
+external mpfr_swap : mpfr_t -> mpfr_t -> unit = "mpfr_swap_ml"
 
 
 (* 5.4 Conversion Functions *)

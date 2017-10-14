@@ -141,11 +141,67 @@ CAMLprim value mpfr_get_prec_ml (value op)
   CAMLreturn (Val_int (mpfr_get_prec (Mpfr_val (op))));
 }
 
-CAMLprim value mpfr_set_d_ml (value op, value d, value rnd)
+CAMLprim value mpfr_set_ml (value rop, value op, value rnd)
 {
-  CAMLparam3 (op, d, rnd);
-  CAMLreturn (Val_int (mpfr_set_d (Mpfr_val (op), Double_val (d),
+  CAMLparam3 (rop, op, rnd);
+  CAMLreturn (Val_int (mpfr_set (Mpfr_val (rop), Mpfr_val (op),
+				 rounding_mode2mpfr_rnd_t (Int_val (rnd)))));
+}
+
+CAMLprim value mpfr_set_si_ml (value rop, value op, value rnd)
+{
+  CAMLparam3 (rop, op, rnd);
+  CAMLreturn (Val_int (mpfr_set_si (Mpfr_val (rop), Int_val (op),
 				   rounding_mode2mpfr_rnd_t (Int_val (rnd)))));
+}
+
+CAMLprim value mpfr_set_d_ml (value rop, value op, value rnd)
+{
+  CAMLparam3 (rop, op, rnd);
+  CAMLreturn (Val_int (mpfr_set_d (Mpfr_val (rop), Double_val (op),
+				   rounding_mode2mpfr_rnd_t (Int_val (rnd)))));
+}
+
+CAMLprim value mpfr_set_str_ml (value rop, value op, value base, value rnd)
+{
+  CAMLparam4 (rop, op, base, rnd);
+  CAMLreturn (Val_int (mpfr_set_str (Mpfr_val (rop), String_val (op),
+				     Int_val (base), rounding_mode2mpfr_rnd_t (Int_val (rnd)))));
+}
+
+CAMLprim value mpfr_set_strtofr_ml (value rop, value op, value base, value rnd)
+{
+  CAMLparam4 (rop, op, base, rnd);
+  CAMLreturn (Val_int (mpfr_strtofr (Mpfr_val (rop), String_val (op), NULL,
+				     Int_val (base), rounding_mode2mpfr_rnd_t (Int_val (rnd)))));
+}
+
+CAMLprim value mpfr_set_nan_ml (value rop)
+{
+  CAMLparam1 (rop);
+  mpfr_set_nan (Mpfr_val (rop));
+  CAMLreturn (Val_unit);
+}
+
+CAMLprim value mpfr_set_inf_ml (value rop, value sign)
+{
+  CAMLparam2 (rop, sign);
+  mpfr_set_inf (Mpfr_val (rop), Int_val (sign));
+  CAMLreturn (Val_unit);
+}
+
+CAMLprim value mpfr_set_zero_ml (value rop, value sign)
+{
+  CAMLparam2 (rop, sign);
+  mpfr_set_zero (Mpfr_val (rop), Int_val (sign));
+  CAMLreturn (Val_unit);
+}
+
+CAMLprim value mpfr_set_swap_ml (value op1, value op2)
+{
+  CAMLparam2 (op1, op2);
+  mpfr_swap (Mpfr_val (op1), Mpfr_val (op2));
+  CAMLreturn (Val_unit);
 }
 
 CAMLprim value mpfr_get_str_ml (value base, value n, value op, value rnd)
