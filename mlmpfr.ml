@@ -13,7 +13,7 @@ type mpfr_exception =
 external get_mpfr_prec_min_macro : unit -> int = "mpfr_prec_min_ml"
 external get_mpfr_prec_max_macro : unit -> int = "mpfr_prec_max_ml"
 let mpfr_prec_min = get_mpfr_prec_min_macro ()
-let mpfr_prec_max = get_mpfr_prec_max_macro ()                  
+let mpfr_prec_max = get_mpfr_prec_max_macro ()
 
 
 (* 5.1 Initialization Functions *)
@@ -40,6 +40,13 @@ external mpfr_set_nan : mpfr_t -> unit = "mpfr_set_nan_ml"
 external mpfr_set_inf : mpfr_t -> int -> unit = "mpfr_set_inf_ml"
 external mpfr_set_zero : mpfr_t -> int -> unit = "mpfr_set_zero_ml"
 external mpfr_swap : mpfr_t -> mpfr_t -> unit = "mpfr_swap_ml"
+
+
+(* 5.3 Combined Initialization and Assignment Functions *)
+external mpfr_init_set : mpfr_t -> rounding_mode -> mpfr_t * int = "mpfr_init_set_ml"
+external mpfr_init_set_int : int -> rounding_mode -> mpfr_t * int = "mpfr_init_set_si_ml"
+external mpfr_init_set_float : float -> rounding_mode -> mpfr_t * int = "mpfr_init_set_d_ml"
+external mpfr_init_set_str : string -> int -> rounding_mode -> mpfr_t * int = "mpfr_init_set_str_ml"
 
 
 (* 5.4 Conversion Functions *)
