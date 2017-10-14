@@ -169,7 +169,7 @@ CAMLprim value mpfr_set_str_ml (value rop, value op, value base, value rnd)
 				     Int_val (base), rounding_mode2mpfr_rnd_t (Int_val (rnd)))));
 }
 
-CAMLprim value mpfr_set_strtofr_ml (value rop, value op, value base, value rnd)
+CAMLprim value mpfr_strtofr_ml (value rop, value op, value base, value rnd)
 {
   CAMLparam4 (rop, op, base, rnd);
   CAMLreturn (Val_int (mpfr_strtofr (Mpfr_val (rop), String_val (op), NULL,
@@ -197,7 +197,7 @@ CAMLprim value mpfr_set_zero_ml (value rop, value sign)
   CAMLreturn (Val_unit);
 }
 
-CAMLprim value mpfr_set_swap_ml (value op1, value op2)
+CAMLprim value mpfr_swap_ml (value op1, value op2)
 {
   CAMLparam2 (op1, op2);
   mpfr_swap (Mpfr_val (op1), Mpfr_val (op2));
