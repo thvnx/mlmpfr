@@ -58,6 +58,38 @@ external mpfr_get_str : int -> int -> mpfr_t -> mpfr_rnd_t -> string * int = "mp
 external mpfr_fits_int_p : mpfr_t -> mpfr_rnd_t -> int = "mpfr_fits_sint_p_ml"
 
 
+(* 5.5 Basic Arithmetic Functions *)
+external mpfr_add : mpfr_t -> mpfr_t -> mpfr_rnd_t -> mpfr_t * int = "mpfr_add_ml"
+external mpfr_add_int : mpfr_t -> int -> mpfr_rnd_t -> mpfr_t * int = "mpfr_add_si_ml"
+external mpfr_add_float : mpfr_t -> float -> mpfr_rnd_t -> mpfr_t * int = "mpfr_add_d_ml"
+external mpfr_sub : mpfr_t -> mpfr_t -> mpfr_rnd_t -> mpfr_t * int = "mpfr_sub_ml"
+external mpfr_int_sub : int -> mpfr_t -> mpfr_rnd_t -> mpfr_t * int = "mpfr_si_sub_ml"
+external mpfr_sub_int : mpfr_t -> int -> mpfr_rnd_t -> mpfr_t * int = "mpfr_sub_si_ml"
+external mpfr_float_sub : float -> mpfr_t -> mpfr_rnd_t -> mpfr_t * int = "mpfr_d_sub_ml"
+external mpfr_sub_float : mpfr_t -> float -> mpfr_rnd_t -> mpfr_t * int = "mpfr_sub_d_ml"
+external mpfr_mul : mpfr_t -> mpfr_t -> mpfr_rnd_t -> mpfr_t * int = "mpfr_mul_ml"
+external mpfr_mul_int : mpfr_t -> int -> mpfr_rnd_t -> mpfr_t * int = "mpfr_mul_si_ml"
+external mpfr_mul_float : mpfr_t -> float -> mpfr_rnd_t -> mpfr_t * int = "mpfr_mul_d_ml"
+external mpfr_sqr : mpfr_t -> mpfr_rnd_t -> mpfr_t * int = "mpfr_sqr_ml"
+external mpfr_div : mpfr_t -> mpfr_t -> mpfr_rnd_t -> mpfr_t * int = "mpfr_div_ml"
+external mpfr_int_div : int -> mpfr_t -> mpfr_rnd_t -> mpfr_t * int = "mpfr_si_div_ml"
+external mpfr_div_int : mpfr_t -> int -> mpfr_rnd_t -> mpfr_t * int = "mpfr_div_si_ml"
+external mpfr_float_div : float -> mpfr_t -> mpfr_rnd_t -> mpfr_t * int = "mpfr_d_div_ml"
+external mpfr_div_float : mpfr_t -> float -> mpfr_rnd_t -> mpfr_t * int = "mpfr_div_d_ml"
+external mpfr_sqrt : mpfr_t -> mpfr_rnd_t -> mpfr_t * int = "mpfr_sqrt_ml"
+external mpfr_sqrt_int : int -> mpfr_rnd_t -> mpfr_t * int = "mpfr_sqrt_ui_ml"
+external mpfr_rec_sqrt : mpfr_t -> mpfr_rnd_t -> mpfr_t * int = "mpfr_rec_sqrt_ml"
+external mpfr_cbrt : mpfr_t -> mpfr_rnd_t -> mpfr_t * int = "mpfr_cbrt_ml"
+external mpfr_root : mpfr_t -> int -> mpfr_rnd_t -> mpfr_t * int = "mpfr_root_ml"
+external mpfr_pow : mpfr_t -> mpfr_t -> mpfr_rnd_t -> mpfr_t * int = "mpfr_pow_ml"
+external mpfr_pow_int : mpfr_t -> int -> mpfr_rnd_t -> mpfr_t * int = "mpfr_pow_si_ml"
+external mpfr_neg : mpfr_t -> mpfr_rnd_t -> mpfr_t * int = "mpfr_neg_ml"
+external mpfr_abs : mpfr_t -> mpfr_rnd_t -> mpfr_t * int = "mpfr_abs_ml"
+external mpfr_dim : mpfr_t -> mpfr_t -> mpfr_rnd_t -> mpfr_t * int = "mpfr_dim_ml"
+external mpfr_mul_2int : mpfr_t -> int -> mpfr_rnd_t -> mpfr_t * int = "mpfr_mul_2si_ml"
+external mpfr_div_2int : mpfr_t -> int -> mpfr_rnd_t -> mpfr_t * int = "mpfr_div_2si_ml"
+
+
 (* 5.8 Input and Output Functions *)
 let mpfr_out_str chan base n op rnd =
   let significant, exponent = mpfr_get_str base n op rnd in
