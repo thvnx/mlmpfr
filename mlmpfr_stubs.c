@@ -6,11 +6,12 @@
 #include <caml/custom.h>
 #include <caml/fail.h>
 
+static int custom_compare (value v1, value v2);
 
 static struct custom_operations mpfr_ops = {
   "github.com/thvnx/mlmpfr.1",
   custom_finalize_default,
-  custom_compare_default,
+  custom_compare,
   custom_hash_default,
   custom_serialize_default,
   custom_deserialize_default,
@@ -895,4 +896,9 @@ CAMLprim value mpfr_unordered_p_ml (value op1, value op2)
 {
   CAMLparam2 (op1, op2);
   CAMLreturn (Val_int (mpfr_unordered_p (Mpfr_val (op1), Mpfr_val (op2))));
+}
+
+static int custom_compare (value v1, value v2)
+{
+  return mpfr_cmp (Mpfr_val (v1), Mpfr_val (v2));
 }
