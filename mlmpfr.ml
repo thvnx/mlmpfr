@@ -50,7 +50,12 @@ external mpfr_init_set_str : string -> int -> rounding_mode -> mpfr_t * int = "m
 
 
 (* 5.4 Conversion Functions *)
+external mpfr_get_float : mpfr_t -> rounding_mode -> float = "mpfr_get_d_ml"
+external mpfr_get_int : mpfr_t -> rounding_mode -> int = "mpfr_get_si_ml"
+external mpfr_get_float_2exp : mpfr_t -> rounding_mode -> float * int = "mpfr_get_d_2exp_ml"
+external mpfr_frexp : mpfr_t -> mpfr_t -> rounding_mode -> int * mpfr_t = "mpfr_frexp_ml"
 external mpfr_get_str : int -> int -> mpfr_t -> rounding_mode -> string * int = "mpfr_get_str_ml"
+external mpfr_fits_int_p : mpfr_t -> rounding_mode -> int = "mpfr_fits_sint_p_ml"
 
 
 (* 5.8 Input and Output Functions *)

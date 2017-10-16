@@ -17,6 +17,7 @@ This OCaml C interface to MPFR covers almost all the MPFR functions with stricts
 - Macro: same comment as above for `mpfr_init_set_si` and `mpfr_init_set_d`.
 - Function: same comment as above for `mpfr_init_set_str`.
 
+- Function: the return value of `mpfr_frexp` is omited.
 - Function: `char * mpfr_get_str (char *str, mpfr_exp_t *expptr, int b, size_t n, mpfr_t op, mpfr_rnd_t rnd)` is here `val mpfr_get_str : int -> int -> mpfr_t -> mpfr_rnd_t -> string * int = <fun>`. This binding uses the allocation function provided by MPFR (and uses `mpfr_free_str`). It returns a tuple containing the number significand and exponent.
 
 - Function: `size_t mpfr_out_str (FILE *stream, int base, size_t n, mpfr_t op, mpfr_rnd_t rnd)` is emulated here to avoid different buffering mechanism interactions. It uses `mpfr_get_str` to format the output string (decimal point is not defined by locale).
