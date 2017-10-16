@@ -19,7 +19,7 @@ static struct custom_operations mpfr_ops = {
 
 #define Mpfr_val(m) (*((mpfr_t *) Data_custom_val (m)))
 
-int rounding_mode2mpfr_rnd_t (r)
+int rnd_val (r)
 {
   switch (r)
     {
@@ -145,35 +145,35 @@ CAMLprim value mpfr_set_ml (value rop, value op, value rnd)
 {
   CAMLparam3 (rop, op, rnd);
   CAMLreturn (Val_int (mpfr_set (Mpfr_val (rop), Mpfr_val (op),
-				 rounding_mode2mpfr_rnd_t (Int_val (rnd)))));
+				 rnd_val (Int_val (rnd)))));
 }
 
 CAMLprim value mpfr_set_si_ml (value rop, value op, value rnd)
 {
   CAMLparam3 (rop, op, rnd);
   CAMLreturn (Val_int (mpfr_set_si (Mpfr_val (rop), Int_val (op),
-				   rounding_mode2mpfr_rnd_t (Int_val (rnd)))));
+				   rnd_val (Int_val (rnd)))));
 }
 
 CAMLprim value mpfr_set_d_ml (value rop, value op, value rnd)
 {
   CAMLparam3 (rop, op, rnd);
   CAMLreturn (Val_int (mpfr_set_d (Mpfr_val (rop), Double_val (op),
-				   rounding_mode2mpfr_rnd_t (Int_val (rnd)))));
+				   rnd_val (Int_val (rnd)))));
 }
 
 CAMLprim value mpfr_set_str_ml (value rop, value op, value base, value rnd)
 {
   CAMLparam4 (rop, op, base, rnd);
   CAMLreturn (Val_int (mpfr_set_str (Mpfr_val (rop), String_val (op),
-				     Int_val (base), rounding_mode2mpfr_rnd_t (Int_val (rnd)))));
+				     Int_val (base), rnd_val (Int_val (rnd)))));
 }
 
 CAMLprim value mpfr_strtofr_ml (value rop, value op, value base, value rnd)
 {
   CAMLparam4 (rop, op, base, rnd);
   CAMLreturn (Val_int (mpfr_strtofr (Mpfr_val (rop), String_val (op), NULL,
-				     Int_val (base), rounding_mode2mpfr_rnd_t (Int_val (rnd)))));
+				     Int_val (base), rnd_val (Int_val (rnd)))));
 }
 
 CAMLprim value mpfr_set_nan_ml (value rop)
@@ -214,7 +214,7 @@ CAMLprim value mpfr_init_set_ml (value op, value rnd)
   initialized_value = caml_alloc_custom (&mpfr_ops, sizeof (mpfr_t), 0, 1);
 
   tv = mpfr_init_set (Mpfr_val (initialized_value), Mpfr_val (op),
-		      rounding_mode2mpfr_rnd_t (Int_val (rnd)));
+		      rnd_val (Int_val (rnd)));
 
   Store_field (result, 0, initialized_value);
   Store_field (result, 1, Val_int (tv));
@@ -231,7 +231,7 @@ CAMLprim value mpfr_init_set_si_ml (value op, value rnd)
   initialized_value = caml_alloc_custom (&mpfr_ops, sizeof (mpfr_t), 0, 1);
 
   tv = mpfr_init_set_si (Mpfr_val (initialized_value), Int_val (op),
-		      rounding_mode2mpfr_rnd_t (Int_val (rnd)));
+		      rnd_val (Int_val (rnd)));
 
   Store_field (result, 0, initialized_value);
   Store_field (result, 1, Val_int (tv));
@@ -248,7 +248,7 @@ CAMLprim value mpfr_init_set_d_ml (value op, value rnd)
   initialized_value = caml_alloc_custom (&mpfr_ops, sizeof (mpfr_t), 0, 1);
 
   tv = mpfr_init_set_d (Mpfr_val (initialized_value), Double_val (op),
-		      rounding_mode2mpfr_rnd_t (Int_val (rnd)));
+		      rnd_val (Int_val (rnd)));
 
   Store_field (result, 0, initialized_value);
   Store_field (result, 1, Val_int (tv));
@@ -265,7 +265,7 @@ CAMLprim value mpfr_init_set_str_ml (value op, value base, value rnd)
   initialized_value = caml_alloc_custom (&mpfr_ops, sizeof (mpfr_t), 0, 1);
 
   tv = mpfr_init_set_str (Mpfr_val (initialized_value), String_val (op), Int_val (base),
-		      rounding_mode2mpfr_rnd_t (Int_val (rnd)));
+		      rnd_val (Int_val (rnd)));
 
   Store_field (result, 0, initialized_value);
   Store_field (result, 1, Val_int (tv));
@@ -275,13 +275,13 @@ CAMLprim value mpfr_init_set_str_ml (value op, value base, value rnd)
 CAMLprim value mpfr_get_d_ml (value op, value rnd)
 {
   CAMLparam2 (op, rnd);
-  CAMLreturn (caml_copy_double (mpfr_get_d (Mpfr_val (op), rounding_mode2mpfr_rnd_t (rnd))));
+  CAMLreturn (caml_copy_double (mpfr_get_d (Mpfr_val (op), rnd_val (rnd))));
 }
 
 CAMLprim value mpfr_get_si_ml (value op, value rnd)
 {
   CAMLparam2 (op, rnd);
-  CAMLreturn (Val_int (mpfr_get_si (Mpfr_val (op), rounding_mode2mpfr_rnd_t (rnd))));
+  CAMLreturn (Val_int (mpfr_get_si (Mpfr_val (op), rnd_val (rnd))));
 }
 
 CAMLprim value mpfr_get_d_2exp_ml (value op, value rnd)
@@ -290,7 +290,7 @@ CAMLprim value mpfr_get_d_2exp_ml (value op, value rnd)
   CAMLlocal1 (result);
 
   long *exp;
-  double dv = mpfr_get_d_2exp (exp, Mpfr_val (op), rounding_mode2mpfr_rnd_t (rnd));
+  double dv = mpfr_get_d_2exp (exp, Mpfr_val (op), rnd_val (rnd));
 
   Store_field (result, 0, caml_copy_double (dv));
   Store_field (result, 1, Val_int (&exp));
@@ -303,7 +303,7 @@ CAMLprim value mpfr_frexp_ml (value op1, value op2, value rnd)
   CAMLlocal1 (result);
 
   mpfr_exp_t *exp;
-  mpfr_frexp (exp, Mpfr_val (op1), Mpfr_val (op2), rounding_mode2mpfr_rnd_t (rnd));
+  mpfr_frexp (exp, Mpfr_val (op1), Mpfr_val (op2), rnd_val (rnd));
   
   Store_field (result, 0, Val_int (&exp));
   Store_field (result, 1, op1);
@@ -319,7 +319,7 @@ CAMLprim value mpfr_get_str_ml (value base, value n, value op, value rnd)
   value result;
 
   ret = mpfr_get_str (NULL, &expptr, Int_val (base), Int_val (n), Mpfr_val (op),
-		      rounding_mode2mpfr_rnd_t (Int_val (rnd)));
+		      rnd_val (Int_val (rnd)));
 
   result = caml_alloc_tuple (2);
 
@@ -333,5 +333,5 @@ CAMLprim value mpfr_get_str_ml (value base, value n, value op, value rnd)
 CAMLprim value mpfr_fits_sint_p_ml (value op, value rnd)
 {
   CAMLparam2 (op, rnd);
-  CAMLreturn (Val_int (mpfr_fits_sint_p (Mpfr_val (op), rounding_mode2mpfr_rnd_t (rnd))));
+  CAMLreturn (Val_int (mpfr_fits_sint_p (Mpfr_val (op), rnd_val (rnd))));
 }

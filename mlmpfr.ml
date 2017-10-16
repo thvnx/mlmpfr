@@ -1,4 +1,4 @@
-type rounding_mode =
+type mpfr_rnd_t =
   MPFR_RNDN (* round to nearest (roundTiesToEven in IEEE 754-2008) *)
 | MPFR_RNDZ (* round toward zero (roundTowardZero in IEEE 754-2008) *)
 | MPFR_RNDU (* round toward plus infinity (roundTowardPositive in IEEE 754-2008) *)
@@ -31,11 +31,11 @@ external mpfr_get_prec : mpfr_t -> int = "mpfr_get_prec_ml"
 
 
 (* 5.2 Assignment Functions *)
-external mpfr_set : mpfr_t -> mpfr_t -> rounding_mode -> int = "mpfr_set_ml"
-external mpfr_set_int : mpfr_t -> int -> rounding_mode -> int = "mpfr_set_si_ml"
-external mpfr_set_float : mpfr_t -> float -> rounding_mode -> int = "mpfr_set_d_ml"
-external mpfr_set_str : mpfr_t -> string -> int -> rounding_mode -> int = "mpfr_set_str_ml"
-external mpfr_strtofr : mpfr_t -> string -> int -> rounding_mode -> int = "mpfr_strtofr_ml"
+external mpfr_set : mpfr_t -> mpfr_t -> mpfr_rnd_t -> int = "mpfr_set_ml"
+external mpfr_set_int : mpfr_t -> int -> mpfr_rnd_t -> int = "mpfr_set_si_ml"
+external mpfr_set_float : mpfr_t -> float -> mpfr_rnd_t -> int = "mpfr_set_d_ml"
+external mpfr_set_str : mpfr_t -> string -> int -> mpfr_rnd_t -> int = "mpfr_set_str_ml"
+external mpfr_strtofr : mpfr_t -> string -> int -> mpfr_rnd_t -> int = "mpfr_strtofr_ml"
 external mpfr_set_nan : mpfr_t -> unit = "mpfr_set_nan_ml"
 external mpfr_set_inf : mpfr_t -> int -> unit = "mpfr_set_inf_ml"
 external mpfr_set_zero : mpfr_t -> int -> unit = "mpfr_set_zero_ml"
@@ -43,19 +43,19 @@ external mpfr_swap : mpfr_t -> mpfr_t -> unit = "mpfr_swap_ml"
 
 
 (* 5.3 Combined Initialization and Assignment Functions *)
-external mpfr_init_set : mpfr_t -> rounding_mode -> mpfr_t * int = "mpfr_init_set_ml"
-external mpfr_init_set_int : int -> rounding_mode -> mpfr_t * int = "mpfr_init_set_si_ml"
-external mpfr_init_set_float : float -> rounding_mode -> mpfr_t * int = "mpfr_init_set_d_ml"
-external mpfr_init_set_str : string -> int -> rounding_mode -> mpfr_t * int = "mpfr_init_set_str_ml"
+external mpfr_init_set : mpfr_t -> mpfr_rnd_t -> mpfr_t * int = "mpfr_init_set_ml"
+external mpfr_init_set_int : int -> mpfr_rnd_t -> mpfr_t * int = "mpfr_init_set_si_ml"
+external mpfr_init_set_float : float -> mpfr_rnd_t -> mpfr_t * int = "mpfr_init_set_d_ml"
+external mpfr_init_set_str : string -> int -> mpfr_rnd_t -> mpfr_t * int = "mpfr_init_set_str_ml"
 
 
 (* 5.4 Conversion Functions *)
-external mpfr_get_float : mpfr_t -> rounding_mode -> float = "mpfr_get_d_ml"
-external mpfr_get_int : mpfr_t -> rounding_mode -> int = "mpfr_get_si_ml"
-external mpfr_get_float_2exp : mpfr_t -> rounding_mode -> float * int = "mpfr_get_d_2exp_ml"
-external mpfr_frexp : mpfr_t -> mpfr_t -> rounding_mode -> int * mpfr_t = "mpfr_frexp_ml"
-external mpfr_get_str : int -> int -> mpfr_t -> rounding_mode -> string * int = "mpfr_get_str_ml"
-external mpfr_fits_int_p : mpfr_t -> rounding_mode -> int = "mpfr_fits_sint_p_ml"
+external mpfr_get_float : mpfr_t -> mpfr_rnd_t -> float = "mpfr_get_d_ml"
+external mpfr_get_int : mpfr_t -> mpfr_rnd_t -> int = "mpfr_get_si_ml"
+external mpfr_get_float_2exp : mpfr_t -> mpfr_rnd_t -> float * int = "mpfr_get_d_2exp_ml"
+external mpfr_frexp : mpfr_t -> mpfr_t -> mpfr_rnd_t -> int * mpfr_t = "mpfr_frexp_ml"
+external mpfr_get_str : int -> int -> mpfr_t -> mpfr_rnd_t -> string * int = "mpfr_get_str_ml"
+external mpfr_fits_int_p : mpfr_t -> mpfr_rnd_t -> int = "mpfr_fits_sint_p_ml"
 
 
 (* 5.8 Input and Output Functions *)
