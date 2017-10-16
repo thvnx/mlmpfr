@@ -90,6 +90,27 @@ external mpfr_mul_2int : mpfr_t -> int -> mpfr_rnd_t -> mpfr_t * int = "mpfr_mul
 external mpfr_div_2int : mpfr_t -> int -> mpfr_rnd_t -> mpfr_t * int = "mpfr_div_2si_ml"
 
 
+(* 5.6 Comparison Functions *)
+external mpfr_cmp : mpfr_t -> mpfr_t -> int = "mpfr_cmp_ml"
+external mpfr_cmp_int : mpfr_t -> int -> int = "mpfr_cmp_si_ml"
+external mpfr_cmp_float : mpfr_t -> float -> int = "mpfr_cmp_d_ml"
+external mpfr_cmp_int_2exp : mpfr_t -> int -> int -> int = "mpfr_cmp_si_2exp_ml"
+external mpfr_cmpabs : mpfr_t -> mpfr_t -> int = "mpfr_cmpabs_ml"
+external mpfr_nan_p : mpfr_t -> int = "mpfr_nan_p_ml"
+external mpfr_inf_p : mpfr_t -> int = "mpfr_inf_p_ml"
+external mpfr_number_p : mpfr_t -> int = "mpfr_number_p_ml"
+external mpfr_zero_p : mpfr_t -> int = "mpfr_zero_p_ml"
+external mpfr_regular_p : mpfr_t -> int = "mpfr_regular_p_ml"
+external mpfr_sgn : mpfr_t -> int = "mpfr_sgn_ml"
+external mpfr_greater_p : mpfr_t -> mpfr_t -> int = "mpfr_greater_p_ml"
+external mpfr_greaterequal_p : mpfr_t -> mpfr_t -> int = "mpfr_greaterequal_p_ml"
+external mpfr_less_p : mpfr_t -> mpfr_t -> int = "mpfr_less_p_ml"
+external mpfr_lessequal_p : mpfr_t -> mpfr_t -> int = "mpfr_lessequal_p_ml"
+external mpfr_equal_p : mpfr_t -> mpfr_t -> int = "mpfr_equal_p_ml"
+external mpfr_lessgreater_p : mpfr_t -> mpfr_t -> int = "mpfr_lessgreater_p_ml"
+external mpfr_unordered_p : mpfr_t -> mpfr_t -> int = "mpfr_unordered_p_ml"
+
+
 (* 5.8 Input and Output Functions *)
 let mpfr_out_str chan base n op rnd =
   let significant, exponent = mpfr_get_str base n op rnd in

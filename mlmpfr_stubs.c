@@ -326,7 +326,7 @@ CAMLprim value mpfr_get_str_ml (value base, value n, value op, value rnd)
 {
   CAMLparam4 (base, n, op, rnd);
   CAMLlocal1 (result);
-  
+
   char *ret;
   mpfr_exp_t expptr;
 
@@ -787,4 +787,112 @@ CAMLprim value mpfr_div_2si_ml (value op1, value op2, value rnd)
   Store_field (result, 0, rop);
   Store_field (result, 1, Val_int (ret));
   CAMLreturn (result);
+}
+
+CAMLprim value mpfr_cmp_ml (value op1, value op2)
+{
+  CAMLparam2 (op1, op2);
+  CAMLreturn (Val_int (mpfr_cmp (Mpfr_val (op1), Mpfr_val (op2))));
+}
+
+CAMLprim value mpfr_cmp_int_ml (value op1, value op2)
+{
+  CAMLparam2 (op1, op2);
+  CAMLreturn (Val_int (mpfr_cmp_si (Mpfr_val (op1), Int_val (op2))));
+}
+
+CAMLprim value mpfr_cmp_float_ml (value op1, value op2)
+{
+  CAMLparam2 (op1, op2);
+  CAMLreturn (Val_int (mpfr_cmp_d (Mpfr_val (op1), Double_val (op2))));
+}
+
+CAMLprim value mpfr_cmp_si_2exp_ml (value op1, value op2, value exp)
+{
+  CAMLparam3 (op1, op2, exp);
+  CAMLreturn (Val_int (mpfr_cmp_si_2exp (Mpfr_val (op1), Int_val (op2), Int_val (exp))));
+}
+
+CAMLprim value mpfr_cmpabs_ml (value op1, value op2)
+{
+  CAMLparam2 (op1, op2);
+  CAMLreturn (Val_int (mpfr_cmp_abs (Mpfr_val (op1), Mpfr_val (op2))));
+}
+
+CAMLprim value mpfr_nan_p_ml (value op)
+{
+  CAMLparam1 (op);
+  CAMLreturn (Val_int (mpfr_nan_p (Mpfr_val (op))));
+}
+
+CAMLprim value mpfr_inf_p_ml (value op)
+{
+  CAMLparam1 (op);
+  CAMLreturn (Val_int (mpfr_inf_p (Mpfr_val (op))));
+}
+
+CAMLprim value mpfr_number_p_ml (value op)
+{
+  CAMLparam1 (op);
+  CAMLreturn (Val_int (mpfr_number_p (Mpfr_val (op))));
+}
+
+CAMLprim value mpfr_zero_p_ml (value op)
+{
+  CAMLparam1 (op);
+  CAMLreturn (Val_int (mpfr_zero_p (Mpfr_val (op))));
+}
+
+CAMLprim value mpfr_regular_p_ml (value op)
+{
+  CAMLparam1 (op);
+  CAMLreturn (Val_int (mpfr_regular_p (Mpfr_val (op))));
+}
+
+CAMLprim value mpfr_sgn_ml (value op)
+{
+  CAMLparam1 (op);
+  CAMLreturn (Val_int (mpfr_sgn (Mpfr_val (op))));
+}
+
+CAMLprim value mpfr_greater_p_ml (value op1, value op2)
+{
+  CAMLparam2 (op1, op2);
+  CAMLreturn (Val_int (mpfr_greater_p (Mpfr_val (op1), Mpfr_val (op2))));
+}
+
+CAMLprim value mpfr_greaterequal_p_ml (value op1, value op2)
+{
+  CAMLparam2 (op1, op2);
+  CAMLreturn (Val_int (mpfr_greaterequal_p (Mpfr_val (op1), Mpfr_val (op2))));
+}
+
+CAMLprim value mpfr_less_p_ml (value op1, value op2)
+{
+  CAMLparam2 (op1, op2);
+  CAMLreturn (Val_int (mpfr_less_p (Mpfr_val (op1), Mpfr_val (op2))));
+}
+
+CAMLprim value mpfr_lessequal_p_ml (value op1, value op2)
+{
+  CAMLparam2 (op1, op2);
+  CAMLreturn (Val_int (mpfr_lessequal_p (Mpfr_val (op1), Mpfr_val (op2))));
+}
+
+CAMLprim value mpfr_equal_p_ml (value op1, value op2)
+{
+  CAMLparam2 (op1, op2);
+  CAMLreturn (Val_int (mpfr_equal_p (Mpfr_val (op1), Mpfr_val (op2))));
+}
+
+CAMLprim value mpfr_lessgreater_p_ml (value op1, value op2)
+{
+  CAMLparam2 (op1, op2);
+  CAMLreturn (Val_int (mpfr_lessgreater_p (Mpfr_val (op1), Mpfr_val (op2))));
+}
+
+CAMLprim value mpfr_unordered_p_ml (value op1, value op2)
+{
+  CAMLparam2 (op1, op2);
+  CAMLreturn (Val_int (mpfr_unordered_p (Mpfr_val (op1), Mpfr_val (op2))));
 }
