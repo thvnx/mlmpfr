@@ -207,10 +207,10 @@ CAMLprim value mpfr_swap_ml (value op1, value op2)
 CAMLprim value mpfr_init_set_ml (value op, value rnd)
 {
   CAMLparam2 (op, rnd);
-  CAMLlocal1 (initialized_value);
+  CAMLlocal2 (initialized_value, result);
 
   int tv;
-  value result;
+
   initialized_value = caml_alloc_custom (&mpfr_ops, sizeof (mpfr_t), 0, 1);
 
   tv = mpfr_init_set (Mpfr_val (initialized_value), Mpfr_val (op),
@@ -226,10 +226,10 @@ CAMLprim value mpfr_init_set_ml (value op, value rnd)
 CAMLprim value mpfr_init_set_si_ml (value op, value rnd)
 {
   CAMLparam2 (op, rnd);
-  CAMLlocal1 (initialized_value);
+  CAMLlocal2 (initialized_value, result);
 
   int tv;
-  value result;
+
   initialized_value = caml_alloc_custom (&mpfr_ops, sizeof (mpfr_t), 0, 1);
 
   tv = mpfr_init_set_si (Mpfr_val (initialized_value), Int_val (op),
@@ -245,10 +245,10 @@ CAMLprim value mpfr_init_set_si_ml (value op, value rnd)
 CAMLprim value mpfr_init_set_d_ml (value op, value rnd)
 {
   CAMLparam2 (op, rnd);
-  CAMLlocal1 (initialized_value);
+  CAMLlocal2 (initialized_value, result);
 
   int tv;
-  value result;
+
   initialized_value = caml_alloc_custom (&mpfr_ops, sizeof (mpfr_t), 0, 1);
 
   tv = mpfr_init_set_d (Mpfr_val (initialized_value), Double_val (op),
@@ -264,10 +264,10 @@ CAMLprim value mpfr_init_set_d_ml (value op, value rnd)
 CAMLprim value mpfr_init_set_str_ml (value op, value base, value rnd)
 {
   CAMLparam3 (op, base, rnd);
-  CAMLlocal1 (initialized_value);
+  CAMLlocal2 (initialized_value, result);
 
   int tv;
-  value result;
+
   initialized_value = caml_alloc_custom (&mpfr_ops, sizeof (mpfr_t), 0, 1);
 
   tv = mpfr_init_set_str (Mpfr_val (initialized_value), String_val (op), Int_val (base),
@@ -325,10 +325,10 @@ CAMLprim value mpfr_frexp_ml (value op1, value op2, value rnd)
 CAMLprim value mpfr_get_str_ml (value base, value n, value op, value rnd)
 {
   CAMLparam4 (base, n, op, rnd);
-
+  CAMLlocal1 (result);
+  
   char *ret;
   mpfr_exp_t expptr;
-  value result;
 
   ret = mpfr_get_str (NULL, &expptr, Int_val (base), Int_val (n), Mpfr_val (op),
 		      rnd_val (Int_val (rnd)));
