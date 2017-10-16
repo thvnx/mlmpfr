@@ -216,6 +216,8 @@ CAMLprim value mpfr_init_set_ml (value op, value rnd)
   tv = mpfr_init_set (Mpfr_val (initialized_value), Mpfr_val (op),
 		      rnd_val (Int_val (rnd)));
 
+  result = caml_alloc_tuple (2);
+
   Store_field (result, 0, initialized_value);
   Store_field (result, 1, Val_int (tv));
   CAMLreturn (result);
@@ -232,6 +234,8 @@ CAMLprim value mpfr_init_set_si_ml (value op, value rnd)
 
   tv = mpfr_init_set_si (Mpfr_val (initialized_value), Int_val (op),
 		      rnd_val (Int_val (rnd)));
+
+  result = caml_alloc_tuple (2);
 
   Store_field (result, 0, initialized_value);
   Store_field (result, 1, Val_int (tv));
@@ -250,6 +254,8 @@ CAMLprim value mpfr_init_set_d_ml (value op, value rnd)
   tv = mpfr_init_set_d (Mpfr_val (initialized_value), Double_val (op),
 		      rnd_val (Int_val (rnd)));
 
+  result = caml_alloc_tuple (2);
+
   Store_field (result, 0, initialized_value);
   Store_field (result, 1, Val_int (tv));
   CAMLreturn (result);
@@ -266,6 +272,8 @@ CAMLprim value mpfr_init_set_str_ml (value op, value base, value rnd)
 
   tv = mpfr_init_set_str (Mpfr_val (initialized_value), String_val (op), Int_val (base),
 		      rnd_val (Int_val (rnd)));
+
+  result = caml_alloc_tuple (2);
 
   Store_field (result, 0, initialized_value);
   Store_field (result, 1, Val_int (tv));
@@ -292,6 +300,8 @@ CAMLprim value mpfr_get_d_2exp_ml (value op, value rnd)
   long *exp;
   double dv = mpfr_get_d_2exp (exp, Mpfr_val (op), rnd_val (rnd));
 
+  result = caml_alloc_tuple (2);
+
   Store_field (result, 0, caml_copy_double (dv));
   Store_field (result, 1, Val_int (&exp));
   CAMLreturn (result);
@@ -304,7 +314,9 @@ CAMLprim value mpfr_frexp_ml (value op1, value op2, value rnd)
 
   mpfr_exp_t *exp;
   mpfr_frexp (exp, Mpfr_val (op1), Mpfr_val (op2), rnd_val (rnd));
-  
+
+  result = caml_alloc_tuple (2);
+
   Store_field (result, 0, Val_int (&exp));
   Store_field (result, 1, op1);
   CAMLreturn (result);
