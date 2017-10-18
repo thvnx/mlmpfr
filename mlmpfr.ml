@@ -212,3 +212,9 @@ let mpfr_out_str chan base n op rnd =
                        (exponent - 1);
       (String.length significand) + (String.length (string_of_int (exponent -1))) + 2
     end
+
+let mpfr_inp_str prec chan base rnd =
+  let rop = mpfr_init2 prec in
+  let str = read_line chan in
+  let n = mpfr_set_str rop str base rnd in
+  (rop, n)
