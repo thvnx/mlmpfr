@@ -49,4 +49,23 @@ static value caml_tuple2 (value e1, value e2)
   return t;
 }
 
+static value caml_tuple3 (value e1, value e2, value e3)
+{
+  value t = caml_alloc_tuple (3);
+  Store_field (t, 0, e1);
+  Store_field (t, 1, e2);
+  Store_field (t, 2, e3);
+  return t;
+}
+
+#define MPFR_SPECIAL_FUNCTION(N)				\
+  {								\
+    CAMLparam2 (op, rnd);					\
+    CAMLlocal1 (rop);						\
+    int ter;							\
+    rop = caml_mpfr_init2 (prec);				\
+    ter = N (MPFR_val (rop), MPFR_val (op), rnd_val (rnd));	\
+    CAMLreturn (caml_tuple2 (rop, Val_int (ter)));		\
+  }
+
 #endif

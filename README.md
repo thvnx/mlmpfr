@@ -26,6 +26,6 @@ This OCaml C interface to MPFR covers almost all the MPFR functions with stricts
 - Function: `size_t mpfr_out_str (FILE *stream, int base, size_t n, mpfr_t op, mpfr_rnd_t rnd)` is emulated here to avoid different buffering mechanism interactions. It uses `mpfr_get_str` to format the output string (decimal point is not defined by locale).
 
 Moreover:
-- all the functions dealing with `unsigned long int`, `uintmax_t`, `intmax_t`, `float`, `long double`, `_Decimal64`, `mpz_t`, `mpq_t`, and `mpf_t` types are __not supported__;
+- all the functions dealing with `unsigned long int`, `uintmax_t`, `intmax_t`, `float`, `long double`, `_Decimal64`, `mpz_t`, `mpq_t`, and `mpf_t` types are __not supported__, except for `mpfr_sqrt_ui`, `mpfr_fac_ui` and `mpfr_zeta_ui` which are partially supported (on the range of the positive values of an OCaml signed integer);
 - all the functions dealing with `signed int`, such as `mpfr_set_si`, are renamed (i.e. _si_ is replaced by _int_);
 - all the functions dealing with `double`, such as `mpfr_set_d`, are renamed (i.e. _d_ is replaced by _float_).
