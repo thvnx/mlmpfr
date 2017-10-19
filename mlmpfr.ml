@@ -218,3 +218,6 @@ let mpfr_inp_str prec chan base rnd =
   let str = read_line chan in
   let n = mpfr_set_str rop str base rnd in
   (rop, n)
+
+
+(* 5.9 Formatted Output Functions: not supported *)
