@@ -189,7 +189,7 @@ let mpfr_out_str chan base n op rnd =
   let se = mpfr_get_str base n op rnd in
   let significand = se.significand in
   let exponent = se.exponent in
-  if String.contains significand '@'
+  if String.contains significand '@' (* nan or inf *)
   then
     begin
       Printf.fprintf chan "%s" significand;
