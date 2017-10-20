@@ -28,15 +28,15 @@ static struct custom_operations mpfr_ops = {
 #define EXP_val(e) ((mpfr_exp_t) Int_val (e))
 #define PREC_val(p) ((mpfr_prec_t) Int_val (p))
 
-static int rnd_val (r)
+static int rnd_val (value r)
 {
-  switch (r)
+  switch (Long_val (r))
     {
     case 0: return MPFR_RNDN;
-    case 3: return MPFR_RNDZ;
-    case 5: return MPFR_RNDU;
-    case 7: return MPFR_RNDD;
-    case 9: return MPFR_RNDA;
+    case 1: return MPFR_RNDZ;
+    case 2: return MPFR_RNDU;
+    case 3: return MPFR_RNDD;
+    case 4: return MPFR_RNDA;
     default:
       caml_failwith(__FUNCTION__);
     }
