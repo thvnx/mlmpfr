@@ -238,3 +238,16 @@ external mpfr_fmod : mpfr_prec_t -> mpfr_t -> mpfr_t -> mpfr_rnd_t -> mpfr_tv = 
 external mpfr_remainder : mpfr_prec_t -> mpfr_t -> mpfr_t -> mpfr_rnd_t -> mpfr_tv = "caml_mpfr_remainder"
 external mpfr_remquo : mpfr_prec_t -> mpfr_t -> mpfr_t -> mpfr_rnd_t -> mpfr_tv * int = "caml_mpfr_remquo"
 external mpfr_integer_p : mpfr_t -> bool = "caml_mpfr_integer_p"
+
+
+(* 5.11 Rounding Related Functions *)
+external mpfr_set_default_rounding_mode : mpfr_rnd_t -> unit = "caml_mpfr_set_default_rounding_mode"
+external mpfr_get_default_rounding_mode : unit -> mpfr_rnd_t = "caml_mpfr_get_default_rounding_mode"
+external mpfr_can_round : mpfr_t -> mpfr_exp_t -> mpfr_rnd_t -> mpfr_rnd_t -> mpfr_prec_t -> int = "caml_mpfr_can_round"
+external mpfr_min_prec : mpfr_t -> mpfr_prec_t = "caml_mpfr_min_prec"
+let mpfr_print_rnd_mode rnd = function
+  | MPFR_RNDN -> "MPFR_RNDN"
+  | MPFR_RNDZ -> "MPFR_RNDZ"
+  | MPFR_RNDU -> "MPFR_RNDU"
+  | MPFR_RNDD -> "MPFR_RNDD"
+  | MPFR_RNDA -> "MPFR_RNDA"

@@ -1258,3 +1258,37 @@ CAMLprim value caml_integer_p (value op)
   CAMLparam1 (op);
   CAMLreturn (Val_bool (mpfr_integer_p (MPFR_val (op))));
 }
+
+/******************************/
+/* Rounding Related Functions */
+/******************************/
+
+CAMLprim value caml_mpfr_set_default_rounding_mode (value rnd)
+{
+  CAMLparam1 (rnd);
+  mpfr_set_default_rounding_mode (rnd_val (rnd));
+  CAMLreturn (Val_unit);
+}
+
+CAMLprim value caml_mpfr_get_default_rounding_mode ()
+{
+  CAMLparam0 ();
+  int rnd = mpfr_get_default_rounding_mode ();
+  CAMLreturn (Val_int (rnd));
+}
+
+CAMLprim value caml_mpfr_can_round (value b, value err, value rnd1, value rnd2, value prec)
+{
+  CAMLparam5 (b, err, rnd1, rnd2, prec);
+  int ret;
+
+  ret = mpfr_can_round (MPFR_val (b), EXP_val (err), rnd_val (rnd1), rnd_val (rnd2), PREC_val (prec));
+
+  CAMLreturn (Val_int (ret));
+}
+
+CAMLprim value caml_mpfr_min_prec (value x)
+{
+  CAMLparam1 (x);
+  CAMLreturn (Int_val (mpfr_min_prec (MPFR_val (x))));
+}

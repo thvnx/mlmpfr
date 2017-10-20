@@ -26,6 +26,7 @@ static struct custom_operations mpfr_ops = {
 #define UI_val(s) ((unsigned long int) Int_val (s))
 #define DBL_val(d) (Double_val (d))
 #define EXP_val(e) ((mpfr_exp_t) Int_val (e))
+#define PREC_val(p) ((mpfr_prec_t) Int_val (p))
 
 static int rnd_val (r)
 {
