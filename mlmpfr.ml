@@ -221,3 +221,20 @@ let mpfr_inp_str prec chan base rnd =
 
 
 (* 5.9 Formatted Output Functions: not supported *)
+
+(* 5.10 Integer and Remainder Related Functions *)
+external mpfr_rint : mpfr_prec_t -> mpfr_t -> mpfr_rnd_t -> mpfr_tv = "caml_mpfr_rint"
+external mpfr_ceil : mpfr_prec_t -> mpfr_t -> mpfr_tv = "caml_mpfr_ceil"
+external mpfr_floor : mpfr_prec_t -> mpfr_t -> mpfr_tv = "caml_mpfr_floor"
+external mpfr_round : mpfr_prec_t -> mpfr_t -> mpfr_tv = "caml_mpfr_round"
+external mpfr_trunc : mpfr_prec_t -> mpfr_t -> mpfr_tv = "caml_mpfr_trunc"
+external mpfr_rint_ceil : mpfr_prec_t -> mpfr_t -> mpfr_rnd_t -> mpfr_tv = "caml_mpfr_rint_ceil"
+external mpfr_rint_floor : mpfr_prec_t -> mpfr_t -> mpfr_rnd_t -> mpfr_tv = "caml_mpfr_rint_floor"
+external mpfr_rint_round : mpfr_prec_t -> mpfr_t -> mpfr_rnd_t -> mpfr_tv = "caml_mpfr_rint_round"
+external mpfr_rint_trunc : mpfr_prec_t -> mpfr_t -> mpfr_rnd_t -> mpfr_tv = "caml_mpfr_rint_trunc"
+external mpfr_frac : mpfr_prec_t -> mpfr_t -> mpfr_rnd_t -> mpfr_tv = "caml_mpfr_frac"
+external mpfr_modf : mpfr_prec_t -> mpfr_prec_t -> mpfr_t -> mpfr_rnd_t -> mpfr_t * mpfr_t * int = "caml_mpfr_modf"
+external mpfr_fmod : mpfr_prec_t -> mpfr_t -> mpfr_t -> mpfr_rnd_t -> mpfr_tv = "caml_mpfr_fmod"
+external mpfr_remainder : mpfr_prec_t -> mpfr_t -> mpfr_t -> mpfr_rnd_t -> mpfr_tv = "caml_mpfr_remainder"
+external mpfr_remquo : mpfr_prec_t -> mpfr_t -> mpfr_t -> mpfr_rnd_t -> mpfr_tv * int = "caml_mpfr_remquo"
+external mpfr_integer_p : mpfr_t -> bool = "caml_mpfr_integer_p"

@@ -1132,3 +1132,129 @@ CAMLprim value caml_mpfr_sum (value prec, value tab, value rnd)
 
   CAMLreturn (caml_tuple2 (rop, Val_int (ter)));
 }
+
+/*******************************************/
+/* Integer and Remainder Related Functions */
+/*******************************************/
+
+CAMLprim value caml_mpfr_rint (value prec, value op, value rnd)
+  MPFR_SPECIAL_FUNCTION (mpfr_rint);
+
+CAMLprim value caml_mpfr_ceil (value prec, value op)
+{
+  CAMLparam1 (op);
+  CAMLlocal1 (rop);
+  int ter;
+
+  rop = caml_mpfr_init2 (prec);
+  ter = mpfr_ceil (MPFR_val (rop), MPFR_val (op));
+
+  CAMLreturn (caml_tuple2 (rop, Val_int (ter)));
+}
+
+CAMLprim value caml_mpfr_floor (value prec, value op)
+{
+  CAMLparam1 (op);
+  CAMLlocal1 (rop);
+  int ter;
+
+  rop = caml_mpfr_init2 (prec);
+  ter = mpfr_floor (MPFR_val (rop), MPFR_val (op));
+
+  CAMLreturn (caml_tuple2 (rop, Val_int (ter)));
+}
+
+CAMLprim value caml_mpfr_round (value prec, value op)
+{
+  CAMLparam1 (op);
+  CAMLlocal1 (rop);
+  int ter;
+
+  rop = caml_mpfr_init2 (prec);
+  ter = mpfr_round (MPFR_val (rop), MPFR_val (op));
+
+  CAMLreturn (caml_tuple2 (rop, Val_int (ter)));
+}
+
+CAMLprim value caml_mpfr_trunc (value prec, value op)
+{
+  CAMLparam1 (op);
+  CAMLlocal1 (rop);
+  int ter;
+
+  rop = caml_mpfr_init2 (prec);
+  ter = mpfr_trunc (MPFR_val (rop), MPFR_val (op));
+
+  CAMLreturn (caml_tuple2 (rop, Val_int (ter)));
+}
+
+CAMLprim value caml_mpfr_rint_ceil (value prec, value op, value rnd)
+  MPFR_SPECIAL_FUNCTION (mpfr_rint_ceil);
+
+CAMLprim value caml_mpfr_rint_floor (value prec, value op, value rnd)
+  MPFR_SPECIAL_FUNCTION (mpfr_rint_floor);
+
+CAMLprim value caml_mpfr_rint_round (value prec, value op, value rnd)
+  MPFR_SPECIAL_FUNCTION (mpfr_rint_round);
+
+CAMLprim value caml_mpfr_rint_trunc (value prec, value op, value rnd)
+  MPFR_SPECIAL_FUNCTION (mpfr_rint_trunc);
+
+CAMLprim value caml_mpfr_frac (value prec, value op, value rnd)
+  MPFR_SPECIAL_FUNCTION (mpfr_frac);
+
+CAMLprim value caml_mpfr_modf (value iprec, value fprec, value op, value rnd)
+{
+  CAMLparam2 (op, rnd);
+  CAMLlocal2 (iop, fop);
+  int ret;
+
+  iop = caml_mpfr_init2 (iprec);
+  fop = caml_mpfr_init2 (fprec);
+  ret = mpfr_modf (MPFR_val (iop), MPFR_val (fop), MPFR_val (op), rnd_val (rnd));
+
+  CAMLreturn (caml_tuple3 (iop, fop, Val_int (ret)));
+}
+
+CAMLprim value caml_mpfr_fmod (value prec, value x, value y, value rnd)
+{
+  CAMLparam3 (x, y, rnd);
+  CAMLlocal1 (rop);
+  int ter;
+
+  rop = caml_mpfr_init2 (prec);
+  ter = mpfr_fmod (MPFR_val (rop), MPFR_val (x), MPFR_val (y), rnd_val (rnd));
+
+  CAMLreturn (caml_tuple2 (rop, Val_int (ter)));
+}
+
+CAMLprim value caml_mpfr_remainder (value prec, value x, value y, value rnd)
+{
+  CAMLparam3 (x, y, rnd);
+  CAMLlocal1 (rop);
+  int ter;
+
+  rop = caml_mpfr_init2 (prec);
+  ter = mpfr_remainder (MPFR_val (rop), MPFR_val (x), MPFR_val (y), rnd_val (rnd));
+
+  CAMLreturn (caml_tuple2 (rop, Val_int (ter)));
+}
+
+CAMLprim value caml_mpfr_remquo (value prec, value x, value y, value rnd)
+{
+  CAMLparam3 (x, y, rnd);
+  CAMLlocal1 (rop);
+  int ter;
+  long* q;
+
+  rop = caml_mpfr_init2 (prec);
+  ter = mpfr_remquo (MPFR_val (rop), q, MPFR_val (x), MPFR_val (y), rnd_val (rnd));
+
+  CAMLreturn (caml_tuple2 (caml_tuple2 (rop, Val_int (ter)), Val_int (q)));
+}
+
+CAMLprim value caml_integer_p (value op)
+{
+  CAMLparam1 (op);
+  CAMLreturn (Val_bool (mpfr_integer_p (MPFR_val (op))));
+}
