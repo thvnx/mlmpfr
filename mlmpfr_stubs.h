@@ -32,10 +32,10 @@ static int rnd_val (r)
   switch (r)
     {
     case 0: return MPFR_RNDN;
-    case 1: return MPFR_RNDZ;
-    case 2: return MPFR_RNDU;
-    case 3: return MPFR_RNDD;
-    case 4: return MPFR_RNDA;
+    case 3: return MPFR_RNDZ;
+    case 5: return MPFR_RNDU;
+    case 7: return MPFR_RNDD;
+    case 9: return MPFR_RNDA;
     default:
       caml_failwith(__FUNCTION__);
     }
