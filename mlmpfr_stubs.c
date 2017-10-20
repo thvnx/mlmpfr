@@ -778,31 +778,31 @@ static int custom_compare (value v1, value v2)
 /*********************/
 
 CAMLprim value caml_mpfr_log (value prec, value op, value rnd)
-  MPFR_SPECIAL_FUNCTION (mpfr_log);
+  MPFR_REGULAR_FUNCTION1 (mpfr_log);
 
 CAMLprim value caml_mpfr_log2 (value prec, value op, value rnd)
-  MPFR_SPECIAL_FUNCTION (mpfr_log2);
+  MPFR_REGULAR_FUNCTION1 (mpfr_log2);
 
 CAMLprim value caml_mpfr_log10 (value prec, value op, value rnd)
-  MPFR_SPECIAL_FUNCTION (mpfr_log10);
+  MPFR_REGULAR_FUNCTION1 (mpfr_log10);
 
 CAMLprim value caml_mpfr_exp (value prec, value op, value rnd)
-  MPFR_SPECIAL_FUNCTION (mpfr_exp);
+  MPFR_REGULAR_FUNCTION1 (mpfr_exp);
 
 CAMLprim value caml_mpfr_exp2 (value prec, value op, value rnd)
-  MPFR_SPECIAL_FUNCTION (mpfr_exp2);
+  MPFR_REGULAR_FUNCTION1 (mpfr_exp2);
 
 CAMLprim value caml_mpfr_exp10 (value prec, value op, value rnd)
-  MPFR_SPECIAL_FUNCTION (mpfr_exp10);
+  MPFR_REGULAR_FUNCTION1 (mpfr_exp10);
 
 CAMLprim value caml_mpfr_sin (value prec, value op, value rnd)
-  MPFR_SPECIAL_FUNCTION (mpfr_sin);
+  MPFR_REGULAR_FUNCTION1 (mpfr_sin);
 
 CAMLprim value caml_mpfr_cos (value prec, value op, value rnd)
-  MPFR_SPECIAL_FUNCTION (mpfr_cos);
+  MPFR_REGULAR_FUNCTION1 (mpfr_cos);
 
 CAMLprim value caml_mpfr_tan (value prec, value op, value rnd)
-  MPFR_SPECIAL_FUNCTION (mpfr_tan);
+  MPFR_REGULAR_FUNCTION1 (mpfr_tan);
 
 CAMLprim value caml_mpfr_sin_cos (value sprec, value cprec, value op, value rnd)
 {
@@ -818,22 +818,22 @@ CAMLprim value caml_mpfr_sin_cos (value sprec, value cprec, value op, value rnd)
 }
 
 CAMLprim value caml_mpfr_sec (value prec, value op, value rnd)
-  MPFR_SPECIAL_FUNCTION (mpfr_sec);
+  MPFR_REGULAR_FUNCTION1 (mpfr_sec);
 
 CAMLprim value caml_mpfr_csc (value prec, value op, value rnd)
-  MPFR_SPECIAL_FUNCTION (mpfr_csc);
+  MPFR_REGULAR_FUNCTION1 (mpfr_csc);
 
 CAMLprim value caml_mpfr_cot (value prec, value op, value rnd)
-  MPFR_SPECIAL_FUNCTION (mpfr_cot);
+  MPFR_REGULAR_FUNCTION1 (mpfr_cot);
 
 CAMLprim value caml_mpfr_acos (value prec, value op, value rnd)
-  MPFR_SPECIAL_FUNCTION (mpfr_acos);
+  MPFR_REGULAR_FUNCTION1 (mpfr_acos);
 
 CAMLprim value caml_mpfr_asin (value prec, value op, value rnd)
-  MPFR_SPECIAL_FUNCTION (mpfr_asin);
+  MPFR_REGULAR_FUNCTION1 (mpfr_asin);
 
 CAMLprim value caml_mpfr_atan (value prec, value op, value rnd)
-  MPFR_SPECIAL_FUNCTION (mpfr_atan);
+  MPFR_REGULAR_FUNCTION1 (mpfr_atan);
 
 CAMLprim value caml_mpfr_atan2 (value prec, value x, value y, value rnd)
 {
@@ -848,13 +848,13 @@ CAMLprim value caml_mpfr_atan2 (value prec, value x, value y, value rnd)
 }
 
 CAMLprim value caml_mpfr_sinh (value prec, value op, value rnd)
-  MPFR_SPECIAL_FUNCTION (mpfr_sinh);
+  MPFR_REGULAR_FUNCTION1 (mpfr_sinh);
 
 CAMLprim value caml_mpfr_cosh (value prec, value op, value rnd)
-  MPFR_SPECIAL_FUNCTION (mpfr_cosh);
+  MPFR_REGULAR_FUNCTION1 (mpfr_cosh);
 
 CAMLprim value caml_mpfr_tanh (value prec, value op, value rnd)
-  MPFR_SPECIAL_FUNCTION (mpfr_tanh);
+  MPFR_REGULAR_FUNCTION1 (mpfr_tanh);
 
 CAMLprim value caml_mpfr_sinh_cosh (value sprec, value cprec, value op, value rnd)
 {
@@ -870,22 +870,22 @@ CAMLprim value caml_mpfr_sinh_cosh (value sprec, value cprec, value op, value rn
 }
 
 CAMLprim value caml_mpfr_sech (value prec, value op, value rnd)
-  MPFR_SPECIAL_FUNCTION (mpfr_sech);
+  MPFR_REGULAR_FUNCTION1 (mpfr_sech);
 
 CAMLprim value caml_mpfr_csch (value prec, value op, value rnd)
-  MPFR_SPECIAL_FUNCTION (mpfr_csch);
+  MPFR_REGULAR_FUNCTION1 (mpfr_csch);
 
 CAMLprim value caml_mpfr_coth (value prec, value op, value rnd)
-  MPFR_SPECIAL_FUNCTION (mpfr_coth);
+  MPFR_REGULAR_FUNCTION1 (mpfr_coth);
 
 CAMLprim value caml_mpfr_acohs (value prec, value op, value rnd)
-  MPFR_SPECIAL_FUNCTION (mpfr_acosh);
+  MPFR_REGULAR_FUNCTION1 (mpfr_acosh);
 
 CAMLprim value caml_mpfr_asinh (value prec, value op, value rnd)
-  MPFR_SPECIAL_FUNCTION (mpfr_asinh);
+  MPFR_REGULAR_FUNCTION1 (mpfr_asinh);
 
 CAMLprim value caml_mpfr_atanh (value prec, value op, value rnd)
-  MPFR_SPECIAL_FUNCTION (mpfr_atanh);
+  MPFR_REGULAR_FUNCTION1 (mpfr_atanh);
 
 CAMLprim value caml_mpfr_fac_ui (value prec, value op, value rnd)
 {
@@ -903,22 +903,22 @@ CAMLprim value caml_mpfr_fac_ui (value prec, value op, value rnd)
 }
 
 CAMLprim value caml_mpfr_log1p (value prec, value op, value rnd)
-  MPFR_SPECIAL_FUNCTION (mpfr_log1p);
+  MPFR_REGULAR_FUNCTION1 (mpfr_log1p);
 
 CAMLprim value caml_mpfr_expm1 (value prec, value op, value rnd)
-  MPFR_SPECIAL_FUNCTION (mpfr_expm1);
+  MPFR_REGULAR_FUNCTION1 (mpfr_expm1);
 
 CAMLprim value caml_mpfr_eint (value prec, value op, value rnd)
-  MPFR_SPECIAL_FUNCTION (mpfr_eint);
+  MPFR_REGULAR_FUNCTION1 (mpfr_eint);
 
 CAMLprim value caml_mpfr_li2 (value prec, value op, value rnd)
-  MPFR_SPECIAL_FUNCTION (mpfr_li2);
+  MPFR_REGULAR_FUNCTION1 (mpfr_li2);
 
 CAMLprim value caml_mpfr_gamma (value prec, value op, value rnd)
-  MPFR_SPECIAL_FUNCTION (mpfr_gamma);
+  MPFR_REGULAR_FUNCTION1 (mpfr_gamma);
 
 CAMLprim value caml_mpfr_lngamma (value prec, value op, value rnd)
-  MPFR_SPECIAL_FUNCTION (mpfr_lngamma);
+  MPFR_REGULAR_FUNCTION1 (mpfr_lngamma);
 
 CAMLprim value caml_mpfr_lgamma (value prec, value op, value rnd)
 {
@@ -934,10 +934,10 @@ CAMLprim value caml_mpfr_lgamma (value prec, value op, value rnd)
 }
 
 CAMLprim value caml_mpfr_digamma (value prec, value op, value rnd)
-  MPFR_SPECIAL_FUNCTION (mpfr_digamma);
+  MPFR_REGULAR_FUNCTION1 (mpfr_digamma);
 
 CAMLprim value caml_mpfr_zeta (value prec, value op, value rnd)
-  MPFR_SPECIAL_FUNCTION (mpfr_zeta);
+  MPFR_REGULAR_FUNCTION1 (mpfr_zeta);
 
 CAMLprim value caml_mpfr_zeta_ui (value prec, value op, value rnd)
 {
@@ -955,16 +955,16 @@ CAMLprim value caml_mpfr_zeta_ui (value prec, value op, value rnd)
 }
 
 CAMLprim value caml_mpfr_erf (value prec, value op, value rnd)
-  MPFR_SPECIAL_FUNCTION (mpfr_erf);
+  MPFR_REGULAR_FUNCTION1 (mpfr_erf);
 
 CAMLprim value caml_mpfr_erfc (value prec, value op, value rnd)
-  MPFR_SPECIAL_FUNCTION (mpfr_erfc);
+  MPFR_REGULAR_FUNCTION1 (mpfr_erfc);
 
 CAMLprim value caml_mpfr_j0 (value prec, value op, value rnd)
-  MPFR_SPECIAL_FUNCTION (mpfr_j0);
+  MPFR_REGULAR_FUNCTION1 (mpfr_j0);
 
 CAMLprim value caml_mpfr_j1 (value prec, value op, value rnd)
-  MPFR_SPECIAL_FUNCTION (mpfr_j1);
+  MPFR_REGULAR_FUNCTION1 (mpfr_j1);
 
 CAMLprim value caml_mpfr_jn (value prec, value n, value op, value rnd)
 {
@@ -979,10 +979,10 @@ CAMLprim value caml_mpfr_jn (value prec, value n, value op, value rnd)
 }
 
 CAMLprim value caml_mpfr_y0 (value prec, value op, value rnd)
-  MPFR_SPECIAL_FUNCTION (mpfr_y0);
+  MPFR_REGULAR_FUNCTION1 (mpfr_y0);
 
 CAMLprim value caml_mpfr_y1 (value prec, value op, value rnd)
-  MPFR_SPECIAL_FUNCTION (mpfr_y1);
+  MPFR_REGULAR_FUNCTION1 (mpfr_y1);
 
 CAMLprim value caml_mpfr_yn (value prec, value n, value op, value rnd)
 {
@@ -1045,7 +1045,7 @@ CAMLprim value caml_mpfr_hypot (value prec, value x, value y, value rnd)
 }
 
 CAMLprim value caml_mpfr_ai (value prec, value op, value rnd)
-  MPFR_SPECIAL_FUNCTION (mpfr_ai);
+  MPFR_REGULAR_FUNCTION1 (mpfr_ai);
 
 CAMLprim value caml_mpfr_const_log2 (value prec, value rnd)
 {
@@ -1138,7 +1138,7 @@ CAMLprim value caml_mpfr_sum (value prec, value tab, value rnd)
 /*******************************************/
 
 CAMLprim value caml_mpfr_rint (value prec, value op, value rnd)
-  MPFR_SPECIAL_FUNCTION (mpfr_rint);
+  MPFR_REGULAR_FUNCTION1 (mpfr_rint);
 
 CAMLprim value caml_mpfr_ceil (value prec, value op)
 {
@@ -1189,19 +1189,19 @@ CAMLprim value caml_mpfr_trunc (value prec, value op)
 }
 
 CAMLprim value caml_mpfr_rint_ceil (value prec, value op, value rnd)
-  MPFR_SPECIAL_FUNCTION (mpfr_rint_ceil);
+  MPFR_REGULAR_FUNCTION1 (mpfr_rint_ceil);
 
 CAMLprim value caml_mpfr_rint_floor (value prec, value op, value rnd)
-  MPFR_SPECIAL_FUNCTION (mpfr_rint_floor);
+  MPFR_REGULAR_FUNCTION1 (mpfr_rint_floor);
 
 CAMLprim value caml_mpfr_rint_round (value prec, value op, value rnd)
-  MPFR_SPECIAL_FUNCTION (mpfr_rint_round);
+  MPFR_REGULAR_FUNCTION1 (mpfr_rint_round);
 
 CAMLprim value caml_mpfr_rint_trunc (value prec, value op, value rnd)
-  MPFR_SPECIAL_FUNCTION (mpfr_rint_trunc);
+  MPFR_REGULAR_FUNCTION1 (mpfr_rint_trunc);
 
 CAMLprim value caml_mpfr_frac (value prec, value op, value rnd)
-  MPFR_SPECIAL_FUNCTION (mpfr_frac);
+  MPFR_REGULAR_FUNCTION1 (mpfr_frac);
 
 CAMLprim value caml_mpfr_modf (value iprec, value fprec, value op, value rnd)
 {

@@ -59,7 +59,7 @@ static value caml_tuple3 (value e1, value e2, value e3)
   return t;
 }
 
-#define MPFR_SPECIAL_FUNCTION(N)				\
+#define MPFR_REGULAR_FUNCTION1(N)				\
   {								\
     CAMLparam2 (op, rnd);					\
     CAMLlocal1 (rop);						\
