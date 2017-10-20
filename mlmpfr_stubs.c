@@ -1419,3 +1419,207 @@ CAMLprim value caml_mpfr_get_version ()
   CAMLparam0 ();
   CAMLreturn (caml_copy_string (mpfr_get_version ()));
 }
+
+/*******************************/
+/* Exception Related Functions */
+/*******************************/
+
+CAMLprim value caml_mpfr_get_emin ()
+{
+  CAMLparam0 ();
+  CAMLreturn (Val_int (mpfr_get_emin ()));
+}
+
+CAMLprim value caml_mpfr_get_emax ()
+{
+  CAMLparam0 ();
+  CAMLreturn (Val_int (mpfr_get_emax ()));
+}
+
+CAMLprim value caml_mpfr_set_emin (value exp)
+{
+  CAMLparam1 (exp);
+  mpfr_set_emin (EXP_val (exp));
+  CAMLreturn (Val_unit);
+}
+
+CAMLprim value caml_mpfr_set_emax (value exp)
+{
+  CAMLparam1 (exp);
+  mpfr_set_emax (EXP_val (exp));
+  CAMLreturn (Val_unit);
+}
+
+CAMLprim value caml_mpfr_get_emin_min ()
+{
+  CAMLparam0 ();
+  CAMLreturn (Val_int (mpfr_get_emin_min ()));
+}
+
+CAMLprim value caml_mpfr_get_emin_max ()
+{
+  CAMLparam0 ();
+  CAMLreturn (Val_int (mpfr_get_emin_max ()));
+}
+
+CAMLprim value caml_mpfr_get_emax_min ()
+{
+  CAMLparam0 ();
+  CAMLreturn (Val_int (mpfr_get_emin_min ()));
+}
+
+CAMLprim value caml_mpfr_get_emax_max ()
+{
+  CAMLparam0 ();
+  CAMLreturn (Val_int (mpfr_get_emin_max ()));
+}
+
+CAMLprim value caml_mpfr_check_range (value x, value t, value rnd)
+{
+  CAMLparam3 (x, t, rnd);
+  CAMLlocal1 (rop);
+  int ter;
+
+  rop = caml_mpfr_init2 (caml_mpfr_get_prec (x));
+  if (!mpfr_set (MPFR_val (rop), MPFR_val (x), MPFR_RNDN))
+    ter = mpfr_check_range (MPFR_val (rop), SI_val (t), rnd);
+  else
+    caml_failwith(__FUNCTION__);
+
+  CAMLreturn (caml_tuple2 (rop, Val_int (ter)));
+}
+
+CAMLprim value caml_mpfr_subnormalize (value x, value t, value rnd)
+{
+  CAMLparam3 (x, t, rnd);
+  CAMLlocal1 (rop);
+  int ter;
+
+  rop = caml_mpfr_init2 (caml_mpfr_get_prec (x));
+  if (!mpfr_set (MPFR_val (rop), MPFR_val (x), MPFR_RNDN))
+    ter = mpfr_subnormalize (MPFR_val (rop), SI_val (t), rnd);
+  else
+    caml_failwith(__FUNCTION__);
+
+  CAMLreturn (caml_tuple2 (rop, Val_int (ter)));
+}
+
+CAMLprim value caml_mpfr_clear_underflow ()
+{
+  CAMLparam0 ();
+  mpfr_clear_underflow ();
+  CAMLreturn (Val_unit);
+}
+
+CAMLprim value caml_mpfr_clear_overflow ()
+{
+  CAMLparam0 ();
+  mpfr_clear_overflow ();
+  CAMLreturn (Val_unit);
+}
+
+CAMLprim value caml_mpfr_clear_divby0 ()
+{
+  CAMLparam0 ();
+  mpfr_clear_divby0 ();
+  CAMLreturn (Val_unit);
+}
+
+CAMLprim value caml_mpfr_clear_nanflag ()
+{
+  CAMLparam0 ();
+  mpfr_clear_nanflag ();
+  CAMLreturn (Val_unit);
+}
+
+CAMLprim value caml_mpfr_clear_inexflag ()
+{
+  CAMLparam0 ();
+  mpfr_clear_inexflag ();
+  CAMLreturn (Val_unit);
+}
+
+CAMLprim value caml_mpfr_clear_erangeflag ()
+{
+  CAMLparam0 ();
+  mpfr_clear_erangeflag ();
+  CAMLreturn (Val_unit);
+}
+
+CAMLprim value caml_mpfr_set_underflow ()
+{
+  CAMLparam0 ();
+  mpfr_set_underflow ();
+  CAMLreturn (Val_unit);
+}
+
+CAMLprim value caml_mpfr_set_overflow ()
+{
+  CAMLparam0 ();
+  mpfr_set_overflow ();
+  CAMLreturn (Val_unit);
+}
+
+CAMLprim value caml_mpfr_set_divby0 ()
+{
+  CAMLparam0 ();
+  mpfr_set_divby0 ();
+  CAMLreturn (Val_unit);
+}
+
+CAMLprim value caml_mpfr_set_nanflag ()
+{
+  CAMLparam0 ();
+  mpfr_set_nanflag ();
+  CAMLreturn (Val_unit);
+}
+
+CAMLprim value caml_mpfr_set_inexflag ()
+{
+  CAMLparam0 ();
+  mpfr_set_inexflag ();
+  CAMLreturn (Val_unit);
+}
+
+CAMLprim value caml_mpfr_set_erangeflag ()
+{
+  CAMLparam0 ();
+  mpfr_set_erangeflag ();
+  CAMLreturn (Val_unit);
+}
+
+CAMLprim value caml_mpfr_underflow_p ()
+{
+  CAMLparam0 ();
+  CAMLreturn (Val_bool (mpfr_underflow_p ()));
+}
+
+CAMLprim value caml_mpfr_overflow_p ()
+{
+  CAMLparam0 ();
+  CAMLreturn (Val_bool (mpfr_overflow_p ()));
+}
+
+CAMLprim value caml_mpfr_divby0_p ()
+{
+  CAMLparam0 ();
+  CAMLreturn (Val_bool (mpfr_divby0_p ()));
+}
+
+CAMLprim value caml_mpfr_nanflag_p ()
+{
+  CAMLparam0 ();
+  CAMLreturn (Val_bool (mpfr_nanflag_p ()));
+}
+
+CAMLprim value caml_mpfr_inexflag_p ()
+{
+  CAMLparam0 ();
+  CAMLreturn (Val_bool (mpfr_inexflag_p ()));
+}
+
+CAMLprim value caml_mpfr_erangeflag_p ()
+{
+  CAMLparam0 ();
+  CAMLreturn (Val_bool (mpfr_erangeflag_p ()));
+}
