@@ -1292,3 +1292,130 @@ CAMLprim value caml_mpfr_min_prec (value x)
   CAMLparam1 (x);
   CAMLreturn (Int_val (mpfr_min_prec (MPFR_val (x))));
 }
+
+/***************************/
+/* Miscellaneous Functions */
+/***************************/
+
+CAMLprim value caml_mpfr_nexttoward (value x, value y)
+{
+  CAMLparam2 (x, y);
+  CAMLlocal1 (rop);
+
+  rop = caml_mpfr_init2 (caml_mpfr_get_prec (x));
+  if (!mpfr_set (MPFR_val (rop), MPFR_val (x), MPFR_RNDN))
+    mpfr_nexttoward (MPFR_val (rop), MPFR_val (y));
+  else
+    caml_failwith(__FUNCTION__);
+
+  CAMLreturn (rop);
+}
+
+CAMLprim value caml_mpfr_nextabove (value x, value y)
+{
+  CAMLparam1 (x);
+  CAMLlocal1 (rop);
+
+  rop = caml_mpfr_init2 (caml_mpfr_get_prec (x));
+  if (!mpfr_set (MPFR_val (rop), MPFR_val (x), MPFR_RNDN))
+    mpfr_nextabove (MPFR_val (rop));
+  else
+    caml_failwith(__FUNCTION__);
+
+  CAMLreturn (rop);
+}
+
+CAMLprim value caml_mpfr_nextbelow (value x, value y)
+{
+  CAMLparam1 (x);
+  CAMLlocal1 (rop);
+
+  rop = caml_mpfr_init2 (caml_mpfr_get_prec (x));
+  if (!mpfr_set (MPFR_val (rop), MPFR_val (x), MPFR_RNDN))
+    mpfr_nextbelow (MPFR_val (rop));
+  else
+    caml_failwith(__FUNCTION__);
+
+  CAMLreturn (rop);
+}
+
+CAMLprim value caml_mpfr_min (value prec, value op1, value op2, value rnd)
+{
+  CAMLparam3 (op1, op2, rnd);
+  CAMLlocal1 (rop);
+  int ter;
+
+  rop = caml_mpfr_init2 (prec);
+  ter = mpfr_min (MPFR_val (rop), MPFR_val (op1), MPFR_val (op2), rnd_val (rnd));
+
+  CAMLreturn (caml_tuple2 (rop, Val_int (ter)));
+}
+
+CAMLprim value caml_mpfr_max (value prec, value op1, value op2, value rnd)
+{
+  CAMLparam3 (op1, op2, rnd);
+  CAMLlocal1 (rop);
+  int ter;
+
+  rop = caml_mpfr_init2 (prec);
+  ter = mpfr_max (MPFR_val (rop), MPFR_val (op1), MPFR_val (op2), rnd_val (rnd));
+
+  CAMLreturn (caml_tuple2 (rop, Val_int (ter)));
+}
+
+CAMLprim value caml_mpfr_get_exp (value x)
+{
+  CAMLparam1 (x);
+  CAMLreturn (Val_int (mpfr_get_exp (MPFR_val (x))));
+}
+
+CAMLprim value caml_mpfr_set_exp (value x, value e)
+{
+  CAMLparam2 (x, e);
+  CAMLlocal1 (rop);
+  int ret;
+
+  rop = caml_mpfr_init2 (caml_mpfr_get_prec (x));
+  if (!mpfr_set (MPFR_val (rop), MPFR_val (x), MPFR_RNDN))
+    ret = mpfr_set_exp (MPFR_val (rop), EXP_val (e));
+  else
+    caml_failwith(__FUNCTION__);
+
+  CAMLreturn (caml_tuple2 (rop, Val_int (ret)));
+}
+
+CAMLprim value caml_mpfr_signbit (value op)
+{
+  CAMLparam1 (op);
+  CAMLreturn (Val_int (mpfr_signbit (MPFR_val (op))));
+}
+
+CAMLprim value caml_mpfr_setsign (value prec, value op, value s, value rnd)
+{
+  CAMLparam3 (op, s, rnd);
+  CAMLlocal1 (rop);
+  int ter;
+
+  rop = caml_mpfr_init2 (prec);
+  ter = mpfr_setsign (MPFR_val (rop), MPFR_val (op), SI_val (s), rnd_val (rnd));
+
+  CAMLreturn (caml_tuple2 (rop, Val_int (ter)));
+}
+
+CAMLprim value caml_mpfr_copysign (value prec, value op1, value op2, value rnd)
+{
+  CAMLparam3 (op1, op2, rnd);
+  CAMLlocal1 (rop);
+  int ter;
+
+  rop = caml_mpfr_init2 (prec);
+  ter = mpfr_copysign (MPFR_val (rop), MPFR_val (op1), MPFR_val (op2), rnd_val (rnd));
+
+  CAMLreturn (caml_tuple2 (rop, Val_int (ter)));
+}
+
+CAMLprim value caml_mpfr_get_version ()
+{
+  CAMLparam0 ();
+  CAMLreturn (caml_copy_string (mpfr_get_version ()));
+}

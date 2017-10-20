@@ -27,6 +27,10 @@ This OCaml C interface to MPFR covers almost all the MPFR functions with stricts
 
 - Function: `mpfr_prec_round` is __not supported__, use `mpfr_init_set` instead.
 
+- Functions: `mpfr_urandomb`, `mpfr_urandom`, and `mpfr_grandom` are __not supported__.
+- Macros: `MPFR_VERSION*` are __not supported__.
+- Functions: `mpfr_get_patches` and `mpfr_buildopt_*` are __not supported__.
+
 Moreover:
 - all the functions dealing with `unsigned long int`, `uintmax_t`, `intmax_t`, `float`, `long double`, `_Decimal64`, `mpz_t`, `mpq_t`, and `mpf_t` types are __not supported__, except for `mpfr_sqrt_ui`, `mpfr_fac_ui` and `mpfr_zeta_ui` which are partially supported (on the range of the positive values of an OCaml signed integer);
 - all the functions from _[Formatted Output Functions](http://www.mpfr.org/mpfr-current/mpfr.html#Formatted-Output-Functions)_ are __not supported__.

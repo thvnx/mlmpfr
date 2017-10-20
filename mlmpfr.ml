@@ -251,3 +251,18 @@ let mpfr_print_rnd_mode rnd = function
   | MPFR_RNDU -> "MPFR_RNDU"
   | MPFR_RNDD -> "MPFR_RNDD"
   | MPFR_RNDA -> "MPFR_RNDA"
+
+
+(* 5.12 Miscellaneous Functions *)
+external mpfr_nexttoward : mpfr_t -> mpfr_t -> mpfr_t = "caml_mpfr_nexttoward"
+external mpfr_nextabove : mpfr_t -> mpfr_t = "caml_mpfr_nextabove"
+external mpfr_nextbelow : mpfr_t -> mpfr_t = "caml_mpfr_nextbelow"
+external mpfr_min : mpfr_prec_t -> mpfr_t -> mpfr_t -> mpfr_rnd_t -> mpfr_tv = "caml_mpfr_min"
+external mpfr_max : mpfr_prec_t -> mpfr_t -> mpfr_t -> mpfr_rnd_t -> mpfr_tv = "caml_mpfr_max"
+external mpfr_get_exp : mpfr_t -> mpfr_prec_t = "caml_mpfr_get_exp"
+external mpfr_set_exp : mpfr_t -> mpfr_exp_t -> mpfr_t * int = "caml_mpfr_set_exp"
+external mpfr_signbit : mpfr_t -> int = "caml_mpfr_signbit"
+let mpfr_isneg_p op = if mpfr_signbit op <> 0 then true else false
+external mpfr_setsign : mpfr_prec_t -> mpfr_t -> int -> mpfr_rnd_t -> mpfr_tv = "caml_mpfr_setsign"
+external mpfr_copysign : mpfr_prec_t -> mpfr_t -> mpfr_t -> mpfr_rnd_t -> mpfr_tv = "caml_mpfr_copysign"
+external mpfr_get_version : unit -> string = "caml_mpfr_get_version"
