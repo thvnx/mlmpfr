@@ -11,9 +11,11 @@
 
 static int custom_compare (value, value);
 
+static void custom_finalize (value);
+
 static struct custom_operations mpfr_ops = {
   "github.com/thvnx/mlmpfr.1",
-  custom_finalize_default,
+  custom_finalize,
   custom_compare,
   custom_hash_default,
   custom_serialize_default,

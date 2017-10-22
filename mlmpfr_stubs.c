@@ -68,6 +68,11 @@ CAMLprim value caml_mpfr_init ()
   CAMLreturn (rop);
 }
 
+void custom_finalize (value op)
+{
+  mpfr_clear (MPFR_val (op));
+}
+
 CAMLprim value caml_mpfr_inits (value n)
 {
   CAMLparam1 (n);
