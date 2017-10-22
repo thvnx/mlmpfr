@@ -57,43 +57,9 @@ CAMLprim value caml_mpfr_clear (value op)
   CAMLreturn (Val_unit);
 }
 
-CAMLprim value caml_mpfr_init ()
-{
-  CAMLparam0 ();
-  CAMLlocal1 (rop);
-
-  rop = caml_alloc_custom (&mpfr_ops, sizeof (mpfr_t), 0, 1);
-  mpfr_init (MPFR_val (rop));
-
-  CAMLreturn (rop);
-}
-
 void custom_finalize (value op)
 {
   mpfr_clear (MPFR_val (op));
-}
-
-CAMLprim value caml_mpfr_inits (value n)
-{
-  CAMLparam1 (n);
-  CAMLlocal2 (list, tmp);
-
-  if (Int_val (n) <= 0) // if n is zero, return empty list
-    CAMLreturn (Val_int (0));
-
-  // build a list of size n
-  list = caml_alloc (2, 0);
-  Store_field (list, 0, caml_mpfr_init ());
-  Store_field (list, 1, Val_int(0));
-  for (int i = 1; i < Int_val (n); i++)
-    {
-      tmp = caml_alloc (2, 0);
-      Store_field (tmp, 0, caml_mpfr_init ());
-      Store_field (tmp, 1, list);
-      list = tmp;
-    }
-
-  CAMLreturn (list);
 }
 
 CAMLprim value caml_mpfr_set_default_prec (value prec)
@@ -190,60 +156,85 @@ CAMLprim value caml_mpfr_swap (value op1, value op2)
   CAMLreturn (Val_unit);
 }
 
-/****************************************************/
-/* Combined Initialization and Assignment Functions */
-/****************************************************/
+/***********************************************************************/
+/* Combined Initialization and Assignment Functions (a functional way) */
+/***********************************************************************/
 
-CAMLprim value caml_mpfr_init_set (value op, value rnd)
+CAMLprim value caml_mpfr_init_set_mpfr (value prec, value op, value rnd)
 {
-  CAMLparam2 (op, rnd);
-  CAMLlocal1 (rop);
-  int ter;
+  CAMLparam0 ();
+  CAMLlocal2 (rop, ter);
 
-  rop = caml_alloc_custom (&mpfr_ops, sizeof (mpfr_t), 0, 1);
-  ter = mpfr_init_set (MPFR_val (rop), MPFR_val (op),
-		       rnd_val (rnd));
+  rop = caml_mpfr_init2 (prec);
+  ter = caml_mpfr_set (rop, op, rnd);
 
-  CAMLreturn (caml_tuple2 (rop, Val_int (ter)));
+  CAMLreturn (caml_tuple2 (rop, ter));
 }
 
-CAMLprim value caml_mpfr_init_set_si (value op, value rnd)
+CAMLprim value caml_mpfr_init_set_si (value prec, value op, value rnd)
 {
-  CAMLparam2 (op, rnd);
-  CAMLlocal1 (rop);
-  int ter;
+  CAMLparam0 ();
+  CAMLlocal2 (rop, ter);
 
-  rop = caml_alloc_custom (&mpfr_ops, sizeof (mpfr_t), 0, 1);
-  ter = mpfr_init_set_si (MPFR_val (rop), SI_val (op),
-			  rnd_val (rnd));
+  rop = caml_mpfr_init2 (prec);
+  ter = caml_mpfr_set_si (rop, op, rnd);
 
-  CAMLreturn (caml_tuple2 (rop, Val_int (ter)));
+  CAMLreturn (caml_tuple2 (rop, ter));
 }
 
-CAMLprim value caml_mpfr_init_set_d (value op, value rnd)
+CAMLprim value caml_mpfr_init_set_d (value prec, value op, value rnd)
 {
-  CAMLparam2 (op, rnd);
-  CAMLlocal1 (rop);
-  int ter;
+  CAMLparam0 ();
+  CAMLlocal2 (rop, ter);
 
-  rop = caml_alloc_custom (&mpfr_ops, sizeof (mpfr_t), 0, 1);
-  ter = mpfr_init_set_d (MPFR_val (rop), DBL_val (op),
-			 rnd_val (rnd));
+  rop = caml_mpfr_init2 (prec);
+  ter = caml_mpfr_set_d (rop, op, rnd);
 
-  CAMLreturn (caml_tuple2 (rop, Val_int (ter)));
+  CAMLreturn (caml_tuple2 (rop, ter));
 }
 
-CAMLprim value caml_mpfr_init_set_str (value op, value base, value rnd)
+CAMLprim value caml_mpfr_init_set_str (value prec, value str, value base, value rnd)
 {
-  CAMLparam3 (op, base, rnd);
+  CAMLparam0 ();
+  CAMLlocal2 (rop, ter);
+
+  rop = caml_mpfr_init2 (prec);
+  ter = caml_mpfr_strtofr (rop, str, base, rnd);
+
+  CAMLreturn (caml_tuple2 (rop, ter));
+}
+
+CAMLprim value caml_mpfr_init_set_nan (value prec)
+{
+  CAMLparam0 ();
   CAMLlocal1 (rop);
-  int ter;
 
-  rop = caml_alloc_custom (&mpfr_ops, sizeof (mpfr_t), 0, 1);
-  ter = mpfr_init_set_str (MPFR_val (rop), String_val (op), Int_val (base),
-			   rnd_val (rnd));
+  rop = caml_mpfr_init2 (prec);
+  caml_mpfr_set_nan (rop);
 
-  CAMLreturn (caml_tuple2 (rop, Val_int (ter)));
+  CAMLreturn (rop);
+}
+
+CAMLprim value caml_mpfr_init_set_inf (value prec, value sign)
+{
+  CAMLparam0 ();
+  CAMLlocal1 (rop);
+
+  rop = caml_mpfr_init2 (prec);
+  caml_mpfr_set_inf (rop, sign);
+
+  CAMLreturn (rop);
+}
+
+CAMLprim value caml_mpfr_init_set_zero (value prec, value sign)
+{
+  CAMLparam0 ();
+  CAMLlocal1 (rop);
+
+  rop = caml_mpfr_init2 (prec);
+  caml_mpfr_set_zero (rop, sign);
+
+  CAMLreturn (rop);
 }
 
 /************************/

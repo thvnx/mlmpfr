@@ -30,37 +30,20 @@ let mpfr_prec_max = get_mpfr_prec_max_macro ()
 
 
 (* 5.1 Initialization Functions *)
-external mpfr_init2 : mpfr_prec_t -> mpfr_t = "caml_mpfr_init2"
-external mpfr_inits2 : int -> mpfr_prec_t -> mpfr_t list = "caml_mpfr_inits2"
-external mpfr_clear : mpfr_t -> unit = "caml_mpfr_clear"
-let mpfr_clears ops =
-  List.iter (fun op -> mpfr_clear op) ops
-external mpfr_init : unit -> mpfr_t = "caml_mpfr_init"
-external mpfr_inits : int -> mpfr_t list = "caml_mpfr_inits"
 external mpfr_set_default_prec : mpfr_prec_t -> unit = "caml_mpfr_set_default_prec"
 external mpfr_get_default_prec : unit -> mpfr_prec_t = "caml_mpfr_get_default_prec"
 external mpfr_set_prec : mpfr_t -> mpfr_prec_t -> unit = "caml_mpfr_set_prec"
 external mpfr_get_prec : mpfr_t -> mpfr_prec_t = "caml_mpfr_get_prec"
 
 
-(* 5.2 Assignment Functions *)
-external mpfr_set : mpfr_t -> mpfr_t -> mpfr_rnd_t -> ternary_value = "caml_mpfr_set"
-external mpfr_set_int : mpfr_t -> int -> mpfr_rnd_t -> ternary_value = "caml_mpfr_set_si"
-external mpfr_set_float : mpfr_t -> float -> mpfr_rnd_t -> ternary_value = "caml_mpfr_set_d"
-external mpfr_set_str : mpfr_t -> string -> int -> mpfr_rnd_t -> int = "caml_mpfr_set_str"
-external mpfr_strtofr : mpfr_t -> string -> int -> mpfr_rnd_t -> ternary_value = "caml_mpfr_strtofr"
-external mpfr_set_nan : mpfr_t -> unit = "caml_mpfr_set_nan"
-external mpfr_set_inf : mpfr_t -> int -> unit = "caml_mpfr_set_inf"
-external mpfr_set_zero : mpfr_t -> int -> unit = "caml_mpfr_set_zero"
-external mpfr_swap : mpfr_t -> mpfr_t -> unit = "caml_mpfr_swap"
-
-
-(* 5.3 Combined Initialization and Assignment Functions *)
-external mpfr_init_set : mpfr_t -> mpfr_rnd_t -> mpfr_tv = "caml_mpfr_init_set"
-external mpfr_init_set_int : int -> mpfr_rnd_t -> mpfr_tv = "caml_mpfr_init_set_si"
-external mpfr_init_set_float : float -> mpfr_rnd_t -> mpfr_tv = "caml_mpfr_init_set_d"
-external mpfr_init_set_str : string -> int -> mpfr_rnd_t -> mpfr_tv = "caml_mpfr_init_set_str"
-
+(* 5.1-2-3 Combined Initilization and Assignment Functions (a functional way) *)
+external mpfr_init_set_mpfr : mpfr_prec_t -> mpfr_t -> mpfr_rnd_t -> ternary_value = "caml_mpfr_init_set_mpfr"
+external mpfr_init_set_int : mpfr_prec_t -> int -> mpfr_rnd_t -> ternary_value = "caml_mpfr_init_set_si"
+external mpfr_init_set_float : mpfr_prec_t -> float -> mpfr_rnd_t -> ternary_value = "caml_mpfr_init_set_d"
+external mpfr_init_set_str : mpfr_prec_t -> string -> int -> mpfr_rnd_t -> ternary_value = "caml_mpfr_init_set_str"
+external mpfr_init_set_nan : mpfr_prec_t -> mpfr_t = "caml_mpfr_init_set_nan"
+external mpfr_init_set_inf : mpfr_prec_t -> int -> mpfr_t = "caml_mpfr_init_set_int"
+external mpfr_init_set_zero : mpfr_prec_t -> int -> mpfr_t = "caml_mpfr_init_set_zero"
 
 (* 5.4 Conversion Functions *)
 external mpfr_get_float : mpfr_t -> mpfr_rnd_t -> float = "caml_mpfr_get_d"
@@ -214,10 +197,9 @@ let mpfr_out_str chan base n op rnd =
     end
 
 let mpfr_inp_str prec chan base rnd =
-  let rop = mpfr_init2 prec in
   let str = read_line chan in
-  let n = mpfr_set_str rop str base rnd in
-  (rop, n)
+  let rop = mpfr_init_set_str prec str base rnd in
+  (rop, (String.length (String.trim str))) (* todo: return 0 in case of error *)
 
 
 (* 5.9 Formatted Output Functions: not supported *)
