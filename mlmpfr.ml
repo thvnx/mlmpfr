@@ -1,9 +1,4 @@
-type mpfr_rnd_t =
-  MPFR_RNDN (* round to nearest (roundTiesToEven in IEEE 754-2008) *)
-| MPFR_RNDZ (* round toward zero (roundTowardZero in IEEE 754-2008) *)
-| MPFR_RNDU (* round toward plus infinity (roundTowardPositive in IEEE 754-2008) *)
-| MPFR_RNDD (* round toward minus infinity (roundTowardNegative in IEEE 754-2008) *)
-| MPFR_RNDA (* round away from zero *)
+type mpfr_rnd_t = MPFR_RNDN | MPFR_RNDZ | MPFR_RNDU | MPFR_RNDD | MPFR_RNDA
 
 type mpfr_t
 type ternary_value = int
@@ -20,32 +15,28 @@ type float_2exp = { n : float; e : mpfr_exp_t }
 type mpfr_2exp = { n : mpfr_t; e : mpfr_exp_t }
 type sig_exp = { significand : string; exponent : mpfr_exp_t }
 
-type mpfr_exception =
-  Underflow | Overflow | DivideByZero | NaN | Inexact | RangeError
 
 external get_mpfr_prec_min_macro : unit -> int = "caml_mpfr_prec_min"
 external get_mpfr_prec_max_macro : unit -> int = "caml_mpfr_prec_max"
 let mpfr_prec_min = get_mpfr_prec_min_macro ()
 let mpfr_prec_max = get_mpfr_prec_max_macro ()
 
-
-(* 5.1 Initialization Functions *)
+(* Initialization Functions *)
 external mpfr_set_default_prec : mpfr_prec_t -> unit = "caml_mpfr_set_default_prec"
 external mpfr_get_default_prec : unit -> mpfr_prec_t = "caml_mpfr_get_default_prec"
 external mpfr_set_prec : mpfr_t -> mpfr_prec_t -> unit = "caml_mpfr_set_prec"
 external mpfr_get_prec : mpfr_t -> mpfr_prec_t = "caml_mpfr_get_prec"
 
-
-(* 5.1-2-3 Combined Initilization and Assignment Functions (a functional way) *)
+(* Combined Initilization and Assignment Functions (a functional way) *)
 external mpfr_init_set_mpfr : mpfr_prec_t -> mpfr_t -> mpfr_rnd_t -> mpfr_tv = "caml_mpfr_init_set_mpfr"
 external mpfr_init_set_int : mpfr_prec_t -> int -> mpfr_rnd_t -> mpfr_tv = "caml_mpfr_init_set_si"
 external mpfr_init_set_float : mpfr_prec_t -> float -> mpfr_rnd_t -> mpfr_tv = "caml_mpfr_init_set_d"
-external mpfr_init_set_str : mpfr_prec_t -> string -> int -> mpfr_rnd_t -> mpfr_tv = "caml_mpfr_init_set_str"
+external mpfr_init_set_str : mpfr_prec_t -> string -> base -> mpfr_rnd_t -> mpfr_tv = "caml_mpfr_init_set_str"
 external mpfr_init_set_nan : mpfr_prec_t -> mpfr_t = "caml_mpfr_init_set_nan"
 external mpfr_init_set_inf : mpfr_prec_t -> int -> mpfr_t = "caml_mpfr_init_set_int"
 external mpfr_init_set_zero : mpfr_prec_t -> int -> mpfr_t = "caml_mpfr_init_set_zero"
 
-(* 5.4 Conversion Functions *)
+(* Conversion Functions *)
 external mpfr_get_float : mpfr_t -> mpfr_rnd_t -> float = "caml_mpfr_get_d"
 external mpfr_get_int : mpfr_t -> mpfr_rnd_t -> int = "caml_mpfr_get_si"
 external mpfr_get_float_2exp : mpfr_t -> mpfr_rnd_t -> float_2exp = "caml_mpfr_get_d_2exp"
@@ -53,8 +44,7 @@ external mpfr_frexp : mpfr_prec_t -> mpfr_t -> mpfr_rnd_t -> mpfr_2exp = "caml_m
 external mpfr_get_str : base -> size -> mpfr_t -> mpfr_rnd_t -> sig_exp = "caml_mpfr_get_str"
 external mpfr_fits_int_p : mpfr_t -> mpfr_rnd_t -> bool = "caml_mpfr_fits_sint_p"
 
-
-(* 5.5 Basic Arithmetic Functions *)
+(* Basic Arithmetic Functions *)
 external mpfr_add : mpfr_prec_t -> mpfr_t -> mpfr_t -> mpfr_rnd_t -> mpfr_tv = "caml_mpfr_add"
 external mpfr_add_int : mpfr_prec_t -> mpfr_t -> int -> mpfr_rnd_t -> mpfr_tv = "caml_mpfr_add_si"
 external mpfr_add_float : mpfr_prec_t -> mpfr_t -> float -> mpfr_rnd_t -> mpfr_tv = "caml_mpfr_add_d"
@@ -85,8 +75,7 @@ external mpfr_dim : mpfr_prec_t -> mpfr_t -> mpfr_t -> mpfr_rnd_t -> mpfr_tv = "
 external mpfr_mul_2int : mpfr_prec_t -> mpfr_t -> int -> mpfr_rnd_t -> mpfr_tv = "caml_mpfr_mul_2si"
 external mpfr_div_2int : mpfr_prec_t -> mpfr_t -> int -> mpfr_rnd_t -> mpfr_tv = "caml_mpfr_div_2si"
 
-
-(* 5.6 Comparison Functions *)
+(* Comparison Functions *)
 external mpfr_cmp : mpfr_t -> mpfr_t -> int = "caml_mpfr_cmp"
 external mpfr_cmp_int : mpfr_t -> int -> int = "caml_mpfr_cmp_si"
 external mpfr_cmp_float : mpfr_t -> float -> int = "caml_mpfr_cmp_d"
@@ -106,8 +95,7 @@ external mpfr_equal_p : mpfr_t -> mpfr_t -> bool = "caml_mpfr_equal_p"
 external mpfr_lessgreater_p : mpfr_t -> mpfr_t -> bool = "caml_mpfr_lessgreater_p"
 external mpfr_unordered_p : mpfr_t -> mpfr_t -> bool = "caml_mpfr_unordered_p"
 
-
-(* 5.7 Special Functions *)
+(* Special Functions *)
 external mpfr_log : mpfr_prec_t -> mpfr_t -> mpfr_rnd_t -> mpfr_tv = "caml_mpfr_log"
 external mpfr_log2 : mpfr_prec_t -> mpfr_t -> mpfr_rnd_t -> mpfr_tv = "caml_mpfr_log2"
 external mpfr_log10 : mpfr_prec_t -> mpfr_t -> mpfr_rnd_t -> mpfr_tv = "caml_mpfr_log10"
@@ -166,8 +154,7 @@ external mpfr_const_catalan : mpfr_prec_t -> mpfr_prec_t -> mpfr_rnd_t -> mpfr_t
 external mpfr_free_cache : unit -> unit = "caml_mpfr_free_cache"
 external mpfr_sum : mpfr_prec_t -> mpfr_t list -> mpfr_rnd_t -> mpfr_tv = "caml_mpfr_sum"
 
-
-(* 5.8 Input and Output Functions *)
+(* Input and Output Functions *)
 let mpfr_out_str chan base n op rnd =
   let se = mpfr_get_str base n op rnd in
   let significand = se.significand in
@@ -185,14 +172,12 @@ let mpfr_out_str chan base n op rnd =
         Printf.fprintf chan "-%c.%s%c%d"
                        significand.[1]
                        (String.sub significand 2 (String.length significand - 2))
-                       (if base > 10 then '@' else 'e')
-                       (exponent - 1)
+                       (if base > 10 then '@' else 'e') (exponent - 1)
       else
         Printf.fprintf chan "%c.%s%c%d"
                        significand.[0]
                        (String.sub significand 1 (String.length significand - 1))
-                       (if base > 10 then '@' else 'e')
-                       (exponent - 1);
+                       (if base > 10 then '@' else 'e') (exponent - 1);
       (String.length significand) + (String.length (string_of_int (exponent -1))) + 2
     end
 
@@ -201,10 +186,7 @@ let mpfr_inp_str prec chan base rnd =
   let rop = mpfr_init_set_str prec str base rnd in
   (rop, (String.length (String.trim str))) (* todo: return 0 in case of error *)
 
-
-(* 5.9 Formatted Output Functions: not supported *)
-
-(* 5.10 Integer and Remainder Related Functions *)
+(* Integer and Remainder Related Functions *)
 external mpfr_rint : mpfr_prec_t -> mpfr_t -> mpfr_rnd_t -> mpfr_tv = "caml_mpfr_rint"
 external mpfr_ceil : mpfr_prec_t -> mpfr_t -> mpfr_tv = "caml_mpfr_ceil"
 external mpfr_floor : mpfr_prec_t -> mpfr_t -> mpfr_tv = "caml_mpfr_floor"
@@ -221,8 +203,7 @@ external mpfr_remainder : mpfr_prec_t -> mpfr_t -> mpfr_t -> mpfr_rnd_t -> mpfr_
 external mpfr_remquo : mpfr_prec_t -> mpfr_t -> mpfr_t -> mpfr_rnd_t -> mpfr_tv * int = "caml_mpfr_remquo"
 external mpfr_integer_p : mpfr_t -> bool = "caml_mpfr_integer_p"
 
-
-(* 5.11 Rounding Related Functions *)
+(* Rounding Related Functions *)
 external mpfr_set_default_rounding_mode : mpfr_rnd_t -> unit = "caml_mpfr_set_default_rounding_mode"
 external mpfr_get_default_rounding_mode : unit -> mpfr_rnd_t = "caml_mpfr_get_default_rounding_mode"
 external mpfr_can_round : mpfr_t -> mpfr_exp_t -> mpfr_rnd_t -> mpfr_rnd_t -> mpfr_prec_t -> int = "caml_mpfr_can_round"
@@ -234,8 +215,7 @@ let mpfr_print_rnd_mode rnd = function
   | MPFR_RNDD -> "MPFR_RNDD"
   | MPFR_RNDA -> "MPFR_RNDA"
 
-
-(* 5.12 Miscellaneous Functions *)
+(* Miscellaneous Functions *)
 external mpfr_nexttoward : mpfr_t -> mpfr_t -> mpfr_t = "caml_mpfr_nexttoward"
 external mpfr_nextabove : mpfr_t -> mpfr_t = "caml_mpfr_nextabove"
 external mpfr_nextbelow : mpfr_t -> mpfr_t = "caml_mpfr_nextbelow"
@@ -249,8 +229,7 @@ external mpfr_setsign : mpfr_prec_t -> mpfr_t -> int -> mpfr_rnd_t -> mpfr_tv = 
 external mpfr_copysign : mpfr_prec_t -> mpfr_t -> mpfr_t -> mpfr_rnd_t -> mpfr_tv = "caml_mpfr_copysign"
 external mpfr_get_version : unit -> string = "caml_mpfr_get_version"
 
-
-(* 5.13 Exception Related Functions *)
+(* Exception Related Functions *)
 external mpfr_get_emin : unit -> mpfr_exp_t = "caml_mpfr_get_emin"
 external mpfr_get_emax : unit -> mpfr_exp_t = "caml_mpfr_get_emax"
 external mpfr_set_emin : mpfr_exp_t -> int = "caml_mpfr_set_emin"
