@@ -37,10 +37,10 @@ external mpfr_get_prec : mpfr_t -> mpfr_prec_t = "caml_mpfr_get_prec"
 
 
 (* 5.1-2-3 Combined Initilization and Assignment Functions (a functional way) *)
-external mpfr_init_set_mpfr : mpfr_prec_t -> mpfr_t -> mpfr_rnd_t -> ternary_value = "caml_mpfr_init_set_mpfr"
-external mpfr_init_set_int : mpfr_prec_t -> int -> mpfr_rnd_t -> ternary_value = "caml_mpfr_init_set_si"
-external mpfr_init_set_float : mpfr_prec_t -> float -> mpfr_rnd_t -> ternary_value = "caml_mpfr_init_set_d"
-external mpfr_init_set_str : mpfr_prec_t -> string -> int -> mpfr_rnd_t -> ternary_value = "caml_mpfr_init_set_str"
+external mpfr_init_set_mpfr : mpfr_prec_t -> mpfr_t -> mpfr_rnd_t -> mpfr_tv = "caml_mpfr_init_set_mpfr"
+external mpfr_init_set_int : mpfr_prec_t -> int -> mpfr_rnd_t -> mpfr_tv = "caml_mpfr_init_set_si"
+external mpfr_init_set_float : mpfr_prec_t -> float -> mpfr_rnd_t -> mpfr_tv = "caml_mpfr_init_set_d"
+external mpfr_init_set_str : mpfr_prec_t -> string -> int -> mpfr_rnd_t -> mpfr_tv = "caml_mpfr_init_set_str"
 external mpfr_init_set_nan : mpfr_prec_t -> mpfr_t = "caml_mpfr_init_set_nan"
 external mpfr_init_set_inf : mpfr_prec_t -> int -> mpfr_t = "caml_mpfr_init_set_int"
 external mpfr_init_set_zero : mpfr_prec_t -> int -> mpfr_t = "caml_mpfr_init_set_zero"
