@@ -1,4 +1,4 @@
-type mpfr_rnd_t = MPFR_RNDN | MPFR_RNDZ | MPFR_RNDU | MPFR_RNDD | MPFR_RNDA
+type mpfr_rnd_t = To_Nearest | Toward_Zero | Toward_Plus_Infinity | Toward_Minus_Infinity | Away_From_Zero
 
 type mpfr_t
 type ternary_value = int
@@ -209,11 +209,11 @@ external mpfr_get_default_rounding_mode : unit -> mpfr_rnd_t = "caml_mpfr_get_de
 external mpfr_can_round : mpfr_t -> mpfr_exp_t -> mpfr_rnd_t -> mpfr_rnd_t -> mpfr_prec_t -> int = "caml_mpfr_can_round"
 external mpfr_min_prec : mpfr_t -> mpfr_prec_t = "caml_mpfr_min_prec"
 let mpfr_print_rnd_mode rnd = function
-  | MPFR_RNDN -> "MPFR_RNDN"
-  | MPFR_RNDZ -> "MPFR_RNDZ"
-  | MPFR_RNDU -> "MPFR_RNDU"
-  | MPFR_RNDD -> "MPFR_RNDD"
-  | MPFR_RNDA -> "MPFR_RNDA"
+  | To_Nearest -> "MPFR_RNDN"
+  | Toward_Zero -> "MPFR_RNDZ"
+  | Toward_Plus_Infinity -> "MPFR_RNDU"
+  | Toward_Minus_Infinity -> "MPFR_RNDD"
+  | Away_From_Zero -> "MPFR_RNDA"
 
 (* Miscellaneous Functions *)
 external mpfr_nexttoward : mpfr_t -> mpfr_t -> mpfr_t = "caml_mpfr_nexttoward"
