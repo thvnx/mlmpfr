@@ -14,7 +14,7 @@ let make_from_float ?prec:(prec = !default_precision) ?rnd:(rnd = !default_round
   (res.rop, Some ter)
 
 let set_default_precision p =
-  mpfr_set_default_prec p;
+  if (p >= mpfr_prec_min) && (p <= mpfr_prec_max) then mpfr_set_default_prec p;
   default_precision := mpfr_get_default_prec ()
 
 let get_precision x =

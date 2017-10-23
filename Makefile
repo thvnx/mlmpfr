@@ -7,8 +7,8 @@ all:
 check: all
 	cd testsuite && make check
 
-doc: mlmpfr.ml
-	mkdir doc
+doc: mpfr.mli
+	mkdir -p doc
 	ocamldoc -html -d doc mpfr.mli
 
 clean:

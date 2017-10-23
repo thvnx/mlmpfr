@@ -57,7 +57,11 @@ type mpfr_rnd_t =
 (** [make_from_float f ~prec:p ~rnd:r] returns a fresh [mpfr_float] of
 precision [p] from the float value [f], rounded with [r]. *)
 val make_from_float : ?prec:int -> ?rnd:mpfr_rnd_t -> float -> mpfr_float
+
+(** [set_default_precision p] sets the default working precision to [p]. *)
 val set_default_precision : int -> unit
+
+(** [get_precision x] returns the precision of [x]. *)
 val get_precision : mpfr_float -> int
 
 (** {0 Conversion} *)
