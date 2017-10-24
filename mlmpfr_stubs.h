@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <mpfr.h>
+#include <limits.h>
 #include <caml/mlvalues.h>
 #include <caml/memory.h>
 #include <caml/alloc.h>

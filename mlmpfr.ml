@@ -18,8 +18,6 @@ type sig_exp = { significand : string; exponent : mpfr_exp_t }
 
 external get_mpfr_prec_min_macro : unit -> int = "caml_mpfr_prec_min"
 external get_mpfr_prec_max_macro : unit -> int = "caml_mpfr_prec_max"
-let mpfr_prec_min = get_mpfr_prec_min_macro ()
-let mpfr_prec_max = get_mpfr_prec_max_macro ()
 
 (* Initialization Functions *)
 external mpfr_set_default_prec : mpfr_prec_t -> unit = "caml_mpfr_set_default_prec"
@@ -33,7 +31,7 @@ external mpfr_init_set_int : mpfr_prec_t -> int -> mpfr_rnd_t -> mpfr_tv = "caml
 external mpfr_init_set_float : mpfr_prec_t -> float -> mpfr_rnd_t -> mpfr_tv = "caml_mpfr_init_set_d"
 external mpfr_init_set_str : mpfr_prec_t -> string -> base -> mpfr_rnd_t -> mpfr_tv = "caml_mpfr_init_set_str"
 external mpfr_init_set_nan : mpfr_prec_t -> mpfr_t = "caml_mpfr_init_set_nan"
-external mpfr_init_set_inf : mpfr_prec_t -> int -> mpfr_t = "caml_mpfr_init_set_int"
+external mpfr_init_set_inf : mpfr_prec_t -> int -> mpfr_t = "caml_mpfr_init_set_inf"
 external mpfr_init_set_zero : mpfr_prec_t -> int -> mpfr_t = "caml_mpfr_init_set_zero"
 
 (* Conversion Functions *)

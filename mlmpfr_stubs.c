@@ -9,7 +9,10 @@ CAMLprim value caml_mpfr_prec_min ()
 CAMLprim value caml_mpfr_prec_max ()
 {
   CAMLparam0 ();
-  CAMLreturn (Val_int (MPFR_PREC_MAX));
+  if (MPFR_PREC_MAX > INT_MAX)
+    CAMLreturn (Val_int (INT_MAX));
+  else
+    CAMLreturn (Val_int (MPFR_PREC_MAX));
 }
 
 /****************************/
