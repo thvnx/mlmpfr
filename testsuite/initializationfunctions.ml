@@ -1,43 +1,23 @@
-open Mlmpfr
 open Printf
 
-let init2 prec =
-  let m = mpfr_init2 prec in
-  mpfr_clear m
+module M = Mpfr
 
-let inits2 prec n =
-  let m = mpfr_inits2 prec n in
-  mpfr_clears m
-
-let init _ =
-  let m = mpfr_init () in
-  mpfr_clear m
-
-let inits n =
-  let m = mpfr_inits n in
-  mpfr_clears m
-
-let set_default_prec n =
-  mpfr_set_default_prec n
-
-let get_default_prec _ =
-  mpfr_get_default_prec ()
-
-let set_prec op prec =
-  mpfr_set_prec op prec
-
-let get_prec op =
-  mpfr_get_prec op
-  
 let _ =
-  init2 2;
-  inits2 2 2;
-  init ();
-  inits 2;
-  let p = 64 in
-  set_default_prec p;
-  printf "%d\n" (if p == (get_default_prec ()) then 1 else 0);
-  let op = mpfr_init () in
-  set_prec op 1234;
-  printf "%d\n" (get_prec op);
-  mpfr_clear op
+  M.set_default_precision 12345;
+  printf "default_precision: %d\n" (M.get_default_precision ());
+  let one = M.make_from_int 1 in
+  printf "%s\n" (M.rounding_to_string one);
+  let x = M.make_from_mpfr one in
+  printf "%s\n" (M.rounding_to_string x);
+  let x = M.make_from_float 1. in
+  printf "%s\n" (M.rounding_to_string x);
+  let x = M.make_from_str "1" in
+  printf "%s\n" (M.rounding_to_string x);
+  let x = M.make_nan () in
+  printf "%s\n" (M.rounding_to_string x);
+  let x = M.make_inf M.Positive in
+  printf "%s\n" (M.rounding_to_string x);
+  let x = M.make_zero M.Negative in
+  printf "%s\n" (M.rounding_to_string x);
+  printf "%d\n" (M.get_precision x);
+  Gc.full_major (); (* garbage collector full major *)
