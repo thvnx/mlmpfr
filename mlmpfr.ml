@@ -38,7 +38,7 @@ external mpfr_init_set_zero : mpfr_prec_t -> int -> mpfr_t = "caml_mpfr_init_set
 external mpfr_get_float : mpfr_t -> mpfr_rnd_t -> float = "caml_mpfr_get_d"
 external mpfr_get_int : mpfr_t -> mpfr_rnd_t -> int = "caml_mpfr_get_si"
 external mpfr_get_float_2exp : mpfr_t -> mpfr_rnd_t -> float_2exp = "caml_mpfr_get_d_2exp"
-external mpfr_frexp : mpfr_prec_t -> mpfr_t -> mpfr_rnd_t -> mpfr_2exp = "caml_mpfr_frexp"
+external mpfr_frexp : mpfr_prec_t -> mpfr_t -> mpfr_rnd_t -> mpfr_2exp * ternary_value = "caml_mpfr_frexp"
 external mpfr_get_str : base -> size -> mpfr_t -> mpfr_rnd_t -> sig_exp = "caml_mpfr_get_str"
 external mpfr_fits_int_p : mpfr_t -> mpfr_rnd_t -> bool = "caml_mpfr_fits_sint_p"
 

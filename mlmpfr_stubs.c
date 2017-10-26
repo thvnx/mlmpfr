@@ -271,11 +271,12 @@ CAMLprim value caml_mpfr_frexp (value prec, value op, value rnd)
   CAMLparam2 (op, rnd);
   CAMLlocal1 (rop);
   mpfr_exp_t *exp;
+  int ter;
 
   rop = caml_mpfr_init2 (prec);
-  mpfr_frexp (exp, MPFR_val (rop), MPFR_val (op), rnd_val (rnd));
+  ter = mpfr_frexp (exp, MPFR_val (rop), MPFR_val (op), rnd_val (rnd));
 
-  CAMLreturn (caml_tuple2 (rop, Val_int (&exp)));
+  CAMLreturn (caml_tuple2 (caml_tuple2 (rop, Val_int (&exp)), Val_int (ter)));
 }
 
 CAMLprim value caml_mpfr_get_str (value base, value n, value op, value rnd)

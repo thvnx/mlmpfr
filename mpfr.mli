@@ -84,12 +84,12 @@ val make_from_int : ?prec:int -> ?rnd:mpfr_rnd_t -> int -> mpfr_float
 val make_from_float : ?prec:int -> ?rnd:mpfr_rnd_t -> float -> mpfr_float
 (** [make_from_mpfr x ~prec:p ~rnd:r] (resp. [make_from_int] or
 [make_from_float]) returns a fresh [mpfr_float] of precision [p] from
-the mpfr_float (resp. int or float) value [x], rounded with [r].
+the mpfr_float (resp. int or float) value [x], rounded in direction [r].
 @raise Precision_range if [p] is not allowed. *)
 
 (** [make_from_str s ~base:b ~prec:p ~rnd:r] returns a fresh
 [mpfr_float] of precision [p] from the string value [s] in base [b],
-rounded with [r].
+rounded in direction [r].
 @raise Precision_range if [p] is not allowed.
 @raise Base_range if [b] is not allowed. *)
 val make_from_str : ?prec:int -> ?rnd:mpfr_rnd_t -> ?base:int -> string -> mpfr_float
@@ -103,6 +103,39 @@ sign [s].  @raise Precision_range if [p] is not allowed. *)
 val make_zero : ?prec:int -> sign -> mpfr_float
 
 (** {0 Conversion} *)
+
+val get_float : ?rnd:mpfr_rnd_t -> mpfr_float -> float (* see below *)
+
+(** [get_float ~rnd:r x] (resp. [get_int]) converts [x] to a float
+(resp. an int), using the rounding mode [r]. *)
+val get_int : ?rnd:mpfr_rnd_t -> mpfr_float -> int
+
+val get_float_2exp : ?rnd:mpfr_rnd_t -> mpfr_float -> float * int
+
+(** [get_float_2exp ~rnd:r x] (resp. [get_mpfr_2exp ~rnd:r ~prec:p x])
+returns [(n, exp)] such that [0.5 <= |n| < 1] and [d] times 2 raised
+to [exp] equals [x] rounded to float (resp. [p]) precision.
+@raise Precision_range if [p] is not allowed. *)
+val get_mpfr_2exp : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float * int
+
+val get_str : ?rnd:mpfr_rnd_t -> ?base:int -> ?size:int -> mpfr_float -> string * string
+(** [get_str ~rnd:r ~base:b ~size:s x] converts [x] to a tuple [(frac,
+exp)], where [frac] is a fraction (a string of digits in base [b])
+with rounding to direction [r], and [exp] is an exponent. [s] is the
+number of significand digits output in [frac]. If [s] is zero, the
+number of digits of the significand is chosen large enough so that
+re-reading the printed value with the same precision, assuming both
+output and input use rounding to nearest, will recover the original
+value of [x]. Decimal is the default base and default size is 0.
+@raise Base_range if base is not allowed. *)
+
+val get_formatted_str : ?rnd:mpfr_rnd_t -> ?base:int -> ?size:int -> mpfr_float -> string
+(** [get_formatted_str] is identical to [get_str] except that it
+returns a full-formatted string. *)
+
+val fits_int_p : ?rnd:mpfr_rnd_t -> mpfr_float -> bool
+(** Return true if the mpfr_float would fit in a int, when rounded to an integer in the direction [~rnd]. *)
+
 (** {0 Basic Arithmetic} *)
 (** {0 Comparison} *)
 (** {0 Special} *)
