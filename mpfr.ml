@@ -110,15 +110,16 @@ let get_str ?rnd:(rnd = !default_rounding) ?base:(base = 10) ?size:(size = 0) x 
             (se.significand, string_of_int se.exponent)
 
 let get_formatted_str ?rnd:(rnd = !default_rounding) ?base:(base = 10) ?size:(size = 0) x =
-  let sign, exp = get_str ~rnd:rnd ~base:base ~size:size x in
-  if String.contains sign '@' (* nan or inf *)
-  then sign
+  let significand, exponent = get_str ~rnd:rnd ~base:base ~size:size x in
+  let exponent = (int_of_string exponent) - 1 in
+  if String.contains significand '@' (* nan or inf *)
+  then significand
   else
-    if sign.[0] == '-'
-    then "-" ^ (Char.escaped sign.[1]) ^ "." ^ (String.sub sign 2 (String.length sign - 2)) ^
-           (if base > 10 then "@" else "e") ^ (string_of_int ((int_of_string exp) - 1))
-    else (Char.escaped sign.[0]) ^ "." ^ (String.sub sign 1 (String.length sign - 1)) ^
-           (if base > 10 then "@" else "e") ^ (string_of_int ((int_of_string exp) - 1))
+    if significand.[0] == '-'
+    then Printf.sprintf "-%c.%s%c%+03d" significand.[1] (String.sub significand 2 (String.length significand - 2))
+                        (if base > 10 then '@' else 'e') exponent
+    else Printf.sprintf "%c.%s%c%+03d" significand.[0] (String.sub significand 1 (String.length significand - 1))
+                        (if base > 10 then '@' else 'e') exponent
 
 let fits_int_p ?rnd:(rnd = !default_rounding) x =
   match x with

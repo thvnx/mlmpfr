@@ -256,27 +256,27 @@ CAMLprim value caml_mpfr_get_si (value op, value rnd)
   CAMLreturn (Val_int (mpfr_get_si (MPFR_val (op), rnd_val (rnd))));
 }
 
-CAMLprim value mpfr_get_d_2exp_ml (value op, value rnd)
+CAMLprim value caml_mpfr_get_d_2exp (value op, value rnd)
 {
   CAMLparam2 (op, rnd);
-  long *exp;
+  mpfr_exp_t exp;
 
-  double dv = mpfr_get_d_2exp (exp, MPFR_val (op), rnd_val (rnd));
+  double dv = mpfr_get_d_2exp (&exp, MPFR_val (op), rnd_val (rnd));
 
-  CAMLreturn (caml_tuple2 (caml_copy_double (dv), Val_int (&exp)));
+  CAMLreturn (caml_tuple2 (caml_copy_double (dv), Val_int (exp)));
 }
 
 CAMLprim value caml_mpfr_frexp (value prec, value op, value rnd)
 {
   CAMLparam2 (op, rnd);
   CAMLlocal1 (rop);
-  mpfr_exp_t *exp;
+  mpfr_exp_t exp;
   int ter;
 
   rop = caml_mpfr_init2 (prec);
-  ter = mpfr_frexp (exp, MPFR_val (rop), MPFR_val (op), rnd_val (rnd));
+  ter = mpfr_frexp (&exp, MPFR_val (rop), MPFR_val (op), rnd_val (rnd));
 
-  CAMLreturn (caml_tuple2 (caml_tuple2 (rop, Val_int (&exp)), Val_int (ter)));
+  CAMLreturn (caml_tuple2 (caml_tuple2 (rop, Val_int (exp)), Val_int (ter)));
 }
 
 CAMLprim value caml_mpfr_get_str (value base, value n, value op, value rnd)
@@ -289,10 +289,13 @@ CAMLprim value caml_mpfr_get_str (value base, value n, value op, value rnd)
   ret = mpfr_get_str (NULL, &expptr, Int_val (base), Int_val (n), MPFR_val (op),
 		      rnd_val (rnd));
 
-  CAMLreturn (caml_tuple2 ( caml_copy_string (ret), Val_int (expptr)));
+  result = caml_copy_string (ret);
+  mpfr_free_str (ret);
+
+  CAMLreturn (caml_tuple2 ( result, Val_int (expptr)));
 }
 
-CAMLprim value caml_mpfr_fits_si_p (value op, value rnd)
+CAMLprim value caml_mpfr_fits_sint_p (value op, value rnd)
 {
   CAMLparam2 (op, rnd);
   CAMLreturn (Val_bool (mpfr_fits_sint_p (MPFR_val (op), rnd_val (rnd))));

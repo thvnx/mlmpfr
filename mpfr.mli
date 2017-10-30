@@ -68,7 +68,7 @@ type mpfr_rnd_t =
 val mpfr_prec_min : int (** Minimum allowed precision. *)
 val mpfr_prec_max : int (** Maximum allowed precision. *)
 
-(** {0 Initialization} *)
+(** {2 Initialization} *)
 
 (** [set_default_precision p] sets the default working precision to [p]. *)
 val set_default_precision : int -> unit
@@ -102,7 +102,7 @@ val make_inf : ?prec:int -> sign -> mpfr_float (* see below *)
 sign [s].  @raise Precision_range if [p] is not allowed. *)
 val make_zero : ?prec:int -> sign -> mpfr_float
 
-(** {0 Conversion} *)
+(** {2 Conversion} *)
 
 val get_float : ?rnd:mpfr_rnd_t -> mpfr_float -> float (* see below *)
 
@@ -126,7 +126,7 @@ number of significand digits output in [frac]. If [s] is zero, the
 number of digits of the significand is chosen large enough so that
 re-reading the printed value with the same precision, assuming both
 output and input use rounding to nearest, will recover the original
-value of [x]. Decimal is the default base and default size is 0.
+value of [x]. Decimal is the default base and default size is zero.
 @raise Base_range if base is not allowed. *)
 
 val get_formatted_str : ?rnd:mpfr_rnd_t -> ?base:int -> ?size:int -> mpfr_float -> string
