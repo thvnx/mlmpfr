@@ -1,16 +1,22 @@
+TESTS=initializationfunctions conversionfunctions
+
 all:
-	ocamlc -I .. -custom -o initializationfunctions.ocaml ../mlmpfr.cmo ../mpfr.cmo initializationfunctions.ml ../mlmpfr_stubs.o -cclib -lmpfr
-	ocamlc -I .. -custom -o conversionfunctions.ocaml ../mlmpfr.cmo ../mpfr.cmo conversionfunctions.ml ../mlmpfr_stubs.o -cclib -lmpfr
-	gcc -o initializationfunctions.gcc initializationfunctions.c -lmpfr
-	gcc -o conversionfunctions.gcc conversionfunctions.c -lmpfr
+	@for tst in $(TESTS) ; do \
+		ocamlc -I .. -custom -o $$tst.ocaml ../mlmpfr.cmo ../mpfr.cmo $$tst.ml ../mlmpfr_stubs.o -cclib -lmpfr ; \
+		gcc -o $$tst.gcc $$tst.c -lmpfr ; \
+	done
 
 check: all
-	./initializationfunctions.ocaml > /tmp/out1
-	./initializationfunctions.gcc > /tmp/out2
-	diff /tmp/out1 /tmp/out2
-	./conversionfunctions.ocaml > /tmp/out1
-	./conversionfunctions.gcc > /tmp/out2
-	diff /tmp/out1 /tmp/out2
+	@for tst in $(TESTS) ; do \
+		./$$tst.ocaml > /tmp/out.ocaml ; \
+		./$$tst.gcc > /tmp/out.gcc ; \
+		diff /tmp/out.ocaml /tmp/out.gcc ; \
+		if [ "$$?" == "0" ]; then \
+			echo "[PASS] $$tst" ; \
+		else \
+			echo "[FAIL] $$tst" ; \
+		fi ;\
+	done
 
 clean:
 	rm -f *.ocaml *.gcc *.o *.cmi *.cmo
