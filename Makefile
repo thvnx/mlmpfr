@@ -10,6 +10,7 @@ check: all
 doc: mpfr.mli
 	mkdir -p doc
 	ocamldoc -html -d doc mpfr.mli
+	@sed -i -e 's/-><br>      /->/g' doc/Mpfr.html
 
 clean:
 	rm -f *.cmi *.cmo *.o
