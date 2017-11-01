@@ -599,6 +599,30 @@ CAMLprim value caml_mpfr_pow_si (value prec, value op1, value op2, value rnd)
   CAMLreturn (caml_tuple2 (rop, Val_int (ter)));
 }
 
+CAMLprim value caml_mpfr_ui_pow_ui (value prec, value op1, value op2, value rnd)
+{
+  CAMLparam3 (op1, op2, rnd);
+  CAMLlocal1 (rop);
+  int ter;
+
+  rop = caml_mpfr_init2 (prec);
+  ter = mpfr_ui_pow_ui (MPFR_val (rop), SI_val (op1), SI_val (op2), rnd_val (rnd));
+
+  CAMLreturn (caml_tuple2 (rop, Val_int (ter)));
+}
+
+CAMLprim value caml_mpfr_ui_pow (value prec, value op1, value op2, value rnd)
+{
+  CAMLparam3 (op1, op2, rnd);
+  CAMLlocal1 (rop);
+  int ter;
+
+  rop = caml_mpfr_init2 (prec);
+  ter = mpfr_ui_pow (MPFR_val (rop), SI_val (op1), MPFR_val (op2), rnd_val (rnd));
+
+  CAMLreturn (caml_tuple2 (rop, Val_int (ter)));
+}
+
 CAMLprim value caml_mpfr_neg (value prec, value op, value rnd)
 {
   CAMLparam2 (op, rnd);

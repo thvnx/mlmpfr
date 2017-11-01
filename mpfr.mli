@@ -14,7 +14,7 @@ memory management;}
 {- functions managing the following types are not supported: {e
 unsigned long int}, {e uintmax_t}, {e intmax_t}, {e float}, {e long
 double}, {e _Decimal64}, {e mpz_t}, {e mpq_t}, and {e mpf_t}. Except
-for {e mpfr_sqrt_ui}, {e mpfr_fac_ui} and {e mpfr_zeta_ui} which are
+for {e mpfr_sqrt_ui}, {e mpfr_ui_pow}, {e mpfr_ui_pow_ui}, {e mpfr_fac_ui} and {e mpfr_zeta_ui} which are
 partially supported on the range of the positive values of an OCaml
 signed integer. In fact, only the OCaml native types ([int], [float],
 and [string]) are supported, assuming that a [float] is a
@@ -35,6 +35,10 @@ exception Precision_range of int
 (** [Base_range] is raised if base does not fit the base range
 (between [2] and [64]), or [0] for automatic detection. *)
 exception Base_range of int
+
+(** [Invalid_math] is raised if an invalid math operation is
+detected. *)
+exception Invalid_math of string
 
 type sign = Positive | Negative
 
@@ -136,7 +140,75 @@ returns a full-formatted string. *)
 val fits_int_p : ?rnd:mpfr_rnd_t -> mpfr_float -> bool
 (** Return true if the mpfr_float would fit in a int, when rounded to an integer in the direction [~rnd]. *)
 
-(** {0 Basic Arithmetic} *)
+(** {2 Basic Arithmetic} *)
+
+val add : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float -> mpfr_float
+val add_int : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> int -> mpfr_float
+val add_float : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> float -> mpfr_float
+val sub : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float -> mpfr_float
+val sub_int : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> int -> mpfr_float
+val int_sub : ?rnd:mpfr_rnd_t -> ?prec:int -> int -> mpfr_float -> mpfr_float
+val sub_float : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> float -> mpfr_float
+val float_sub : ?rnd:mpfr_rnd_t -> ?prec:int -> float -> mpfr_float -> mpfr_float
+val mul : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float -> mpfr_float
+val mul_int : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> int -> mpfr_float
+val mul_float : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> float -> mpfr_float
+val div : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float -> mpfr_float
+val div_int : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> int -> mpfr_float
+val int_div : ?rnd:mpfr_rnd_t -> ?prec:int -> int -> mpfr_float -> mpfr_float
+val div_float : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> float -> mpfr_float
+val float_div : ?rnd:mpfr_rnd_t -> ?prec:int -> float -> mpfr_float -> mpfr_float
+val sqrt : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
+(** Addition subtraction, multiply, divide, and square root operations for different conbinations
+(described above) of [mpfr_float], [int], and [float] operands.
+For instance, [add_int ~rnd:r ~prec:p x 1] adds [1] to [x].
+Result is computed with precision [p] and rounded in the direction [r].
+@raise Precision_range if precision not allowed. *)
+
+(** [sqrt_int ~rnd:r ~prec:p x] returns the square root of [x]
+(computed with precision [p]) rounded in the direction [r].
+@raise Invalid_math if [x] is negative.
+@raise Precision_range if precision not allowed. *)
+val sqrt_int : ?rnd:mpfr_rnd_t -> ?prec:int -> int -> mpfr_float
+
+(** Compute the reciprocal square root of an [mpfr_float] number.
+@raise Precision_range if precision not allowed. *)
+val rec_sqrt : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
+
+val cbrt : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
+val root : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> int -> mpfr_float
+(** [cbrt ~rnd:r ~prec:p x] (resp. [root ~rnd:r ~prec:p x k]) returns
+the cubic root (resp. the [k]-th root) of [x], in precision [p],
+rounded in the direction [r].
+@raise Precision_range if precision not allowed. *)
+
+val pow : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float -> mpfr_float
+val pow_int : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> int -> mpfr_float
+val int_pow : ?rnd:mpfr_rnd_t -> ?prec:int -> int -> mpfr_float -> mpfr_float
+val int_pow_int : ?rnd:mpfr_rnd_t -> ?prec:int -> int -> int -> mpfr_float
+(** [pow ~rnd:r ~prec:p x y], [pow_int ~rnd:r ~prec:p x y], [int_pow
+~rnd:r ~prec:p x y], and [int_pow_int ~rnd:r ~prec:p x y] compute [x]
+raised to [y], in precision [p], rounded in the direction [r].
+@raise Invalid_math if [x] or [y] is negative.
+@raise Precision_range if precision not allowed. *)
+
+val neg : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
+(** Compute the negation of an [mpfr_float] number.
+@raise Precision_range if precision not allowed. *)
+val abs : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
+(** Compute the absolute value of an [mpfr_float] number.
+@raise Precision_range if precision not allowed. *)
+val dim : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float -> mpfr_float
+(** [dim ~rnd:r ~prec:p x y] returs the positive difference of [x] and
+[y] in precision [p], i.e., [x - y] rounded in the direction [r] if [x
+> y], [+0] if [x <= y], and NaN if [x] or [y] is NaN.
+@raise Precision_range if precision not allowed. *)
+val mul_2int : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> int -> mpfr_float
+val div_2int : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> int -> mpfr_float
+(** [mul_2int ~rnd:r ~prec:p x y] (resp. [div_2int ~rnd:r ~prec:p x y]) returns [x]
+times (resp. divided by) 2 raised to [y] in precision [p], rounded in the direction [r].
+@raise Precision_range if precision not allowed. *)
+
 (** {0 Comparison} *)
 (** {0 Special} *)
 (** {0 Input and Output} *)
