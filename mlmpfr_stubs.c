@@ -659,7 +659,7 @@ CAMLprim value caml_mpfr_dim (value prec, value op1, value op2, value rnd)
   CAMLreturn (caml_tuple2 (rop, Val_int (ter)));
 }
 
-CAMLprim value mpfr_mul_2si_ml (value prec, value op1, value op2, value rnd)
+CAMLprim value caml_mpfr_mul_2si (value prec, value op1, value op2, value rnd)
 {
   CAMLparam3 (op1, op2, rnd);
   CAMLlocal1 (rop);
@@ -671,7 +671,7 @@ CAMLprim value mpfr_mul_2si_ml (value prec, value op1, value op2, value rnd)
   CAMLreturn (caml_tuple2 (rop, Val_int (ter)));
 }
 
-CAMLprim value mpfr_div_2si_ml (value prec, value op1, value op2, value rnd)
+CAMLprim value caml_mpfr_div_2si (value prec, value op1, value op2, value rnd)
 {
   CAMLparam3 (op1, op2, rnd);
   CAMLlocal1 (rop);
