@@ -14,7 +14,7 @@ memory management;}
 {- functions managing the following types are not supported: {e
 unsigned long int}, {e uintmax_t}, {e intmax_t}, {e float}, {e long
 double}, {e _Decimal64}, {e mpz_t}, {e mpq_t}, and {e mpf_t}. Except
-for {e mpfr_sqrt_ui}, {e mpfr_ui_pow}, {e mpfr_ui_pow_ui}, {e mpfr_fac_ui} and {e mpfr_zeta_ui} which are
+for {e mpfr_sqrt_ui}, {e mpfr_fac_ui} and {e mpfr_zeta_ui} which are
 partially supported on the range of the positive values of an OCaml
 signed integer. In fact, only the OCaml native types ([int], [float],
 and [string]) are supported, assuming that a [float] is a
@@ -35,10 +35,6 @@ exception Precision_range of int
 (** [Base_range] is raised if base does not fit the base range
 (between [2] and [64]), or [0] for automatic detection. *)
 exception Base_range of int
-
-(** [Invalid_math] is raised if an invalid math operation is
-detected. *)
-exception Invalid_math of string
 
 type sign = Positive | Negative
 
@@ -135,7 +131,7 @@ value of [x]. Decimal is the default base and default size is zero.
 
 val get_formatted_str : ?rnd:mpfr_rnd_t -> ?base:int -> ?size:int -> mpfr_float -> string
 (** [get_formatted_str] is identical to [get_str] except that it
-returns a full-formatted string. *)
+returns a full-formatted string (equivalent to {e mpfr_printf("%.Re", x)}). *)
 
 val fits_int_p : ?rnd:mpfr_rnd_t -> mpfr_float -> bool
 (** Return true if the mpfr_float would fit in a int, when rounded to an integer in the direction [~rnd]. *)
@@ -166,8 +162,7 @@ Result is computed with precision [p] and rounded in the direction [r].
 @raise Precision_range if precision not allowed. *)
 
 (** [sqrt_int ~rnd:r ~prec:p x] returns the square root of [x]
-(computed with precision [p]) rounded in the direction [r].
-@raise Invalid_math if [x] is negative.
+(computed with precision [p]) rounded in the direction [r]. Return [nan] if [x] is negative.
 @raise Precision_range if precision not allowed. *)
 val sqrt_int : ?rnd:mpfr_rnd_t -> ?prec:int -> int -> mpfr_float
 
@@ -178,16 +173,13 @@ val rec_sqrt : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
 val cbrt : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
 val root : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> int -> mpfr_float
 (** [cbrt ~rnd:r ~prec:p x] (resp. [root ~rnd:r ~prec:p x k]) returns
-the cubic root (resp. the [k]-th root) of [x], in precision [p],
+<the cubic root (resp. the [k]-th root) of [x], in precision [p],
 rounded in the direction [r].
 @raise Precision_range if precision not allowed. *)
 
 val pow : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float -> mpfr_float
 val pow_int : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> int -> mpfr_float
-val int_pow : ?rnd:mpfr_rnd_t -> ?prec:int -> int -> mpfr_float -> mpfr_float
-val int_pow_int : ?rnd:mpfr_rnd_t -> ?prec:int -> int -> int -> mpfr_float
-(** [pow ~rnd:r ~prec:p x y], [pow_int ~rnd:r ~prec:p x y], [int_pow
-~rnd:r ~prec:p x y], and [int_pow_int ~rnd:r ~prec:p x y] compute [x]
+(** [pow ~rnd:r ~prec:p x y] and [pow_int ~rnd:r ~prec:p x y] compute [x]
 raised to [y], in precision [p], rounded in the direction [r].
 @raise Invalid_math if [x] or [y] is negative.
 @raise Precision_range if precision not allowed. *)
