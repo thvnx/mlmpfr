@@ -159,7 +159,7 @@ val int_div : ?rnd:mpfr_rnd_t -> ?prec:int -> int -> mpfr_float -> mpfr_float
 val div_float : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> float -> mpfr_float
 val float_div : ?rnd:mpfr_rnd_t -> ?prec:int -> float -> mpfr_float -> mpfr_float
 val sqrt : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
-(** Addition subtraction, multiply, divide, and square root operations for different conbinations
+(** Addition subtraction, multiply, divide, and square root operations for different combinations
 (described above) of [mpfr_float], [int], and [float] operands.
 For instance, [add_int ~rnd:r ~prec:p x 1] adds [1] to [x].
 Result is computed with precision [p] and rounded in the direction [r].
