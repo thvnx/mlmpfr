@@ -1,0 +1,5 @@
+*.cmi
+*.cmo
+testsuite/*.gcc
+testsuite/*.ocaml
+*.o
