@@ -1,4 +1,4 @@
-TESTS=initializationfunctions conversionfunctions basicarithmeticfunctions
+TESTS=initializationfunctions conversionfunctions basicarithmeticfunctions comparisonfunctions
 
 all:
 	@for tst in $(TESTS) ; do \
