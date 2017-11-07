@@ -94,7 +94,7 @@ static int rnd_val (value r)
 static int rnd_val_opt (value r)
 {
   return r == Val_none
-    ? rnd_val(Val_int (mpfr_get_default_rounding_mode ()))
+    ? rnd_val (Val_int (mpfr_get_default_rounding_mode ()))
     : rnd_val (Some_val (r));
 }
 
@@ -107,6 +107,16 @@ static int sign_val (value s)
     default:
       caml_failwith(__FUNCTION__);
     }
+}
+
+static value val_sign (int s)
+{
+  CAMLparam0 ();
+
+  if (s >= 0)
+    CAMLreturn (Val_int (0));
+  else
+    CAMLreturn (Val_int (1));
 }
 
 static value caml_tuple2 (value e1, value e2)

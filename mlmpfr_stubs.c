@@ -804,7 +804,7 @@ CAMLprim value caml_mpfr_regular_p (value op)
 CAMLprim value caml_mpfr_sgn (value op)
 {
   CAMLparam1 (op);
-  CAMLreturn (Val_int (mpfr_sgn (MPFR_val2 (op))));
+  CAMLreturn (val_sign (mpfr_sgn (MPFR_val2 (op))));
 }
 
 CAMLprim value caml_mpfr_greater_p (value op1, value op2)

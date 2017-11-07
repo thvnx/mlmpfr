@@ -90,6 +90,26 @@ external dim : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> mpfr_float 
 external mul_2int : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> int -> mpfr_float = "caml_mpfr_mul_2si"
 external div_2int : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> int -> mpfr_float = "caml_mpfr_div_2si"
 
+(* Comparison Functions *)
+external cmp : mpfr_float -> mpfr_float -> int = "caml_mpfr_cmp"
+external cmp_int : mpfr_float -> int -> int = "caml_mpfr_cmp_si"
+external cmp_float : mpfr_float -> float -> int = "caml_mpfr_cmp_d"
+external cmp_int_2exp : mpfr_float -> int -> int -> int = "caml_mpfr_cmp_si_2exp"
+external cmpabs : mpfr_float -> mpfr_float -> int = "caml_mpfr_cmpabs"
+external nan_p : mpfr_float -> bool = "caml_mpfr_nan_p"
+external inf_p : mpfr_float -> bool = "caml_mpfr_inf_p"
+external number_p : mpfr_float -> bool = "caml_mpfr_number_p"
+external zero_p : mpfr_float -> bool = "caml_mpfr_zero_p"
+external regular_p : mpfr_float -> bool = "caml_mpfr_regular_p"
+external sgn : mpfr_float -> sign = "caml_mpfr_sgn"
+external greater_p : mpfr_float -> mpfr_float -> bool = "caml_mpfr_greater_p"
+external greaterequal_p : mpfr_float -> mpfr_float -> bool = "caml_mpfr_greaterequal_p"
+external less_p : mpfr_float -> mpfr_float -> bool = "caml_mpfr_less_p"
+external lessequal_p : mpfr_float -> mpfr_float -> bool = "caml_mpfr_lessequal_p"
+external equal_p : mpfr_float -> mpfr_float -> bool = "caml_mpfr_equal_p"
+external lessgreater_p : mpfr_float -> mpfr_float -> bool = "caml_mpfr_lessgreater_p"
+external unordered_p : mpfr_float -> mpfr_float -> bool = "caml_mpfr_unordered_p"
+
 (* Others *)
 let get_formatted_str ?rnd:(rnd = To_Nearest) ?base:(base = 10) ?size:(size = 0) x =
   let rec remove_trailing_zeros s =
@@ -99,7 +119,7 @@ let get_formatted_str ?rnd:(rnd = To_Nearest) ?base:(base = 10) ?size:(size = 0)
   in
   let significand, exponent = get_str ~rnd:rnd ~base:base ~size:size x in
   let neg = if significand.[0] == '-' then true else false in
-  let zero = mpfr_zero_p x in (* if x is zero, print 0e+00 *)
+  let zero = zero_p x in (* if x is zero, print 0e+00 *)
   if zero then
     Printf.sprintf "%s0%c+00" (if neg then "-" else "") (if base > 10 then '@' else 'e')
   else

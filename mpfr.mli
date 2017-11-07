@@ -42,7 +42,12 @@ mpfr_get_patches}, {e mpfr_buildopt_*}, and macros {e MPFR_VERSION*}
 are not implemented.}}
 
 In the sequel, if not provided, optional parameters [prec] and [rnd]
-are set to MPFR's defaults precision and rounding mode. *)
+are set to MPFR's defaults precision and rounding mode.
+
+Some of the comments below are derived from the
+{{:http://www.mpfr.org/mpfr-current/mpfr.html}MPFR documentation}
+itself. Nevertheless, please refer to the original documentation for
+further explanations. *)
 
 (** [Precision_range] is raised if precision does not fit the
 precision range (between [mpfr_prec_min] and [mpfr_prec_max]). *)
@@ -217,7 +222,41 @@ val div_2int : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> int -> mpfr_float
 times (resp. divided by) 2 raised to [y] in precision [p], rounded in the direction [r].
 @raise Precision_range if precision not allowed. *)
 
-(** {0 Comparison} *)
+(** {2 Comparison} *)
+
+(** Operators [=], [<>], [>], [<], [>=], and [<=] are supported. They are based on {e mpfr_cmp}. *)
+
+val cmp : mpfr_float -> mpfr_float -> int
+val cmp_int : mpfr_float -> int -> int
+val cmp_float : mpfr_float -> float -> int
+(** [cmp a b] (as weel as [cmp_int] and [cmp_float]) returns a positive value if [a] > [b], zero if [a] = [b], and a negative value if [a] < [b]. If one of the operands is NaN, set the [Erange] flag and return zero. *)
+
+val cmp_int_2exp : mpfr_float -> int -> int -> int
+(** [cmp_int_2exp a b e] compares [a] and [b] multiplied by two to the power [e]. Similar as above. *)
+
+val cmpabs : mpfr_float -> mpfr_float -> int
+(** [cmpabs a b] returns a positive value if [|a|] > [|b|], zero if [|a|] = [|b|], and a negative value if [|a|] < [|b|]. *)
+
+val nan_p : mpfr_float -> bool
+val inf_p : mpfr_float -> bool
+val number_p : mpfr_float -> bool
+val zero_p : mpfr_float -> bool
+val regular_p : mpfr_float -> bool
+(** Return true if [mpfr_float] is respectively NaN, an infinity, an ordinary number (i.e., neither NaN nor an infinity), zero, or a regular number (i.e., neither NaN, nor an infinity nor zero). Return false otherwise. *)
+
+val sgn : mpfr_float -> sign
+(** Return the sign of a [mpfr_float] number. *)
+
+val greater_p : mpfr_float -> mpfr_float -> bool
+val greaterequal_p : mpfr_float -> mpfr_float -> bool
+val less_p : mpfr_float -> mpfr_float -> bool
+val lessequal_p : mpfr_float -> mpfr_float -> bool
+val equal_p : mpfr_float -> mpfr_float -> bool
+val lessgreater_p : mpfr_float -> mpfr_float -> bool
+(** Operators [=], [<>], [>], [<], [>=], and [<=] with MPFR syntax style. *)
+val unordered_p : mpfr_float -> mpfr_float -> bool
+(** Return true if the operands are comparable (i.e. one of them is a NaN), false otherwise. *)
+
 (** {0 Special} *)
 (** {0 Input and Output} *)
 (** {0 Integer and Remainder Related} *)
