@@ -63,7 +63,7 @@ type mpfr_t
 {{:http://www.mpfr.org/mpfr-current/mpfr.html#Rounding-Modes}[ternary]}
 value indicates if it was correctly rounded. *)
 type ternary =
-  Correctly_Rounded
+  Correct_Rounding
 | Greater
 | Lower
 
@@ -86,14 +86,14 @@ val mpfr_prec_max : int (** Maximum allowed precision. *)
 
 (** {2 Initialization} *)
 
-(** [set_default_precision p] sets the default working precision to [p]. *)
-val set_default_precision : int -> unit
+(** [set_default_prec p] sets the default working precision to [p]. *)
+val set_default_prec : int -> unit
 (** @raise Precision_range if [p] is not allowed. *)
 
-val get_default_precision : unit -> int
+val get_default_prec : unit -> int
 
-(** [get_precision x] returns the precision of [x]. *)
-val get_precision : mpfr_float -> int
+(** [get_prec x] returns the precision of [x]. *)
+val get_prec : mpfr_float -> int
 
 val make_from_mpfr : ?prec:int -> ?rnd:mpfr_rnd_t -> mpfr_float -> mpfr_float
 val make_from_int : ?prec:int -> ?rnd:mpfr_rnd_t -> int -> mpfr_float

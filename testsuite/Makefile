@@ -2,7 +2,7 @@ TESTS=initializationfunctions conversionfunctions basicarithmeticfunctions
 
 all:
 	@for tst in $(TESTS) ; do \
-		ocamlc -I .. -custom -o $$tst.ocaml ../mlmpfr.cmo ../mpfr.cmo $$tst.ml ../mlmpfr_stubs.o -cclib -lmpfr ; \
+		ocamlc -I .. -custom -o $$tst.ocaml ../mpfr.cmo $$tst.ml ../mlmpfr_stubs.o -cclib -lmpfr ; \
 		gcc -o $$tst.gcc $$tst.c -lmpfr ; \
 	done
 

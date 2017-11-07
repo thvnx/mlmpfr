@@ -1,8 +1,7 @@
 all:
-	ocamlc -c mlmpfr.ml
 	ocamlc -c mlmpfr_stubs.c
-	ocamlc -c mpfr.mli
-	ocamlc -c mpfr.ml
+	ocamlc -w +A-4 -c mpfr.mli
+	ocamlc -w +A-4 -c mpfr.ml
 
 check: all
 	cd testsuite && make check

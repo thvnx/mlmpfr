@@ -25,6 +25,7 @@
 #include <caml/alloc.h>
 #include <caml/custom.h>
 #include <caml/fail.h>
+#include <caml/callback.h>
 
 static int custom_compare (value, value);
 
@@ -40,12 +41,41 @@ static struct custom_operations mpfr_ops = {
   custom_compare_ext_default
 };
 
+#define Val_none Val_int(0)
+#define Some_val(v) Field(v,0)
+
+static value val_some (value v)
+{
+  CAMLparam1 (v);
+  CAMLlocal1 (some);
+  some = caml_alloc (1, 0);
+  Store_field (some, 0, v);
+  CAMLreturn (some);
+}
+
 #define MPFR_val(m) (*((mpfr_t *) Data_custom_val (m)))
+#define MPFR_val2(m) (*((mpfr_t *) Data_custom_val (Field(m, 0))))
 #define SI_val(s) ((long int) Int_val (s))
 #define UI_val(s) ((unsigned long int) Int_val (s))
 #define DBL_val(d) (Double_val (d))
 #define EXP_val(e) ((mpfr_exp_t) Int_val (e))
 #define PREC_val(p) ((mpfr_prec_t) Int_val (p))
+
+static value val_ter (value v)
+{
+  CAMLparam1 (v);
+  CAMLlocal1 (ter);
+  int tv = SI_val (v);
+
+  if (tv == 0)
+    ter = Val_int (0);
+  else if ( tv > 0)
+    ter = Val_int (1);
+  else
+    ter = Val_int (2);
+
+  CAMLreturn (ter);
+}
 
 static int rnd_val (value r)
 {
@@ -61,12 +91,35 @@ static int rnd_val (value r)
     }
 }
 
+static int rnd_val_opt (value r)
+{
+  return r == Val_none
+    ? rnd_val(Val_int (mpfr_get_default_rounding_mode ()))
+    : rnd_val (Some_val (r));
+}
+
+static int sign_val (value s)
+{
+  switch (Long_val (s))
+    {
+    case 0: return 1;
+    case 1: return -1;
+    default:
+      caml_failwith(__FUNCTION__);
+    }
+}
+
 static value caml_tuple2 (value e1, value e2)
 {
   value t = caml_alloc_tuple (2);
   Store_field (t, 0, e1);
   Store_field (t, 1, e2);
   return t;
+}
+
+static value mpfr_float (value mpfr_t, value ternary)
+{
+  return caml_tuple2 (mpfr_t, ternary);
 }
 
 static value caml_tuple3 (value e1, value e2, value e3)
@@ -87,5 +140,7 @@ static value caml_tuple3 (value e1, value e2, value e3)
     ter = N (MPFR_val (rop), MPFR_val (op), rnd_val (rnd));	\
     CAMLreturn (caml_tuple2 (rop, Val_int (ter)));		\
   }
+
+value caml_mpfr_get_default_prec ();
 
 #endif
