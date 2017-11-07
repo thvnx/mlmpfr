@@ -747,19 +747,19 @@ CAMLprim value caml_mpfr_cmp (value op1, value op2)
   CAMLreturn (Val_int (mpfr_cmp (MPFR_val2 (op1), MPFR_val2 (op2))));
 }
 
-CAMLprim value caml_mpfr_cmp_int (value op1, value op2)
+CAMLprim value caml_mpfr_cmp_si (value op1, value op2)
 {
   CAMLparam2 (op1, op2);
   CAMLreturn (Val_int (mpfr_cmp_si (MPFR_val2 (op1), SI_val (op2))));
 }
 
-CAMLprim value caml_mpfr_cmp_float (value op1, value op2)
+CAMLprim value caml_mpfr_cmp_d (value op1, value op2)
 {
   CAMLparam2 (op1, op2);
   CAMLreturn (Val_int (mpfr_cmp_d (MPFR_val2 (op1), Double_val (op2))));
 }
 
-CAMLprim value mpfr_cmp_si_2exp_ml (value op1, value op2, value exp)
+CAMLprim value caml_mpfr_cmp_si_2exp (value op1, value op2, value exp)
 {
   CAMLparam3 (op1, op2, exp);
   CAMLreturn (Val_int (mpfr_cmp_si_2exp (MPFR_val2 (op1), SI_val (op2), EXP_val (exp))));

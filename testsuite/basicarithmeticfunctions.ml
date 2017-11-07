@@ -51,4 +51,5 @@ let _ =
   all (M.make_from_float ((~-. 4.) /. 3.)) (M.make_from_float (1. /. 10.)); printf "\n";
   all (M.make_from_float (1. /. 3.)) (M.make_from_float ((~-. 113.) /. 10.)); printf "\n";
   all (M.make_zero M.Positive) (M.make_from_float ((~-. 1.) /. 10.)); printf "\n";
-  all (M.make_zero M.Negative) (M.make_zero M.Negative)
+  all (M.make_zero M.Negative) (M.make_zero M.Negative);
+  Gc.full_major (); (* garbage collector full major *)

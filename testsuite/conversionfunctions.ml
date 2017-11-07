@@ -28,4 +28,5 @@ let _ =
   let m, n = M.get_str x in
   printf "%s %s\n" m n;
   printf "%s\n" (M.get_formatted_str x);
-  printf "%b\n" (M.fits_int_p x)
+  printf "%b\n" (M.fits_int_p x);
+  Gc.full_major (); (* garbage collector full major *)
