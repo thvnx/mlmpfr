@@ -87,6 +87,7 @@ type mpfr_rnd_t =
 | Away_From_Zero
 
 val mpfr_prec_min : int (** Minimum allowed precision. *)
+
 val mpfr_prec_max : int (** Maximum allowed precision. *)
 
 (** {2 Initialization} *)
@@ -208,14 +209,17 @@ raised to [y], in precision [p], rounded in the direction [r].
 val neg : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
 (** Compute the negation of an [mpfr_float] number.
 @raise Precision_range if precision not allowed. *)
+
 val abs : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
 (** Compute the absolute value of an [mpfr_float] number.
 @raise Precision_range if precision not allowed. *)
+
 val dim : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float -> mpfr_float
 (** [dim ~rnd:r ~prec:p x y] returs the positive difference of [x] and
 [y] in precision [p], i.e., [x - y] rounded in the direction [r] if [x
 > y], [+0] if [x <= y], and NaN if [x] or [y] is NaN.
 @raise Precision_range if precision not allowed. *)
+
 val mul_2int : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> int -> mpfr_float
 val div_2int : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> int -> mpfr_float
 (** [mul_2int ~rnd:r ~prec:p x y] (resp. [div_2int ~rnd:r ~prec:p x y]) returns [x]
@@ -254,6 +258,7 @@ val lessequal_p : mpfr_float -> mpfr_float -> bool
 val equal_p : mpfr_float -> mpfr_float -> bool
 val lessgreater_p : mpfr_float -> mpfr_float -> bool
 (** Operators [=], [<>], [>], [<], [>=], and [<=] with MPFR syntax style. *)
+
 val unordered_p : mpfr_float -> mpfr_float -> bool
 (** Return true if the operands are comparable (i.e. one of them is a NaN), false otherwise. *)
 
