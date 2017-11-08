@@ -56,6 +56,7 @@ static value val_some (value v)
 #define MPFR_val(m) (*((mpfr_t *) Data_custom_val (m)))
 #define MPFR_val2(m) (*((mpfr_t *) Data_custom_val (Field(m, 0))))
 #define SI_val(s) ((long int) Int_val (s))
+#define SI_val2(s) ((long int) Int_val (Field(s, 1)))
 #define UI_val(s) ((unsigned long int) Int_val (s))
 #define DBL_val(d) (Double_val (d))
 #define EXP_val(e) ((mpfr_exp_t) Int_val (e))
@@ -141,14 +142,14 @@ static value caml_tuple3 (value e1, value e2, value e3)
   return t;
 }
 
-#define MPFR_REGULAR_FUNCTION1(N)				\
-  {								\
-    CAMLparam2 (op, rnd);					\
-    CAMLlocal1 (rop);						\
-    int ter;							\
-    rop = caml_mpfr_init2 (prec);				\
-    ter = N (MPFR_val (rop), MPFR_val (op), rnd_val (rnd));	\
-    CAMLreturn (caml_tuple2 (rop, Val_int (ter)));		\
+#define MPFR_REGULAR_FUNCTION1(N)				 \
+  {								 \
+    CAMLparam2 (op, rnd);					 \
+    CAMLlocal1 (rop);						 \
+    int ter;							 \
+    rop = caml_mpfr_init2 (prec);				 \
+    ter = N (MPFR_val (rop), MPFR_val2 (op), rnd_val_opt (rnd)); \
+    CAMLreturn (mpfr_float (rop, val_some (ter)));		 \
   }
 
 value caml_mpfr_get_default_prec ();
