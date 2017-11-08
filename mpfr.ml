@@ -28,12 +28,6 @@ exception Precision_range of int
 let _ = Callback.register_exception "precision range exception" (Precision_range 0)
 let _ = Callback.register_exception "base range exception" (Base_range 0)
 
-let rounding_to_string = function
-    _, Some Correct_Rounding -> "Correct"
-  | _, Some Lower            -> "Lower"
-  | _, Some Greater          -> "Greater"
-  | _                        -> "No_Rounding"
-
 external mpfr_prec_min : unit -> int = "caml_mpfr_prec_min"
 external mpfr_prec_max : unit -> int = "caml_mpfr_prec_max"
 let mpfr_prec_min = mpfr_prec_min ()
