@@ -1380,11 +1380,12 @@ CAMLprim value caml_mpfr_modf (value rnd, value iprec, value fprec, value op)
 
   if (ret == 0)
     CAMLreturn (caml_tuple2
-		(mpfr_float
-		 (iop, val_some (ret)), mpfr_float (fop, val_some (ret))));
+		(mpfr_float (iop, val_some (val_ter (ret))),
+		 mpfr_float (fop, val_some (val_ter (ret)))));
   else
     CAMLreturn (caml_tuple2
-		(mpfr_float (iop, Val_none), mpfr_float (fop, Val_none)));
+		(mpfr_float (iop, Val_none),
+		 mpfr_float (fop, Val_none)));
 }
 
 CAMLprim value caml_mpfr_fmod (value rnd, value prec, value x, value y)

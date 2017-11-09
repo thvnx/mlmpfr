@@ -529,6 +529,64 @@ uses [Pervasives.input_line] and [Mpfr.make_from_str]. *)
 val inp_str : in_channel -> int -> int -> mpfr_rnd_t -> mpfr_float
 
 (** {2 Integer and Remainder Related} *)
+
+(** If not provided, default values for [rnd] and [prec] are the defaults MPFR precision and rounding mode
+internal settings (use [Mpfr.set_default_rounding_mode] or [Mpfr.set_default_prec] to modify them). *)
+
+(** Retrun the input rounded to an integer, i.e. the nearest representable integer in the direction [~rnd]. *)
+val rint : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float ->  mpfr_float
+
+(** Retrun the input rounded to an integer, i.e. the next higher or equal representable integer. *)
+val ceil : ?prec:int -> mpfr_float -> mpfr_float
+
+(** Retrun the input rounded to an integer, i.e. the next lower or equal representable integer. *)
+val floor : ?prec:int -> mpfr_float -> mpfr_float
+
+(** Retrun the input rounded to an integer, i.e. the nearest representable integer (rounding halfway cases
+away from zero (as in the roundTiesToAway mode of IEEE 754-2008)). *)
+val round : ?prec:int -> mpfr_float -> mpfr_float
+
+(** Retrun the input rounded to an integer, i.e. the nearest representable integer toward zero. *)
+val trunc : ?prec:int -> mpfr_float -> mpfr_float
+
+(** Retrun the input rounded to an integer, i.e. the next higher or equal representable integer.
+If the result is not representable, it is rounded in the direction [~rnd] *)
+val rint_ceil : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
+
+(** Retrun the input rounded to an integer, i.e. the next lower or equal representable integer.
+If the result is not representable, it is rounded in the direction [~rnd] *)
+val rint_floor : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
+
+(** Retrun the input rounded to an integer, i.e. the nearest representable integer (rounding halfway
+cases away from zero). If the result is not representable, it is rounded in the direction [~rnd] *)
+val rint_round : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
+
+(** Retrun the input rounded to an integer, i.e. the next integer toward zero.
+If the result is not representable, it is rounded in the direction [~rnd] *)
+val rint_trunc : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
+
+(** Return the fractional part of an [mpfr_float] (with the same sign). *)
+val frac : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
+
+(** Return simultaneously the integral part and the fractional part of an [mpfr_float]. *)
+val modf : ?rnd:mpfr_rnd_t -> ?iprec:int -> ?fprec:int -> mpfr_float -> mpfr_float * mpfr_float
+
+(** [Mpfr.fmod x y] returns the value [x - ny], where [n] is the integer quotient of [x / y]
+(rounded toward zero). *)
+val fmod : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float -> mpfr_float
+
+(** [Mpfr.remainder x y] returns the value [x - ny], where [n] is the integer quotient of [x / y]
+(rounded to the nearest integer, ties rounded to even). *)
+val remainder : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float -> mpfr_float
+
+(** [Mpfr.remquo x y] returns the tuple ([x - ny], q), where [n] is the integer quotient of [x / y] (rounded to the
+ nearest integer, ties rounded to even), and [q] are the low significant bits from the quotient [n] with the sign
+of [x] divided by [y] (except if those low bits are all zero, in which case zero is returned). *)
+val remquo : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float -> mpfr_float * int
+
+(** Return true iff the input [mpfr_float] is an integer. *)
+val integer_p : mpfr_float -> bool
+
 (** {2 Rounding Related} *)
 (** {2 Miscellaneous} *)
 (** {2 Exception Related} *)

@@ -195,7 +195,7 @@ let inp_str chan base prec rnd =
   let str = input_line chan in make_from_str ~rnd:rnd ~prec:prec ~base:base str
 
 (* Integer and Remainder Related Functions *)
-external mpfr_rint : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float ->  mpfr_float = "caml_mpfr_rint"
+external rint : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float ->  mpfr_float = "caml_mpfr_rint"
 external ceil : ?prec:mpfr_prec_t -> mpfr_float -> mpfr_float = "caml_mpfr_ceil"
 external floor : ?prec:mpfr_prec_t -> mpfr_float -> mpfr_float = "caml_mpfr_floor"
 external round : ?prec:mpfr_prec_t -> mpfr_float -> mpfr_float = "caml_mpfr_round"
