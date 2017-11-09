@@ -30,16 +30,16 @@ provided too, and so, the garbage collector is in charge of memory
 management;} {- functions managing the following types are not
 supported: {e unsigned long int}, {e uintmax_t}, {e intmax_t}, {e
 float}, {e long double}, {e _Decimal64}, {e mpz_t}, {e mpq_t}, and {e
-mpf_t}. Except for {e mpfr_sqrt_ui}, {e mpfr_fac_ui} and {e
-mpfr_zeta_ui} which are partially supported on the range of the
-positive values of an OCaml signed integer. In fact, only the OCaml
-native types ([int], [float], and [string]) are supported, assuming
-that a [float] is a double-precision floating-point number and an
-[int] is a 64-bits signed integer. Thus, all functions named with {e
-*_ui*} or {e *_d*} are renamed here with {e *_int*} or {e *_float*},
-respectively;} {- bindings to functions {e mpfr_*printf}, {e
-mpfr_*random*}, {e mpfr_get_patches}, {e mpfr_buildopt_*}, and macros
-{e MPFR_VERSION*} are not implemented.}}
+mpf_t}. Except for {e mpfr_sqrt_ui} and {e mpfr_fac_ui} which are
+partially supported on the range of the positive values of an OCaml
+signed integer. In fact, only the OCaml native types ([int], [float],
+and [string]) are supported, assuming that a [float] is a
+double-precision floating-point number and an [int] is a 64-bits
+signed integer. Thus, all functions named with {e *_ui*} or {e *_d*}
+are renamed here with {e *_int*} or {e *_float*}, respectively;} {-
+bindings to functions {e mpfr_*printf}, {e mpfr_*random*}, {e
+mpfr_get_patches}, {e mpfr_buildopt_*}, and macros {e MPFR_VERSION*}
+are not implemented.}}
 
 In the sequel, if not provided, optional parameters [prec] and [rnd]
 are set to MPFR's defaults precision and rounding mode. Functions
@@ -271,7 +271,8 @@ val div_2int : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> int -> mpfr_float
 
 (** {2 Comparison} *)
 
-(** Operators [=], [<>], [>], [<], [>=], and [<=] are supported. They are based on {e mpfr_cmp}. *)
+(** Operators [=], [<>], [>], [<], [>=], and [<=] are supported. They
+are based on {e mpfr_cmp}. *)
 
 (** [Mpfr.cmp a b] returns a positive value if [a] > [b], zero if [a]
 = [b], and a negative value if [a] < [b]. If one of the operands is
@@ -296,11 +297,13 @@ val nan_p : mpfr_float -> bool (** Its a NaN. *)
 
 val inf_p : mpfr_float -> bool (** Its an infinity. *)
 
-val number_p : mpfr_float -> bool (** Its a ordinary number (i.e., neither NaN nor an infinity). *)
+(** Its a ordinary number (i.e., neither NaN nor an infinity). *)
+val number_p : mpfr_float -> bool
 
 val zero_p : mpfr_float -> bool (** Its a zero. *)
 
-val regular_p : mpfr_float -> bool (** Its a regular number (i.e., neither NaN, nor an infinity nor zero). *)
+(** Its a regular number (i.e., neither NaN, nor an infinity nor zero). *)
+val regular_p : mpfr_float -> bool
 
 (** Return the sign of a [mpfr_float] number. *)
 val sgn : mpfr_float -> sign
@@ -321,8 +324,194 @@ val lessgreater_p : mpfr_float -> mpfr_float -> bool (** Operator [<>] in MPFR s
 NaN), false otherwise. *)
 val unordered_p : mpfr_float -> mpfr_float -> bool
 
-
 (** {2 Special} *)
+
+(** If not provided, default values for [rnd] and [prec] are the
+defaults MPFR precision and rounding mode internal settings (use
+[Mpfr.set_default_rounding_mode] or [Mpfr.set_default_prec] to modify
+them). *)
+
+(** Return the natural logarithm of a [mpfr_float]. *)
+val log : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
+
+(** Return the log2 of a [mpfr_float]. *)
+val log2 : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
+
+(** Return the log10 of a [mpfr_float]. *)
+val log10 : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
+
+(** Return the exponential of a [mpfr_float]. *)
+val exp : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
+
+(** Return the 2 power of a [mpfr_float]. *)
+val exp2 : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
+
+(** Return the 10 power of a [mpfr_float]. *)
+val exp10 : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
+
+(** Return the cosine of a [mpfr_float]. *)
+val cos : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
+
+(** Return the sine of a [mpfr_float]. *)
+val sin : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
+
+(** Return the tangent of a [mpfr_float]. *)
+val tan : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
+
+(** Return simultaneously the sine and cosine of an [mpfr_float]
+number. *)
+val sin_cos : ?rnd:mpfr_rnd_t -> ?sprec:int -> ?cprec:int ->
+              mpfr_float -> mpfr_float * mpfr_float
+
+(** Return the secant of a [mpfr_float]. *)
+val sec : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
+
+(** Return the cosecant of a [mpfr_float]. *)
+val csc : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
+
+(** Return the cotangent of a [mpfr_float]. *)
+val cot : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
+
+(** Return the arc-cosine of a [mpfr_float]. *)
+val acos : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
+
+(** Return the arc-sine of a [mpfr_float]. *)
+val asin : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
+
+(** Return the arc-tangent of a [mpfr_float]. *)
+val atan : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
+
+(** [Mpfr.atan2 x y] returns the arc-tangent2 of a [x] and [y]. *)
+val atan2 : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float -> mpfr_float
+
+(** Return the hyperbolic cosine of a [mpfr_float]. *)
+val cosh : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
+
+(** Return the hyperbolic sine of a [mpfr_float]. *)
+val sinh : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
+
+(** Return the hyperbolic tangent of a [mpfr_float]. *)
+val tanh : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
+
+(** Return simultaneously the sine and cosine of an [mpfr_float]
+number. *)
+val sinh_cosh : ?rnd:mpfr_rnd_t -> ?sprec:int -> ?cprec:int ->
+                mpfr_float -> mpfr_float * mpfr_float
+
+(** Return the hyperbolic secant of a [mpfr_float]. *)
+val sech : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
+
+(** Return the hyperboloc cosecant of a [mpfr_float]. *)
+val csch : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
+
+(** Return the hyperbolic cotangent of a [mpfr_float]. *)
+val coth : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
+
+(** Return the inverse hyperbolic cosine of a [mpfr_float]. *)
+val acosh : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
+
+(** Return the inverse hyperbolic sine of a [mpfr_float]. *)
+val asinh : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
+
+(** Return the inverse hyperbolic tangent of a [mpfr_float]. *)
+val atanh : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
+
+(** Return the factorial of an [int]. Return NaN if input is negative. *)
+val fac_int : ?rnd:mpfr_rnd_t -> ?prec:int -> int -> mpfr_float
+
+(** Return the logarithm of one plus a [mpfr_float]. *)
+val log1p : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
+
+(** Return the exponential of a [mpfr_float] followed by a subtraction by one. *)
+val expm1 : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
+
+(** Return the exponential integral of a [mpfr_float]. *)
+val eint : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
+
+(** Return the real part of the dilogarithm of a [mpfr_float]. *)
+val li2 : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
+
+(** Return the Gamma function on a [mpfr_float]. *)
+val gamma : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
+
+(** Return the logarithm of the Gamma function on a [mpfr_float]. *)
+val lngamma : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
+
+(** Return the logarithm of the absolute value of the Gamma function
+and the sign of the Gamma function on a [mpfr_float]. *)
+val lgamma : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float * sign
+
+(** Return the Digamma (sometimes also called Psi) function on a
+[mpfr_float]. *)
+val digamma : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
+
+(** Return the Riemann Zeta function on a [mpfr_float]. *)
+val zeta : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
+
+(** Return the error function on a [mpfr_float]. *)
+val erf : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
+
+(** Return the complementary error function on a [mpfr_float]. *)
+val erfc : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
+
+(** Return the value of the first kind Bessel function of order 0 on a
+[mpfr_float]. *)
+val j0 : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
+
+(** Return the value of the first kind Bessel function of order 1 on a
+[mpfr_float]. *)
+val j1 : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
+
+(** [Mpfr.jn n x] returns the value of the first kind Bessel function
+of order [n] on [x]. Return NaN if [n] is negative.*)
+val jn : ?rnd:mpfr_rnd_t -> ?prec:int -> int -> mpfr_float -> mpfr_float
+
+(** Return the value of the second kind Bessel function of order 0 on
+a [mpfr_float]. *)
+val y0 : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
+
+(** Return the value of the second kind Bessel function of order 1 on
+a [mpfr_float]. *)
+val y1 : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
+
+(** [Mpfr.jn n x] returns the value of the second kind Bessel function
+of order [n] on [x]. Return NaN if [n] is negative. *)
+val yn : ?rnd:mpfr_rnd_t -> ?prec:int -> int -> mpfr_float -> mpfr_float
+
+(** Return the fused multiply and add of [mpfr_float]
+numbers. [Mpfr.fma x y z] retuns [xy+z]. *)
+val fma : ?rnd:mpfr_rnd_t -> ?prec:int ->
+          mpfr_float -> mpfr_float -> mpfr_float -> mpfr_float
+
+(** Return the fused multiply and sub of [mpfr_float]
+numbers. [Mpfr.fma x y z] retuns [xy-z]. *)
+val fms : ?rnd:mpfr_rnd_t -> ?prec:int ->
+          mpfr_float -> mpfr_float -> mpfr_float -> mpfr_float
+
+(** Return the arithmetic-geometric mean of a [mpfr_float] number. *)
+val agm : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float -> mpfr_float
+
+(** Return the Euclidean norm of a [mpfr_float] number. *)
+val hypot : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float -> mpfr_float
+
+(** Return the value of the Airy function Ai on a [mpfr_float] number. *)
+val ai : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
+
+(** Return the logarithm of 2. *)
+val const_log2 : ?rnd:mpfr_rnd_t -> int -> mpfr_float
+
+(** Return the value of {e Pi}. *)
+val const_pi : ?rnd:mpfr_rnd_t -> int -> mpfr_float
+
+(** Return the value of Euler’s constant 0.577... *)
+val const_euler : ?rnd:mpfr_rnd_t -> int -> mpfr_float
+
+(** Return the value of Catalan’s constant 0.915... *)
+val const_catalan : ?rnd:mpfr_rnd_t -> int -> mpfr_float
+
+(** Return the sum of all the elements of the list. *)
+val sum : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float list -> mpfr_float
+
 (** {2 Input and Output} *)
 (** {2 Integer and Remainder Related} *)
 (** {2 Rounding Related} *)
