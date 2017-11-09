@@ -191,8 +191,8 @@ let get_formatted_str ?rnd:(rnd = To_Nearest) ?base:(base = 10) ?size:(size = 0)
 let out_str chan base n op rnd =
   Printf.fprintf chan "%s" (get_formatted_str ~rnd:rnd ~base:base ~size:n op)
 
-let inp_str prec chan base rnd =
-  let str = read_line chan in make_from_str ~rnd:rnd ~prec:prec ~base:base
+let inp_str chan base prec rnd =
+  let str = input_line chan in make_from_str ~rnd:rnd ~prec:prec ~base:base str
 
 (* Integer and Remainder Related Functions *)
 external mpfr_rint : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float ->  mpfr_float = "caml_mpfr_rint"

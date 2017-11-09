@@ -36,8 +36,8 @@ signed integer. In fact, only the OCaml native types ([int], [float],
 and [string]) are supported, assuming that a [float] is a
 double-precision floating-point number and an [int] is a 64-bits
 signed integer. Thus, all functions named with {e *_ui*} or {e *_d*}
-are renamed here with {e *_int*} or {e *_float*}, respectively;} {-
-bindings to functions {e mpfr_*printf}, {e mpfr_*random*}, {e
+are renamed here with {e *_int*} or {e *_float*}, respectively;}
+{- bindings to functions {e mpfr_*printf}, {e mpfr_*random*}, {e
 mpfr_get_patches}, {e mpfr_buildopt_*}, and macros {e MPFR_VERSION*}
 are not implemented.}}
 
@@ -513,6 +513,21 @@ val const_catalan : ?rnd:mpfr_rnd_t -> int -> mpfr_float
 val sum : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float list -> mpfr_float
 
 (** {2 Input and Output} *)
+
+(** The two following functions are {b deprecated}. Use
+[Mpfr.get_formatted_str] and [Mpfr.make_from_str]. *)
+
+(** [Mpfr.out_str stdout b s x Mpfr.To_Nearest] outputs [x], in base
+[b], to [stdout], in the direction [Mpfr.To_Nearest]. The size of the
+printed output is [s] digits long. It uses [Printf.fprintf] and
+[Mpfr.get_formatted_string]. *)
+val out_str : out_channel -> int -> int -> mpfr_float -> mpfr_rnd_t -> unit
+
+(** [Mpfr.inp_str stdin b p Mpfr.To_Nearest] returns a [mpfr_float]
+number of precision [p] from a string in base [b] read on [stdin]. It
+uses [Pervasives.input_line] and [Mpfr.make_from_str]. *)
+val inp_str : in_channel -> int -> int -> mpfr_rnd_t -> mpfr_float
+
 (** {2 Integer and Remainder Related} *)
 (** {2 Rounding Related} *)
 (** {2 Miscellaneous} *)
