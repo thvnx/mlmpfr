@@ -32,7 +32,7 @@ char *rounding_to_string (int r)
     }
   else
     {
-      strcpy (buf, "Higher");
+      strcpy (buf, "Greater");
     }
   return buf;
 }

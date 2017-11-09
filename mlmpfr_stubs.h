@@ -62,15 +62,14 @@ static value val_some (value v)
 #define EXP_val(e) ((mpfr_exp_t) Int_val (e))
 #define PREC_val(p) ((mpfr_prec_t) Int_val (p))
 
-static value val_ter (value v)
+static value val_ter (int t)
 {
-  CAMLparam1 (v);
+  CAMLparam0 ();
   CAMLlocal1 (ter);
-  int tv = SI_val (v);
 
-  if (tv == 0)
+  if (t == 0)
     ter = Val_int (0);
-  else if ( tv > 0)
+  else if ( t > 0)
     ter = Val_int (1);
   else
     ter = Val_int (2);
@@ -147,9 +146,9 @@ static value caml_tuple3 (value e1, value e2, value e3)
     CAMLparam2 (op, rnd);					 \
     CAMLlocal1 (rop);						 \
     int ter;							 \
-    rop = caml_mpfr_init2 (prec);				 \
+    rop = caml_mpfr_init2_opt (prec);				 \
     ter = N (MPFR_val (rop), MPFR_val2 (op), rnd_val_opt (rnd)); \
-    CAMLreturn (mpfr_float (rop, val_some (ter)));		 \
+    CAMLreturn (mpfr_float (rop, val_some (val_ter (ter))));	 \
   }
 
 value caml_mpfr_get_default_prec ();
