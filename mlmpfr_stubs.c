@@ -1572,13 +1572,13 @@ CAMLprim value caml_mpfr_set_exp (value x, value e)
   else
     caml_failwith(__FUNCTION__);
 
-  CAMLreturn (caml_tuple2 (mpfr_float (rop, Val_none), Val_int (ret)));
+  CAMLreturn (mpfr_float (rop, Val_none));
 }
 
 CAMLprim value caml_mpfr_signbit (value op)
 {
   CAMLparam1 (op);
-  CAMLreturn (Val_int (mpfr_signbit (MPFR_val2 (op))));
+  CAMLreturn (val_sign (mpfr_signbit (MPFR_val2 (op))));
 }
 
 CAMLprim value caml_mpfr_setsign (value rnd, value prec, value op, value s)

@@ -613,4 +613,41 @@ to the ([Toward_Minus_Infinity], [Toward_Plus_Infinity], [To_Nearest], [Toward_Z
 val print_rnd_mode : mpfr_rnd_t -> string
 
 (** {2 Miscellaneous} *)
+
+(** [Mpfr.nexttoward x y] returns NaN if [x] or [y] is NaN, returns a copy of [x] if [x] and [y] are equal. Otherwise,
+if [x] is different from [y], return the next floating-point number of [x] (with the precision of [x] and the current
+exponent range) in the direction of [y] (the infinite values are seen as the smallest and largest floating-point
+numbers). If the result is zero, it keeps the sign of [x]. No underflow or overflow is generated. *)
+val nexttoward : mpfr_float -> mpfr_float -> mpfr_float
+
+val nextabove : mpfr_float -> mpfr_float (** Equivalent to [Mpfr.nexttoward] where [y] is plus infinity. *)
+
+val nextbelow : mpfr_float -> mpfr_float (** Equivalent to [Mpfr.nexttoward] where [y] is minus infinity. *)
+
+(** Return the minimum of two [mpfr_float]. If operands are both NaN, then return NaN. If one operand is NaN, then
+return the other value. If operands are zeros of different signs, then return -0. *)
+val min : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float -> mpfr_float
+
+(** Return the maximum of two [mpfr_float]. If operands are both NaN, then return NaN. If one operand is NaN, then
+return the other value. If operands are zeros of different signs, then return +0. *)
+val max : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float -> mpfr_float
+
+(** Return the exponent of a [mpfr_float]. *)
+val get_exp : mpfr_float -> int
+
+(** Return a fresh [mpfr_float] from input with new precision. *)
+val set_exp : mpfr_float -> int -> mpfr_float
+
+(** Return the sign of a [mpfr_float]. *)
+val signbit : mpfr_float -> sign
+
+(** [Mpfr.setsign x s ~rnd:r] returns a fresh copy of [x] with the sign [s], with precision [p] in direction [r]. *)
+val setsign : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> sign -> mpfr_float
+
+(** [Mpfr.copysign x y ~rnd:r] returns a fresh copy of [x] with the sign of [y], with precision [p] in direction [r]. *)
+val copysign : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float -> mpfr_float
+
+(** Return the MPFR version. *)
+val get_version : unit -> string
+
 (** {2 Exception Related} *)
