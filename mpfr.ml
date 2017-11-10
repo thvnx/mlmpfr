@@ -199,7 +199,7 @@ external rint : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float ->  mpfr_floa
 external ceil : ?prec:mpfr_prec_t -> mpfr_float -> mpfr_float = "caml_mpfr_ceil"
 external floor : ?prec:mpfr_prec_t -> mpfr_float -> mpfr_float = "caml_mpfr_floor"
 external round : ?prec:mpfr_prec_t -> mpfr_float -> mpfr_float = "caml_mpfr_round"
-external trunc : ?prec:mpfr_prec_t -> mpfr_float -> mpfr_float = "caml_mpfr_floatrunc"
+external trunc : ?prec:mpfr_prec_t -> mpfr_float -> mpfr_float = "caml_mpfr_trunc"
 external rint_ceil : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> mpfr_float = "caml_mpfr_rint_ceil"
 external rint_floor : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> mpfr_float = "caml_mpfr_rint_floor"
 external rint_round : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> mpfr_float = "caml_mpfr_rint_round"

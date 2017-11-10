@@ -1419,16 +1419,16 @@ CAMLprim value caml_mpfr_remquo (value rnd, value prec, value x, value y)
   CAMLparam3 (x, y, rnd);
   CAMLlocal1 (rop);
   int ter;
-  long* q;
+  long q;
 
   rop = caml_mpfr_init2_opt (prec);
   ter = mpfr_remquo (MPFR_val (rop),
-		     q, MPFR_val2 (x), MPFR_val2 (y), rnd_val_opt (rnd));
+		     &q, MPFR_val2 (x), MPFR_val2 (y), rnd_val_opt (rnd));
 
   CAMLreturn (caml_tuple2 (mpfr_float (rop, val_some (val_ter (ter))), Val_int (q)));
 }
 
-CAMLprim value caml_integer_p (value op)
+CAMLprim value caml_mpfr_integer_p (value op)
 {
   CAMLparam1 (op);
   CAMLreturn (Val_bool (mpfr_integer_p (MPFR_val2 (op))));

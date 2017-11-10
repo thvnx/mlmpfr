@@ -543,7 +543,7 @@ val ceil : ?prec:int -> mpfr_float -> mpfr_float
 val floor : ?prec:int -> mpfr_float -> mpfr_float
 
 (** Retrun the input rounded to an integer, i.e. the nearest representable integer (rounding halfway cases
-away from zero (as in the roundTiesToAway mode of IEEE 754-2008)). *)
+away from zero as in the roundTiesToAway mode of IEEE 754-2008). *)
 val round : ?prec:int -> mpfr_float -> mpfr_float
 
 (** Retrun the input rounded to an integer, i.e. the nearest representable integer toward zero. *)
@@ -579,9 +579,9 @@ val fmod : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float -> mpfr_floa
 (rounded to the nearest integer, ties rounded to even). *)
 val remainder : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float -> mpfr_float
 
-(** [Mpfr.remquo x y] returns the tuple ([x - ny], q), where [n] is the integer quotient of [x / y] (rounded to the
- nearest integer, ties rounded to even), and [q] are the low significant bits from the quotient [n] with the sign
-of [x] divided by [y] (except if those low bits are all zero, in which case zero is returned). *)
+(** [Mpfr.remquo x y] returns the tuple ([x - ny], [q]), where [n] is the integer quotient of [x / y] (rounded to
+the nearest integer, ties rounded to even), and [q] are the low significant bits from the quotient [n] with the
+sign of [x] divided by [y] (except if those low bits are all zero, in which case zero is returned). *)
 val remquo : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float -> mpfr_float * int
 
 (** Return true iff the input [mpfr_float] is an integer. *)
