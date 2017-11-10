@@ -162,7 +162,7 @@ external const_log2 : ?rnd:mpfr_rnd_t -> mpfr_prec_t -> mpfr_float = "caml_mpfr_
 external const_pi : ?rnd:mpfr_rnd_t -> mpfr_prec_t -> mpfr_float = "caml_mpfr_const_pi"
 external const_euler : ?rnd:mpfr_rnd_t -> mpfr_prec_t -> mpfr_float = "caml_mpfr_const_euler"
 external const_catalan : ?rnd:mpfr_rnd_t -> mpfr_prec_t -> mpfr_float = "caml_mpfr_const_catalan"
-external free_cache : unit -> unit = "caml_mpfr_free_cache"
+(*external free_cache : unit -> unit = "caml_mpfr_free_cache"*)
 external sum : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float list -> mpfr_float = "caml_mpfr_sum"
 
 (* Input and Output Functions *)
