@@ -503,10 +503,10 @@ val const_log2 : ?rnd:mpfr_rnd_t -> int -> mpfr_float
 (** Return the value of {e Pi}. *)
 val const_pi : ?rnd:mpfr_rnd_t -> int -> mpfr_float
 
-(** Return the value of Euler’s constant 0.577... *)
+(** Return the value of Euler's constant 0.577... *)
 val const_euler : ?rnd:mpfr_rnd_t -> int -> mpfr_float
 
-(** Return the value of Catalan’s constant 0.915... *)
+(** Return the value of Catalan's constant 0.915... *)
 val const_catalan : ?rnd:mpfr_rnd_t -> int -> mpfr_float
 
 (** Return the sum of all the elements of the list. *)

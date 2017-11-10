@@ -3,4 +3,5 @@
 testsuite/*.gcc
 testsuite/*.ocaml
 *.o
-doc/*
+doc/html
+doc/latex

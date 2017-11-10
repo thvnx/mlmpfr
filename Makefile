@@ -6,12 +6,15 @@ all:
 check: all
 	cd testsuite && make check
 
-doc: mpfr.mli
-	mkdir -p doc
-	ocamldoc -html -d doc mpfr.mli
-	@sed -i -e 's/-><br>      /->/g' doc/Mpfr.html
+doc:
+	cd doc && make html
+
+doc-all:
+	cd doc && make all
 
 clean:
 	rm -f *.cmi *.cmo *.o
-	rm -rf doc
 	cd testsuite && make clean
+	cd doc && make clean
+
+.PHONY: doc doc-all
