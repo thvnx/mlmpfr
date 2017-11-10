@@ -1,4 +1,25 @@
 # mlmpfr
 OCaml bindings for MPFR (in development).
 
-Run `make` to build the Mpfr module, `make doc` for documentation, and see `testsuite` for examples.
+#### build and install
+
+From source: in mlmpfr main directory.
+
+```
+make
+make check
+# no install rule yet
+```
+
+With _opam_ (comming soon)
+
+```
+opam install mlmpfr
+```
+
+#### documentation
+
+```
+make doc # Generate HTML documentation (see doc/mlmpfr.html)
+make doc-all # Generate HTML and LaTeX documentations (see doc/mlmpfr.{html,pdf})
+```
