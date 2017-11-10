@@ -45,7 +45,7 @@ void base_in_range (value base)
 {
   int b = Int_val (base);
 
-  if ( (b <= 2 || b >= 64) && b != 0 )
+  if ( (b < 2 || b > 64) && b != 0 )
     caml_raise_with_arg ( *caml_named_value("base range exception"),
 			  Val_int(b) );
 }
@@ -181,12 +181,12 @@ CAMLprim value caml_mpfr_strtofr (value rop, value op, value base, value rnd)
   CAMLparam4 (rop, op, base, rnd);
   int b;
 
-  b = base == Val_none ? 0 : UI_val (Some_val (base));
+  b = base == Val_none ? 0 : Some_val (base);
   base_in_range (b);
 
   CAMLreturn (val_ter
 	      (mpfr_strtofr (MPFR_val (rop),
-			     String_val (op), NULL, b, rnd_val_opt (rnd))));
+			     String_val (op), NULL, UI_val (b), rnd_val_opt (rnd))));
 }
 
 CAMLprim value caml_mpfr_set_nan (value rop)
@@ -254,8 +254,8 @@ CAMLprim value caml_mpfr_init_set_d (value prec, value rnd, value op)
   CAMLreturn (mpfr_float (rop, val_some (ter)));
 }
 
-CAMLprim value caml_mpfr_init_set_str (value rnd, value base,
-				       value prec, value str)
+CAMLprim value caml_mpfr_init_set_str (value prec, value rnd,
+				       value base, value str)
 {
   CAMLparam0 ();
   CAMLlocal2 (rop, ter);
@@ -1459,7 +1459,7 @@ CAMLprim value caml_mpfr_prec_round (value rnd, value x, value prec)
   int ter;
 
   rop = caml_mpfr_init2 (prec);
-  ter = mpfr_set (MPFR_val (rop), MPFR_val (x), rnd_val_opt (rnd));
+  ter = mpfr_set (MPFR_val (rop), MPFR_val2 (x), rnd_val_opt (rnd));
 
   CAMLreturn (mpfr_float (rop, val_some (val_ter (ter))));
 }
@@ -1479,7 +1479,7 @@ CAMLprim value caml_mpfr_can_round (value b, value err,
 CAMLprim value caml_mpfr_min_prec (value x)
 {
   CAMLparam1 (x);
-  CAMLreturn (Int_val (mpfr_min_prec (MPFR_val2 (x))));
+  CAMLreturn (Val_int (mpfr_min_prec (MPFR_val2 (x))));
 }
 
 /***************************/
