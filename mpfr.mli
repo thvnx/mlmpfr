@@ -588,5 +588,29 @@ val remquo : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float -> mpfr_fl
 val integer_p : mpfr_float -> bool
 
 (** {2 Rounding Related} *)
+
+(** Set the default rounding mode. The default rounding mode is to nearest initially. *)
+val set_default_rounding_mode : mpfr_rnd_t -> unit
+
+(** Get the default rounding mode. *)
+val get_default_rounding_mode : unit -> mpfr_rnd_t
+
+(** [Mpfr.prec_round ~rnd:r x p] rounds [x] according to [r] with precision [p]. *)
+val prec_round : ?rnd:mpfr_rnd_t -> mpfr_float -> int -> mpfr_float
+
+(** Assuming [b] is an approximation of an unknown [mpfr_number] [x] in the direction [r1] with
+error at most two to the power {e E([b])-[err]} where {e E([b])} is the exponent of [b], return
+[true] if [Mpfr.can_round x err r1 r2 p] is able to round correctly [x] to precision [p] with the
+direction [r2], and [false] otherwise (including for NaN and Inf). *)
+val can_round : mpfr_float -> int -> mpfr_rnd_t -> mpfr_rnd_t -> int -> bool
+
+(** Return the minimal number of bits required to store the significand of an [mpfr_float],
+and 0 for special values, including 0. *)
+val min_prec : mpfr_float -> int
+
+(** Return a MPFR-like string ("MPFR_RNDD", "MPFR_RNDU", "MPFR_RNDN", "MPFR_RNDZ", "MPFR_RNDA") corresponding
+to the ([Toward_Minus_Infinity], [Toward_Plus_Infinity], [To_Nearest], [Toward_Zero], [Away_From_Zero]) rounding modes. *)
+val print_rnd_mode : mpfr_rnd_t -> string
+
 (** {2 Miscellaneous} *)
 (** {2 Exception Related} *)

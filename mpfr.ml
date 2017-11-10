@@ -217,7 +217,7 @@ external get_default_rounding_mode : unit -> mpfr_rnd_t = "caml_mpfr_get_default
 external prec_round : ?rnd:mpfr_rnd_t -> mpfr_float -> mpfr_prec_t -> mpfr_float = "caml_mpfr_prec_round"
 external can_round : mpfr_float -> mpfr_exp_t -> mpfr_rnd_t -> mpfr_rnd_t -> mpfr_prec_t -> bool = "caml_mpfr_can_round"
 external min_prec : mpfr_float -> mpfr_prec_t = "caml_mpfr_min_prec"
-let print_mpfr_rnd_mode rnd = function
+let print_rnd_mode = function
   | To_Nearest -> "MPFR_RNDN"
   | Toward_Zero -> "MPFR_RNDZ"
   | Toward_Plus_Infinity -> "MPFR_RNDU"
