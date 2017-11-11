@@ -1534,7 +1534,7 @@ CAMLprim value caml_mpfr_min (value rnd, value prec, value op1, value op2)
   CAMLlocal1 (rop);
   int ter;
 
-  rop = caml_mpfr_init2 (prec);
+  rop = caml_mpfr_init2_opt (prec);
   ter = mpfr_min (MPFR_val (rop),
 		  MPFR_val2 (op1), MPFR_val2 (op2), rnd_val_opt (rnd));
 
@@ -1547,7 +1547,7 @@ CAMLprim value caml_mpfr_max (value rnd, value prec, value op1, value op2)
   CAMLlocal1 (rop);
   int ter;
 
-  rop = caml_mpfr_init2 (prec);
+  rop = caml_mpfr_init2_opt (prec);
   ter = mpfr_max (MPFR_val (rop),
 		  MPFR_val2 (op1), MPFR_val2 (op2), rnd_val_opt (rnd));
 
@@ -1568,7 +1568,10 @@ CAMLprim value caml_mpfr_set_exp (value x, value e)
 
   rop = caml_mpfr_init2 (caml_mpfr_get_prec (x));
   if (!mpfr_set (MPFR_val (rop), MPFR_val2 (x), MPFR_RNDN))
-    ret = mpfr_set_exp (MPFR_val (rop), EXP_val (e));
+    {
+      if (mpfr_set_exp (MPFR_val (rop), EXP_val (e)))
+	caml_failwith(__FUNCTION__);
+    }
   else
     caml_failwith(__FUNCTION__);
 
@@ -1578,7 +1581,13 @@ CAMLprim value caml_mpfr_set_exp (value x, value e)
 CAMLprim value caml_mpfr_signbit (value op)
 {
   CAMLparam1 (op);
-  CAMLreturn (val_sign (mpfr_signbit (MPFR_val2 (op))));
+  int s;
+
+  s = mpfr_signbit (MPFR_val2 (op));
+  if (s == 0)
+    CAMLreturn (Val_int (0));
+  else
+    CAMLreturn (Val_int (1));
 }
 
 CAMLprim value caml_mpfr_setsign (value rnd, value prec, value op, value s)

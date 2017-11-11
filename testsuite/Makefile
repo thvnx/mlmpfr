@@ -1,5 +1,6 @@
 TESTS=initializationfunctions conversionfunctions basicarithmeticfunctions comparisonfunctions \
-	specialfunctions integerandremainderrelatedfunctions roundingrelatedfunctions
+	specialfunctions integerandremainderrelatedfunctions roundingrelatedfunctions \
+	miscellaneousfunctions
 
 all:
 	@for tst in $(TESTS) ; do \
