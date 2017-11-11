@@ -238,10 +238,10 @@ external copysign : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> mpfr_f
 external get_version : unit -> string = "caml_mpfr_get_version"
 
 (* Exception Related Functions *)
-external mpfr_get_emin : unit -> mpfr_exp_t = "caml_mpfr_get_emin"
+external get_emin : unit -> mpfr_exp_t = "caml_mpfr_get_emin"
 external get_emax : unit -> mpfr_exp_t = "caml_mpfr_get_emax"
-external set_emin : mpfr_exp_t -> int = "caml_mpfr_set_emin"
-external set_emax : mpfr_exp_t -> int = "caml_mpfr_set_emax"
+external set_emin : mpfr_exp_t -> unit = "caml_mpfr_set_emin"
+external set_emax : mpfr_exp_t -> unit = "caml_mpfr_set_emax"
 external get_emin_min : unit -> mpfr_exp_t = "caml_mpfr_get_emin_min"
 external get_emin_max : unit -> mpfr_exp_t = "caml_mpfr_get_emin_max"
 external get_emax_min : unit -> mpfr_exp_t = "caml_mpfr_get_emax_min"

@@ -651,3 +651,66 @@ val copysign : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float -> mpfr_
 val get_version : unit -> string
 
 (** {2 Exception Related} *)
+
+val get_emin : unit -> int (** Return the (current) smallest exponent allowed for a [mpfr_float]. *)
+
+val get_emax : unit -> int (** Return the (current) largest exponent allowed for a [mpfr_float]. *)
+
+val set_emin : int -> unit (** Set the smallest exponent allowed for a [mpfr_float]. *)
+
+val set_emax : int -> unit (** Set the largest exponent allowed for a [mpfr_float]. *)
+
+val get_emin_min : unit -> int (** Return the minimum of the exponents allowed for [Mpfr.set_emin]. *)
+
+val get_emin_max : unit -> int (** Return the maximum of the exponents allowed for [Mpfr.set_emin]. *)
+
+val get_emax_min : unit -> int (** Return the minimum of the exponents allowed for [Mpfr.set_emax]. *)
+
+val get_emax_max : unit -> int (** Return the maximum of the exponents allowed for [Mpfr.set_emax]. *)
+
+(** [Mpfr.check_range ~rnd:r x] assumes that [x] is the correctly-rounded value of some real value
+[y] in the direction [r] and some extended exponent range. *)
+val check_range : ?rnd:mpfr_rnd_t -> mpfr_float -> mpfr_float
+
+(** [Mpfr.subnormalize ~rnd:r x] rounds [x] emulating subnormal number arithmetic: if [x] is outside
+the subnormal exponent range, it just return a copy of [x]; otherwise, it returns a roudning of [x]
+to precision {e EXP([x])-emin+1} according to rounding mode [r]. *)
+val subnormalize : ?rnd:mpfr_rnd_t -> mpfr_float -> mpfr_float
+
+val clear_underflow : unit -> unit (** Clear the underflow flag. *)
+
+val clear_overflow : unit -> unit (** Clear the overflow flag. *)
+
+val clear_divby0 : unit -> unit (** Clear the divide-by-zero flag. *)
+
+val clear_nanflag : unit -> unit (** Clear the invalid flag. *)
+
+val clear_inexflag : unit -> unit (** Clear the inexact flag. *)
+
+val clear_erangeflag : unit -> unit (** Clear the {e erange} flag. *)
+
+val set_underflow : unit -> unit (** Set the underflow flag. *)
+
+val set_overflow : unit -> unit (** Set the overflow flag. *)
+
+val set_divby0 : unit -> unit (** Set the divide-by-zero flag. *)
+
+val set_nanflag : unit -> unit (** Set the invalid flag. *)
+
+val set_inexflag : unit -> unit (** Set the inexact flag. *)
+
+val set_erangeflag : unit -> unit (** Set the {e erange} flag. *)
+
+val clear_flags : unit -> unit (** Clear all global flags. *)
+
+val underflow_p : unit -> bool (** Is underflow flag set? *)
+
+val overflow_p : unit -> bool (** Is overflow flag set? *)
+
+val divby0_p : unit -> bool (** Is divide-by-zero flag set? *)
+
+val nanflag_p : unit -> bool (** Is invalid flag set? *)
+
+val inexflag_p : unit -> bool (** Is inexact flag set? *)
+
+val erangeflag_p : unit -> bool (** Is {e erange} flag set? *)
