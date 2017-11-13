@@ -5,3 +5,5 @@ testsuite/*.ocaml
 *.o
 doc/html
 doc/latex
+doc/mlmpfr.html
+doc/mlmpfr.pdf
