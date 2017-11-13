@@ -56,7 +56,7 @@ static value val_some (value v)
 #define MPFR_val(m) (*((mpfr_t *) Data_custom_val (m)))
 #define MPFR_val2(m) (*((mpfr_t *) Data_custom_val (Field(m, 0))))
 #define SI_val(s) ((long int) Int_val (s))
-#define SI_val2(s) ((long int) Int_val (Field(s, 1)))
+#define MPFR_val22(s) (Field(s, 1))
 #define UI_val(s) ((unsigned long int) Int_val (s))
 #define DBL_val(d) (Double_val (d))
 #define EXP_val(e) ((mpfr_exp_t) Int_val (e))
@@ -75,6 +75,26 @@ static value val_ter (int t)
     ter = Val_int (2);
 
   CAMLreturn (ter);
+}
+
+static int ter_val_opt (value r)
+{
+  if (r == Val_none)
+    {
+      caml_failwith(__FUNCTION__);
+    }
+  else
+    {
+      switch (Long_val (Some_val (r)))
+	{
+	case 0: return 0;
+	case 1: return 1;
+	case 2: return -1;
+	default:
+	  caml_failwith(__FUNCTION__);
+	}
+      return 0;
+    }
 }
 
 static int rnd_val (value r)

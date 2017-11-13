@@ -1684,7 +1684,7 @@ CAMLprim value caml_mpfr_check_range (value rnd, value x)
 
   rop = caml_mpfr_init2 (caml_mpfr_get_prec (x));
   if (!mpfr_set (MPFR_val (rop), MPFR_val2 (x), MPFR_RNDN))
-    ter = mpfr_check_range (MPFR_val (rop), SI_val2 (x), rnd_val_opt (rnd));
+    ter = mpfr_check_range (MPFR_val (rop), ter_val_opt (MPFR_val22 (x)), rnd_val_opt (rnd));
   else
     caml_failwith(__FUNCTION__);
 
@@ -1699,7 +1699,7 @@ CAMLprim value caml_mpfr_subnormalize (value rnd, value x)
 
   rop = caml_mpfr_init2 (caml_mpfr_get_prec (x));
   if (!mpfr_set (MPFR_val (rop), MPFR_val2 (x), MPFR_RNDN))
-    ter = mpfr_subnormalize (MPFR_val (rop), SI_val2 (x), rnd_val_opt (rnd));
+    ter = mpfr_subnormalize (MPFR_val (rop), ter_val_opt (MPFR_val22 (x)), rnd_val_opt (rnd));
   else
     caml_failwith(__FUNCTION__);
 
@@ -1745,6 +1745,13 @@ CAMLprim value caml_mpfr_clear_erangeflag ()
 {
   CAMLparam0 ();
   mpfr_clear_erangeflag ();
+  CAMLreturn (Val_unit);
+}
+
+CAMLprim value caml_mpfr_clear_flags ()
+{
+  CAMLparam0 ();
+  mpfr_clear_flags ();
   CAMLreturn (Val_unit);
 }
 
