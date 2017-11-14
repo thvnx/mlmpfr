@@ -1,0 +1,30 @@
+OASISFormat: 0.4
+Name:        mlmpfr
+Version:     3.6.1
+Authors:     Laurent Thévenoux
+LicenseFile: LICENSE
+License:     LGPL-3.0
+Synopsis:    MPFR C bindings
+Plugins:     META (0.4), DevFiles (0.4)
+BuildTools:  ocamlbuild
+
+Library "mlmpfr"
+  Path:     src
+  Modules:  Mpfr
+  CSources: mlmpfr_stubs.c, mlmpfr_stubs.h
+  CCOpt:    -Wall
+
+Document "mlmpfr"
+  Title:                mlmpfr
+  Type:                 ocamlbuild (0.4)
+  InstallDir:           $htmldir/mlmpfr
+  Install:              false
+  BuildTools+:          ocamldoc
+  XOCamlbuildPath:      src
+  XOCamlbuildLibraries: mlmpfr
+
+Test "testsuite"
+  WorkingDirectory: testsuite
+  Command:          make check
+  PostCommand:      make clean
+  Run:              true

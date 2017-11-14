@@ -1,25 +1,33 @@
 # mlmpfr
-OCaml bindings for MPFR (in development).
+OCaml bindings for MPFR.
 
 #### build and install
 
 From source: in mlmpfr main directory.
 
 ```bash
+oasis setup
+./configure --enable-tests
 make
-make check
-# no install rule yet
+make test
+make install
+# `make uninstall` to remove mlmpfr library.
 ```
 
 With _opam_ (comming soon)
 
 ```bash
 opam install mlmpfr
+# `opam remove mlmpfr` to remove the package.
 ```
 
 #### documentation
 
 ```bash
-make doc # Generate HTML documentation (see doc/mlmpfr.html)
-make doc-all # Generate HTML and LaTeX documentations (see doc/mlmpfr.{html,pdf})
+make doc # Generate HTML documentation
+```
+#### usage
+
+```bash
+ocamlfind ocamlopt -o a.out -linkpkg -package mlmpfr file.ml -cclib -lmpfr
 ```

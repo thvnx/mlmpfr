@@ -4,7 +4,7 @@ TESTS=initializationfunctions conversionfunctions basicarithmeticfunctions compa
 
 all:
 	@for tst in $(TESTS) ; do \
-		ocamlc -I .. -custom -o $$tst.ocaml ../mpfr.cmo $$tst.ml ../mlmpfr_stubs.o -cclib -lmpfr ; \
+		ocamlc -I ../_build -custom -o $$tst.ocaml ../_build/mpfr.cmo $$tst.ml ../_build/mlmpfr_stubs.o -cclib -lmpfr ; \
 		gcc -o $$tst.gcc $$tst.c -lmpfr ; \
 	done
 
@@ -21,4 +21,4 @@ check: all
 	done
 
 clean:
-	rm -f *.ocaml *.gcc *.o *.cmi *.cmo
+	@rm -f *.ocaml *.gcc *.o *.cmi *.cmo
