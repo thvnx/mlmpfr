@@ -15,13 +15,8 @@
   <http://www.gnu.org/licenses/>. *)
 
 open Printf
+open Common
 module M = Mpfr
-
-let rounding_to_string = function
-    _, Some M.Correct_Rounding -> "Correct"
-  | _, Some M.Lower            -> "Lower"
-  | _, Some M.Greater          -> "Greater"
-  | _                          -> "None"
 
 let all op1 op2 =
   let r = M.rint op1 in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);

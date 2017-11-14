@@ -67,13 +67,13 @@ int main()
   free (buffer);
 
   mpfr_set_nan (x);
-  printf ("No_Rounding\n");
+  printf ("None\n");
 
   mpfr_set_inf (x, 1);
-  printf ("No_Rounding\n");
+  printf ("None\n");
 
   mpfr_set_zero (x, -1);
-  printf ("No_Rounding\n");
+  printf ("None\n");
 
   printf ("%ld\n", mpfr_get_prec (x));
 
