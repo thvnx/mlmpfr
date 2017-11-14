@@ -1564,7 +1564,6 @@ CAMLprim value caml_mpfr_set_exp (value x, value e)
 {
   CAMLparam2 (x, e);
   CAMLlocal1 (rop);
-  int ret;
 
   rop = caml_mpfr_init2 (caml_mpfr_get_prec (x));
   if (!mpfr_set (MPFR_val (rop), MPFR_val2 (x), MPFR_RNDN))

@@ -152,14 +152,14 @@ static value mpfr_float (value mpfr_t, value ternary)
   return caml_tuple2 (mpfr_t, ternary);
 }
 
-static value caml_tuple3 (value e1, value e2, value e3)
+/*static value caml_tuple3 (value e1, value e2, value e3)
 {
   value t = caml_alloc_tuple (3);
   Store_field (t, 0, e1);
   Store_field (t, 1, e2);
   Store_field (t, 2, e3);
   return t;
-}
+  }*/
 
 #define MPFR_REGULAR_FUNCTION1(N)				 \
   {								 \
