@@ -127,7 +127,10 @@ CAMLprim value caml_mpfr_set_default_prec (value prec)
 CAMLprim value caml_mpfr_get_default_prec ()
 {
   CAMLparam0 ();
-  mpfr_prec_t prec = mpfr_get_default_prec ();
+  mpfr_prec_t prec;
+
+  prec = mpfr_get_default_prec ();
+
   CAMLreturn (Val_int (prec));
 }
 
@@ -320,8 +323,9 @@ CAMLprim value caml_mpfr_get_d_2exp (value rnd, value op)
 {
   CAMLparam2 (op, rnd);
   mpfr_exp_t exp;
+  double dv;
 
-  double dv = mpfr_get_d_2exp (&exp, MPFR_val2 (op), rnd_val_opt (rnd));
+  dv = mpfr_get_d_2exp (&exp, MPFR_val2 (op), rnd_val_opt (rnd));
 
   CAMLreturn (caml_tuple2 (caml_copy_double (dv), Val_int (exp)));
 }
@@ -1271,13 +1275,14 @@ CAMLprim value caml_mpfr_free_cache (value unit)
 CAMLprim value caml_mpfr_sum (value rnd, value prec, value tab)
 {
   CAMLparam2 (tab, rnd);
-  CAMLlocal1 (rop);
-  int i, ter;
+  CAMLlocal2 (rop, tmp);
+  int i, ter, size;
 
   rop = caml_mpfr_init2_opt (prec);
+
   // compute the size of tab
-  int size = 0;
-  value tmp = tab;
+  size = 0;
+  tmp = tab;
   while ( Is_block (tab) )
     {
       tab = Field (tab, 1);
@@ -1286,6 +1291,7 @@ CAMLprim value caml_mpfr_sum (value rnd, value prec, value tab)
   tab = tmp;
 
   mpfr_ptr ptab [size];
+
   for (i = 0; i < size; i++)
     {
       ptab[i] = MPFR_val2 (Field (tab, 0));
@@ -1448,7 +1454,10 @@ CAMLprim value caml_mpfr_set_default_rounding_mode (value rnd)
 CAMLprim value caml_mpfr_get_default_rounding_mode ()
 {
   CAMLparam0 ();
-  int rnd = mpfr_get_default_rounding_mode ();
+  int rnd;
+
+  rnd = mpfr_get_default_rounding_mode ();
+
   CAMLreturn (Val_int (rnd));
 }
 
@@ -1686,6 +1695,7 @@ CAMLprim value caml_mpfr_check_range (value rnd, value x)
     ter = mpfr_check_range (MPFR_val (rop), ter_val_opt (MPFR_val22 (x)), rnd_val_opt (rnd));
   else
     caml_failwith(__FUNCTION__);
+    // TODO: raise an exception instead of failwith
 
   CAMLreturn (mpfr_float (rop, val_some (val_ter (ter))));
 }
@@ -1701,6 +1711,7 @@ CAMLprim value caml_mpfr_subnormalize (value rnd, value x)
     ter = mpfr_subnormalize (MPFR_val (rop), ter_val_opt (MPFR_val22 (x)), rnd_val_opt (rnd));
   else
     caml_failwith(__FUNCTION__);
+    // TODO: raise an exception instead of failwith
 
   CAMLreturn (mpfr_float (rop, val_some (val_ter (ter))));
 }
