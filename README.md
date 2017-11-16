@@ -17,7 +17,7 @@ make install
 # `make uninstall` to remove mlmpfr library.
 ```
 
-With _opam_ (comming soon)
+From _opam_.
 
 ```bash
 opam install mlmpfr
