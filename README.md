@@ -26,9 +26,12 @@ opam install mlmpfr
 
 #### documentation
 
+Run:
 ```bash
 make doc # Generate HTML documentation
 ```
+or see [here](https://thvnx.github.io/mlmpfr/).
+
 #### usage
 
 For example, let _example.ml_ as follows:
