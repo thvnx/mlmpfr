@@ -244,8 +244,8 @@ val rec_sqrt : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
 (** Returns the cubic root of an [mpfr_float] number. *)
 val cbrt : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
 
-(** [Mpfr.root x k] returns the [k]-th root of [x]. *)
-val root : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> int -> mpfr_float
+(** [Mpfr.rootn_int x k] returns the [k]-th root of [x]. *)
+val rootn_int : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> int -> mpfr_float
 
 (** [Mpfr.pow x y] returns [x] raised to [y]. *)
 val pow : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float -> mpfr_float

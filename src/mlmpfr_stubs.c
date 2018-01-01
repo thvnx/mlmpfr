@@ -651,7 +651,7 @@ CAMLprim value caml_mpfr_cbrt (value rnd, value prec, value op)
   CAMLreturn (mpfr_float (rop, val_some (val_ter (ter))));
 }
 
-CAMLprim value caml_mpfr_root (value rnd, value prec, value op, value k)
+CAMLprim value caml_mpfr_rootn_ui (value rnd, value prec, value op, value k)
 {
   CAMLparam3 (op, k, rnd);
   CAMLlocal1 (rop);
@@ -661,8 +661,8 @@ CAMLprim value caml_mpfr_root (value rnd, value prec, value op, value k)
     CAMLreturn (caml_mpfr_init_set_nan (prec));
 
   rop = caml_mpfr_init2_opt (prec);
-  ter = mpfr_root (MPFR_val (rop),
-		   MPFR_val2 (op), UI_val (k), rnd_val_opt (rnd));
+  ter = mpfr_rootn_ui (MPFR_val (rop),
+		       MPFR_val2 (op), UI_val (k), rnd_val_opt (rnd));
 
   CAMLreturn (mpfr_float (rop, val_some (val_ter (ter))));
 }

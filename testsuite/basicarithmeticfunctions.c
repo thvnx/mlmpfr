@@ -68,7 +68,7 @@ void all (mpfr_t op1, mpfr_t op2)
 
   mpfr_cbrt (rop, op1, MPFR_RNDN);
   mpfr_printf ("%.Re\n", rop);
-  mpfr_root (rop, op1, 10, MPFR_RNDN);
+  mpfr_rootn_ui (rop, op1, 10, MPFR_RNDN);
   mpfr_printf ("%.Re\n", rop);
 
   mpfr_pow (rop, op1, op2, MPFR_RNDN);

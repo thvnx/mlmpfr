@@ -76,7 +76,7 @@ external sqrt : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> mpfr_float
 external sqrt_int : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> int -> mpfr_float = "caml_mpfr_sqrt_ui"
 external rec_sqrt : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> mpfr_float = "caml_mpfr_rec_sqrt"
 external cbrt : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> mpfr_float = "caml_mpfr_cbrt"
-external root : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> int -> mpfr_float = "caml_mpfr_root"
+external rootn_int : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> int -> mpfr_float = "caml_mpfr_rootn_ui"
 external pow : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> mpfr_float -> mpfr_float = "caml_mpfr_pow"
 external pow_int : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> int -> mpfr_float = "caml_mpfr_pow_si"
 external neg : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> mpfr_float = "caml_mpfr_neg"
