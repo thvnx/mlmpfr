@@ -166,6 +166,7 @@ external const_catalan : ?rnd:mpfr_rnd_t -> mpfr_prec_t -> mpfr_float = "caml_mp
 external sum : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float list -> mpfr_float = "caml_mpfr_sum"
 
 (* Input and Output Functions *)
+(* TODO: Save and restore flags when new MPFR 4.0.0 functions will be supported. *)
 let get_formatted_str ?rnd:(rnd = To_Nearest) ?base:(base = 10) ?size:(size = 0) x =
   let rec remove_trailing_zeros s =
     match s.[(String.length s) - 1] with

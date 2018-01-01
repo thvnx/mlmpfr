@@ -31,7 +31,7 @@ void flags ()
 void all (mpfr_t op, int t, mpfr_exp_t em1, mpfr_exp_t em2)
 {
   mpfr_t rop;
-  mpfr_init (rop);
+  mpfr_init2 (rop, mpfr_get_prec (op));
 
   printf ("%ld %ld\n", mpfr_get_emin (), mpfr_get_emax ());
   mpfr_set_emin (em1);
