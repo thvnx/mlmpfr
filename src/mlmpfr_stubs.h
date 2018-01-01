@@ -106,6 +106,7 @@ static int rnd_val (value r)
     case 2: return MPFR_RNDU;
     case 3: return MPFR_RNDD;
     case 4: return MPFR_RNDA;
+    case 5: return MPFR_RNDF;
     default:
       caml_failwith(__FUNCTION__);
     }

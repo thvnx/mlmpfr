@@ -84,6 +84,7 @@ type mpfr_rnd_t =
 | Toward_Plus_Infinity
 | Toward_Minus_Infinity
 | Away_From_Zero
+| Faithful
 
 val mpfr_prec_min : int (** Minimum allowed precision. *)
 

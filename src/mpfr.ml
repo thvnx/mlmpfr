@@ -14,7 +14,7 @@
   License along with mlmpfr. If not, see
   <http://www.gnu.org/licenses/>. *)
 
-type mpfr_rnd_t = To_Nearest | Toward_Zero | Toward_Plus_Infinity | Toward_Minus_Infinity | Away_From_Zero
+type mpfr_rnd_t = To_Nearest | Toward_Zero | Toward_Plus_Infinity | Toward_Minus_Infinity | Away_From_Zero | Faithful
 type sign = Positive | Negative
 type mpfr_prec_t = int
 type mpfr_exp_t = int
@@ -224,6 +224,7 @@ let print_rnd_mode = function
   | Toward_Plus_Infinity -> "MPFR_RNDU"
   | Toward_Minus_Infinity -> "MPFR_RNDD"
   | Away_From_Zero -> "MPFR_RNDA"
+  | Faithful -> "MPFR_RNDF"
 
 (* Miscellaneous Functions *)
 external nexttoward : mpfr_float -> mpfr_float -> mpfr_float = "caml_mpfr_nexttoward"

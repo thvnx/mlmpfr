@@ -64,6 +64,15 @@ int main ()
 
   all (op, r1, r2, err, prec);
 
+  prec = 800;
+  r1 = MPFR_RNDF;
+  r2 = MPFR_RNDZ;
+  err = 400;
+  mpfr_set_prec (op, prec);
+  mpfr_set_d (op, 12345.78 / 3., MPFR_RNDN);
+
+  all (op, r1, r2, err, prec);
+
   prec = 80;
   r1 = MPFR_RNDA;
   r2 = MPFR_RNDZ;
