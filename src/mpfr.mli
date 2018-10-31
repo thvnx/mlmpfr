@@ -86,6 +86,17 @@ type mpfr_rnd_t =
 | Away_From_Zero
 | Faithful
 
+(** Flags as described
+{{:https://www.mpfr.org/mpfr-current/mpfr.html#Exceptions}here}. *)
+type mpfr_flags_t =
+  Underflow
+| Overflow
+| Divby0
+| Nan
+| Inexact
+| Erange
+| All
+
 val mpfr_prec_min : int (** Minimum allowed precision. *)
 
 val mpfr_prec_max : int (** Maximum allowed precision. *)
@@ -715,3 +726,26 @@ val nanflag_p : unit -> bool (** Is invalid flag set? *)
 val inexflag_p : unit -> bool (** Is inexact flag set? *)
 
 val erangeflag_p : unit -> bool (** Is {e erange} flag set? *)
+
+(** The [Mpfr.flags_*] functions below that take or return an argument
+   mask (i.e., a list of [mpfr_flags_t] flags) can operate on any
+   subset of the exception flags. *)
+
+(** [Mpfr.flags_clear f] clears (lowers) the group of flags specified
+   by mask [f]. *)
+val flags_clear : mpfr_flags_t list -> unit
+
+(** [Mpfr.flags_clear f] sets (raises) the group of flags specified by
+   mask [f]. *)
+val flags_set : mpfr_flags_t list -> unit
+
+(** Return the flags specified by mask. *)
+val flags_test : mpfr_flags_t list -> mpfr_flags_t list
+
+(** Return all the flags. It is equivalent to [Mpfr.flags_test
+   [Mpfr.All]]. *)
+val flags_save : unit -> mpfr_flags_t list
+
+(** [Mpfr.flags_restore f1 f2] restores the flags specified by mask
+   [f2] to their state represented in flags [f1]. *)
+val flags_restore : mpfr_flags_t list -> mpfr_flags_t list -> unit

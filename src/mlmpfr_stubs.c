@@ -1842,3 +1842,37 @@ CAMLprim value caml_mpfr_erangeflag_p ()
   CAMLparam0 ();
   CAMLreturn (Val_bool (mpfr_erangeflag_p ()));
 }
+
+CAMLprim value caml_mpfr_flags_clear (value flags)
+{
+  CAMLparam1(flags);
+  mpfr_flags_clear(flags_val(flags));
+  CAMLreturn(Val_unit);
+}
+
+CAMLprim value caml_mpfr_flags_set (value flags)
+{
+  CAMLparam1 (flags);
+  mpfr_flags_set(flags_val(flags));
+  CAMLreturn (Val_unit);
+}
+
+CAMLprim value caml_mpfr_flags_test (value flags)
+{
+  CAMLparam1 (flags);
+  int res = mpfr_flags_test(flags_val(flags));
+  CAMLreturn (val_flags(res));
+}
+
+CAMLprim value caml_mpfr_flags_save ()
+{
+  CAMLparam0 ();
+  CAMLreturn (val_flags(mpfr_flags_save()));
+}
+
+CAMLprim value caml_mpfr_flags_restore (value flags1, value flags2)
+{
+  CAMLparam2 (flags1, flags2);
+  mpfr_flags_restore(flags_val(flags1), flags_val(flags2));
+  CAMLreturn (Val_unit);
+}

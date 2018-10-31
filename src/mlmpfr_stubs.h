@@ -140,6 +140,56 @@ static value val_sign (int s)
     CAMLreturn (Val_int (1));
 }
 
+static int flags_val (value f)
+{
+  value head;
+  int flags = 0;
+
+  while (f != Val_emptylist) {
+    head = Field(f, 0);
+    switch (Long_val (head))
+      {
+      case 0: flags|=MPFR_FLAGS_UNDERFLOW; break;
+      case 1: flags|=MPFR_FLAGS_OVERFLOW; break;
+      case 2: flags|=MPFR_FLAGS_DIVBY0; break;
+      case 3: flags|=MPFR_FLAGS_NAN; break;
+      case 4: flags|=MPFR_FLAGS_INEXACT; break;
+      case 5: flags|=MPFR_FLAGS_ERANGE; break;
+      case 6: flags|=MPFR_FLAGS_ALL; break;
+      default:
+	caml_failwith(__FUNCTION__);
+      }
+    f = Field(f, 1);
+  }
+
+  return flags;
+}
+
+static value val_flags (int s)
+{
+  value head, tail = Val_emptylist;
+  int i = 0;
+
+  while (i < 7) {
+    switch (s >> i & 0x1)
+      {
+      case 0:
+	break;
+      case 1:
+	head = caml_alloc(2, 0);
+	Store_field(head, 0, Val_int(i));
+	Store_field(head, 1, tail);
+	tail = head;
+	break;
+      default:
+	caml_failwith(__FUNCTION__);
+      }
+    i++;
+  }
+
+  return tail;
+}
+
 static value caml_tuple2 (value e1, value e2)
 {
   value t = caml_alloc_tuple (2);

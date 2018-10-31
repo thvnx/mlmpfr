@@ -21,6 +21,7 @@ type mpfr_exp_t = int
 type mpfr_t
 type ternary = Correct_Rounding | Greater | Lower
 type mpfr_float = mpfr_t * ternary option
+type mpfr_flags_t = Underflow | Overflow | Divby0 | Nan | Inexact | Erange | All
 
 exception Base_range of int
 exception Precision_range of int
@@ -165,36 +166,6 @@ external const_catalan : ?rnd:mpfr_rnd_t -> mpfr_prec_t -> mpfr_float = "caml_mp
 (*external free_cache : unit -> unit = "caml_mpfr_free_cache"*)
 external sum : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float list -> mpfr_float = "caml_mpfr_sum"
 
-(* Input and Output Functions *)
-(* TODO: Save and restore flags when new MPFR 4.0.0 functions will be supported. *)
-let get_formatted_str ?rnd:(rnd = To_Nearest) ?base:(base = 10) ?size:(size = 0) x =
-  let rec remove_trailing_zeros s =
-    match s.[(String.length s) - 1] with
-      '0' -> remove_trailing_zeros (String.sub s 0 ((String.length s) -1))
-    | _ -> s
-  in
-  let significand, exponent = get_str ~rnd:rnd ~base:base ~size:size x in
-  let neg = if significand.[0] == '-' then true else false in
-  let zero = zero_p x in (* if x is zero, print 0e+00 *)
-  if zero then
-    Printf.sprintf "%s0%c+00" (if neg then "-" else "") (if base > 10 then '@' else 'e')
-  else
-    if String.contains significand '@' (* nan or inf *)
-    then String.lowercase_ascii (String.concat "" (String.split_on_char '@' significand))
-    else
-      let mantissa = remove_trailing_zeros significand in
-      let exponent = (int_of_string exponent) - 1 in
-      Printf.sprintf "%s%s%s%c%+03d" (if neg then String.sub mantissa 0 2 else Char.escaped mantissa.[0])
-                     (if (neg && (String.length mantissa == 2)) || (neg == false && (String.length mantissa == 1)) then "" else ".")
-                     (String.sub mantissa (if neg then 2 else 1) (String.length mantissa - (if neg then 2 else 1)))
-                     (if base > 10 then '@' else 'e') exponent
-
-let out_str chan base n op rnd =
-  Printf.fprintf chan "%s" (get_formatted_str ~rnd:rnd ~base:base ~size:n op)
-
-let inp_str chan base prec rnd =
-  let str = input_line chan in make_from_str ~rnd:rnd ~prec:prec ~base:base str
-
 (* Integer and Remainder Related Functions *)
 external rint : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float ->  mpfr_float = "caml_mpfr_rint"
 external ceil : ?prec:mpfr_prec_t -> mpfr_float -> mpfr_float = "caml_mpfr_ceil"
@@ -269,3 +240,40 @@ external divby0_p : unit -> bool = "caml_mpfr_divby0_p"
 external nanflag_p : unit -> bool = "caml_mpfr_nanflag_p"
 external inexflag_p : unit -> bool = "caml_mpfr_inexflag_p"
 external erangeflag_p : unit -> bool = "caml_mpfr_erangeflag_p"
+external flags_clear : mpfr_flags_t list -> unit = "caml_mpfr_flags_clear"
+external flags_set : mpfr_flags_t list -> unit = "caml_mpfr_flags_set"
+external flags_test : mpfr_flags_t list -> mpfr_flags_t list = "caml_mpfr_flags_test"
+external flags_save : unit -> mpfr_flags_t list = "caml_mpfr_flags_save"
+external flags_restore : mpfr_flags_t list -> mpfr_flags_t list -> unit = "caml_mpfr_flags_restore"
+
+(* Input and Output Functions *)
+let get_formatted_str ?rnd:(rnd = To_Nearest) ?base:(base = 10) ?size:(size = 0) x =
+  let saved_flags = flags_save () in
+  let rec remove_trailing_zeros s =
+    match s.[(String.length s) - 1] with
+      '0' -> remove_trailing_zeros (String.sub s 0 ((String.length s) -1))
+    | _ -> s
+  in
+  let significand, exponent = get_str ~rnd:rnd ~base:base ~size:size x in
+  let neg = if significand.[0] == '-' then true else false in
+  let zero = zero_p x in (* if x is zero, print 0e+00 *)
+  flags_restore saved_flags [All];
+  if zero then
+    Printf.sprintf "%s0%c+00" (if neg then "-" else "") (if base > 10 then '@' else 'e')
+  else
+    if String.contains significand '@' (* nan or inf *)
+    then String.lowercase_ascii (String.concat "" (String.split_on_char '@' significand))
+    else begin
+      let mantissa = remove_trailing_zeros significand in
+      let exponent = (int_of_string exponent) - 1 in
+      Printf.sprintf "%s%s%s%c%+03d" (if neg then String.sub mantissa 0 2 else Char.escaped mantissa.[0])
+                     (if (neg && (String.length mantissa == 2)) || (neg == false && (String.length mantissa == 1)) then "" else ".")
+                     (String.sub mantissa (if neg then 2 else 1) (String.length mantissa - (if neg then 2 else 1)))
+                     (if base > 10 then '@' else 'e') exponent
+      end
+
+let out_str chan base n op rnd =
+  Printf.fprintf chan "%s" (get_formatted_str ~rnd:rnd ~base:base ~size:n op)
+
+let inp_str chan base prec rnd =
+  let str = input_line chan in make_from_str ~rnd:rnd ~prec:prec ~base:base str
