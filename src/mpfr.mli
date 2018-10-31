@@ -17,39 +17,40 @@
 (** OCaml bindings for MPFR.
 
 A [mpfr_float] is an immutable data structure that contains a {e
-mpfr_t} number, as well as an optional ternary value, as provided by
-(and described in) the {{:http://www.mpfr.org}MPFR library}.
+   mpfr_t} number, as well as an optional ternary value, as provided
+   by (and described in) the {{:http://www.mpfr.org}MPFR library}.
 
 A few distinctions are made from the original C library:
 
 {ul {- the {e mpfr_} prefix is ommited for all functions;} {- {e
-mpfr_init*} and {e mpfr_set*} functions are not provided in order to
-implement these bindings with respect to the functional paradigm
-(i.e. immutability). Consequently, {e mpfr_clear*} functions are not
-provided too, and so, the garbage collector is in charge of memory
-management;} {- functions managing the following types are not
-supported: {e unsigned long int}, {e uintmax_t}, {e intmax_t}, {e
-float}, {e long double}, {e _Decimal64}, {e mpz_t}, {e mpq_t}, and {e
-mpf_t}. Except for {e mpfr_sqrt_ui} and {e mpfr_fac_ui} which are
-partially supported on the range of the positive values of an OCaml
-signed integer. In fact, only the OCaml native types ([int], [float],
-and [string]) are supported, assuming that a [float] is a
-double-precision floating-point number and an [int] is a 64-bits
-signed integer. Thus, all functions named with {e *_ui*} or {e *_d*}
-are renamed here with {e *_int*} or {e *_float*}, respectively;}
-{- bindings to functions {e mpfr_*printf}, {e mpfr_*random*}, {e
-mpfr_get_patches}, {e mpfr_buildopt_*}, and macros {e MPFR_VERSION*}
-are not implemented.}}
+   mpfr_init*} and {e mpfr_set*} functions are not provided in order
+   to implement these bindings with respect to the functional paradigm
+   (i.e. immutability). Consequently, {e mpfr_clear*} functions are
+   not provided too, and so, the garbage collector is in charge of
+   memory management;} {- functions managing the following types are
+   not supported: {e unsigned long int}, {e uintmax_t}, {e intmax_t},
+   {e float}, {e long double}, {__float128}, {e _Decimal64}, {e
+   mpz_t}, {e mpq_t}, and {e mpf_t}. Except for {e mpfr_sqrt_ui} and
+   {e mpfr_fac_ui} which are partially supported on the range of the
+   positive values of an OCaml signed integer. In fact, only the OCaml
+   native types ([int], [float], and [string]) are supported, assuming
+   that a [float] is a double-precision floating-point number and an
+   [int] is a 64-bits signed integer. Thus, all functions named with
+   {e *_ui*} or {e *_d*} are renamed here with {e *_int*} or {e
+   *_float*}, respectively;} {- bindings to functions {e
+   mpfr_*printf}, {e mpfr_*random*}, {e mpfr_get_patches}, {e
+   mpfr_buildopt_*}, and macros {e MPFR_VERSION*} are not
+   implemented.}}
 
 In the sequel, if not provided, optional parameters [prec] and [rnd]
-are set to MPFR's defaults precision and rounding mode. Functions
-which take a precision, or a base as a parameter raise exceptions. See
-[Precision_range] and [Base_range].
+   are set to MPFR's defaults precision and rounding mode. Functions
+   which take a precision, or a base as a parameter raise
+   exceptions. See [Precision_range] and [Base_range].
 
 Some of the comments below are derived from the
-{{:http://www.mpfr.org/mpfr-current/mpfr.html}MPFR documentation}
-itself. Nevertheless, please refer to the original documentation for
-further explanations. *)
+   {{:http://www.mpfr.org/mpfr-current/mpfr.html}MPFR documentation}
+   itself. Nevertheless, please refer to the original documentation
+   for further explanations. *)
 
 (** Raised if precision is not included in \[[Mpfr.mpfr_prec_min];
 [Mpfr.mpfr_prec_max]\]. *)
