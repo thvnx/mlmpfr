@@ -1425,7 +1425,7 @@ CAMLprim value caml_mpfr_remquo (value rnd, value prec, value x, value y)
   CAMLparam3 (x, y, rnd);
   CAMLlocal1 (rop);
   int ter;
-  long q;
+  long q = 0;
 
   rop = caml_mpfr_init2_opt (prec);
   ter = mpfr_remquo (MPFR_val (rop),
