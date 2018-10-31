@@ -458,6 +458,10 @@ val lgamma : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float * sign
 [mpfr_float]. *)
 val digamma : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
 
+(** [Mpfr.beta op1 op2] returns the Beta function at arguments [op1]
+   and [op2]. *)
+val beta : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float -> mpfr_float
+
 (** Return the Riemann Zeta function on a [mpfr_float]. *)
 val zeta : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
 

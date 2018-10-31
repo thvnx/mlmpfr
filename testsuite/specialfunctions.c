@@ -138,6 +138,8 @@ void all (mpfr_t op1, mpfr_t op2)
   mpfr_printf ("%.Re %s\n", rop, rounding_to_string (ter));
   ter = mpfr_zeta (rop, op1, MPFR_RNDN);
   mpfr_printf ("%.Re %s\n", rop, rounding_to_string (ter));
+  ter = mpfr_beta (rop, op1, op2, MPFR_RNDN);
+  mpfr_printf ("%.Re %s\n", rop, rounding_to_string (ter));
 
   ter = mpfr_erf (rop, op1, MPFR_RNDN);
   mpfr_printf ("%.Re %s\n", rop, rounding_to_string (ter));

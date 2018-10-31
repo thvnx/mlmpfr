@@ -57,6 +57,7 @@ let all op1 op2 =
                                     (match s with M.Positive -> "Positive" | M.Negative -> "Negative") (rounding_to_string r);
   let r = M.digamma op1 in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);
   let r = M.zeta op1 in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);
+  let r = M.beta op1 op2 in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);
   let r = M.erf op1 in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);
   let r = M.erfc op1 in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);
   let r = M.j0 op1 in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);

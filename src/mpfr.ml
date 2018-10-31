@@ -145,6 +145,7 @@ external gamma : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> mpfr_floa
 external lngamma : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> mpfr_float = "caml_mpfr_lngamma"
 external lgamma : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> mpfr_float * sign = "caml_mpfr_lgamma"
 external digamma : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> mpfr_float = "caml_mpfr_digamma"
+external beta : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> mpfr_float -> mpfr_float = "caml_mpfr_beta"
 external zeta : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> mpfr_float = "caml_mpfr_zeta"
 external erf : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> mpfr_float = "caml_mpfr_erf"
 external erfc : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> mpfr_float = "caml_mpfr_erfc"

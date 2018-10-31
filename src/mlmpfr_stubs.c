@@ -1108,6 +1108,16 @@ CAMLprim value caml_mpfr_zeta (value rnd, value prec, value op)
   CAMLreturn (mpfr_float (rop, val_some (val_ter (ter))));
 } */
 
+CAMLprim value caml_mpfr_beta (value rnd, value prec, value op1, value op2)
+{
+  CAMLparam4 (op1, op2, rnd, prec);
+  CAMLlocal1 (rop);
+  int ter;
+  rop = caml_mpfr_init2_opt (prec);
+  ter = mpfr_beta(MPFR_val (rop), MPFR_val2 (op1), MPFR_val2(op2), rnd_val_opt (rnd));
+  CAMLreturn (mpfr_float (rop, val_some (val_ter (ter))));
+}
+
 CAMLprim value caml_mpfr_erf (value rnd, value prec, value op)
   MPFR_REGULAR_FUNCTION1 (mpfr_erf);
 

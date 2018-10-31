@@ -214,7 +214,7 @@ static value mpfr_float (value mpfr_t, value ternary)
 
 #define MPFR_REGULAR_FUNCTION1(N)				 \
   {								 \
-    CAMLparam2 (op, rnd);					 \
+    CAMLparam3 (op, rnd, prec);					 \
     CAMLlocal1 (rop);						 \
     int ter;							 \
     rop = caml_mpfr_init2_opt (prec);				 \
