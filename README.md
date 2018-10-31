@@ -6,7 +6,7 @@ OCaml bindings for MPFR.
 *mlmpfr* depends on _ocamlfind_, _oasis_, _ocaml_ version >= 4.04, and
 _MPFR_ library version >= 3.1.6.
 
-From source: in mlmpfr main directory.
+From source: in mlmpfr main directory, on branch _release_316_.
 
 ```bash
 oasis setup
