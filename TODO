@@ -1,10 +1,10 @@
 release_400:
-* Fix a bug (see TODO in src/mpfr.ml).
 * Add support to mpfr_fpif_export and mpfr_fpif_import functions.
 * Add support to mpfr_fmodquo.
-* Add support to mpfr_flags_clear, mpfr_flags_set, mpfr_flags_test, mpfr_flags_save and mpfr_flags_restore.
+* Add tests for mpfr_flags_clear, mpfr_flags_set, mpfr_flags_test, mpfr_flags_save and mpfr_flags_restore.
 * Add macro mpfr_round_nearest_away.
 * Add mpfr_fmma and mpfr_fmms.
-* Add mpfr_gamma_inc.
+* Add mpfr_log_ui and mpfr_gamma_inc.
 * Add mpfr_beta.
 * Check mpfr_eint for negative arguments.
+* Add mpfr_rint_roundeven and mpfr_roundeven.
