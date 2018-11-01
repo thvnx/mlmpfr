@@ -68,6 +68,17 @@ void all (mpfr_t op, int t, mpfr_exp_t em1, mpfr_exp_t em2)
 
   flags ();
 
+  mpfr_flags_set(MPFR_FLAGS_NAN|MPFR_FLAGS_ERANGE|MPFR_FLAGS_DIVBY0);
+  flags ();
+  int saved_flags = mpfr_flags_save();
+  int test_all_flags = mpfr_flags_test(MPFR_FLAGS_ALL);
+  int test_one_flag = mpfr_flags_test(MPFR_FLAGS_ERANGE);
+  printf ("%d %d\n", test_all_flags, test_one_flag);
+  mpfr_flags_clear(MPFR_FLAGS_ALL);
+  flags ();
+  mpfr_flags_restore(saved_flags, MPFR_FLAGS_ERANGE|MPFR_FLAGS_DIVBY0|MPFR_FLAGS_OVERFLOW);
+  flags ();
+
   mpfr_clear (rop);
 }
 

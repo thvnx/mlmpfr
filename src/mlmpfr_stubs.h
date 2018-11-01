@@ -151,10 +151,10 @@ static int flags_val (value f)
       {
       case 0: flags|=MPFR_FLAGS_UNDERFLOW; break;
       case 1: flags|=MPFR_FLAGS_OVERFLOW; break;
-      case 2: flags|=MPFR_FLAGS_DIVBY0; break;
-      case 3: flags|=MPFR_FLAGS_NAN; break;
-      case 4: flags|=MPFR_FLAGS_INEXACT; break;
-      case 5: flags|=MPFR_FLAGS_ERANGE; break;
+      case 2: flags|=MPFR_FLAGS_NAN; break;
+      case 3: flags|=MPFR_FLAGS_INEXACT; break;
+      case 4: flags|=MPFR_FLAGS_ERANGE; break;
+      case 5: flags|=MPFR_FLAGS_DIVBY0; break;
       case 6: flags|=MPFR_FLAGS_ALL; break;
       default:
 	caml_failwith(__FUNCTION__);

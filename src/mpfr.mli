@@ -39,8 +39,8 @@ A few distinctions are made from the original C library:
    {e *_ui*} or {e *_d*} are renamed here with {e *_int*} or {e
    *_float*}, respectively;} {- bindings to functions {e
    mpfr_*printf}, {e mpfr_*random*}, {e mpfr_get_patches}, {e
-   mpfr_buildopt_*}, and macros {e MPFR_VERSION*} are not
-   implemented.}}
+   mpfr_buildopt_*}, {e mpfr_fpif_*}, and macros {e MPFR_VERSION*} are
+   not implemented.}}
 
 In the sequel, if not provided, optional parameters [prec] and [rnd]
    are set to MPFR's defaults precision and rounding mode. Functions
@@ -92,10 +92,10 @@ type mpfr_rnd_t =
 type mpfr_flags_t =
   Underflow
 | Overflow
-| Divby0
 | Nan
 | Inexact
 | Erange
+| Divby0
 | All
 
 val mpfr_prec_min : int (** Minimum allowed precision. *)

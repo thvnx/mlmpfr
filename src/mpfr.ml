@@ -21,7 +21,7 @@ type mpfr_exp_t = int
 type mpfr_t
 type ternary = Correct_Rounding | Greater | Lower
 type mpfr_float = mpfr_t * ternary option
-type mpfr_flags_t = Underflow | Overflow | Divby0 | Nan | Inexact | Erange | All
+type mpfr_flags_t = Underflow | Overflow | Nan | Inexact | Erange | Divby0 | All
 
 exception Base_range of int
 exception Precision_range of int
