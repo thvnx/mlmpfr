@@ -1,0 +1,13 @@
+mlmpfr
+
+# master branch, work for release_400
+
+- root replaced by rootn_ui
+- support failthful rounding mode support
+- support for mpfr_flags_* functions
+- support mpfr_beta
+- support mpfr_fmodquo
+
+# release_316 branch
+
+- initial mlmpfr
