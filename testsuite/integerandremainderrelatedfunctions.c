@@ -73,10 +73,13 @@ void all (mpfr_t op1, mpfr_t op2)
   ter = mpfr_fmod (rop, op1, op2, MPFR_RNDN);
   mpfr_printf ("%.Re %s\n", rop, rounding_to_string (ter));
 
+  long q;
+  ter = mpfr_fmodquo (rop, &q, op1, op2, MPFR_RNDN);
+  mpfr_printf ("%.Re %s %ld\n", rop, rounding_to_string (ter), q);
+
   ter = mpfr_remainder (rop, op1, op2, MPFR_RNDN);
   mpfr_printf ("%.Re %s\n", rop, rounding_to_string (ter));
 
-  long q;
   ter = mpfr_remquo (rop, &q, op1, op2, MPFR_RNDN);
   mpfr_printf ("%.Re %s %ld\n", rop, rounding_to_string (ter), q);
 

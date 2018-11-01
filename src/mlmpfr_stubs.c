@@ -1417,6 +1417,20 @@ CAMLprim value caml_mpfr_fmod (value rnd, value prec, value x, value y)
   CAMLreturn (mpfr_float (rop, val_some (val_ter (ter))));
 }
 
+CAMLprim value caml_mpfr_fmodquo (value rnd, value prec, value x, value y)
+{
+  CAMLparam3 (x, y, rnd);
+  CAMLlocal1 (rop);
+  int ter;
+  long q = 0;
+
+  rop = caml_mpfr_init2_opt (prec);
+  ter = mpfr_fmodquo (MPFR_val (rop),
+		     &q, MPFR_val2 (x), MPFR_val2 (y), rnd_val_opt (rnd));
+
+  CAMLreturn (caml_tuple2 (mpfr_float (rop, val_some (val_ter (ter))), Val_int (q)));
+}
+
 CAMLprim value caml_mpfr_remainder (value rnd, value prec, value x, value y)
 {
   CAMLparam3 (x, y, rnd);

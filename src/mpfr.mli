@@ -29,7 +29,7 @@ A few distinctions are made from the original C library:
    not provided too, and so, the garbage collector is in charge of
    memory management;} {- functions managing the following types are
    not supported: {e unsigned long int}, {e uintmax_t}, {e intmax_t},
-   {e float}, {e long double}, {__float128}, {e _Decimal64}, {e
+   {e float}, {e long double}, {e __float128}, {e _Decimal64}, {e
    mpz_t}, {e mpq_t}, and {e mpf_t}. Except for {e mpfr_sqrt_ui} and
    {e mpfr_fac_ui} which are partially supported on the range of the
    positive values of an OCaml signed integer. In fact, only the OCaml
@@ -591,6 +591,10 @@ val modf : ?rnd:mpfr_rnd_t -> ?iprec:int -> ?fprec:int -> mpfr_float -> mpfr_flo
 (** [Mpfr.fmod x y] returns the value [x - ny], where [n] is the integer quotient of [x / y]
 (rounded toward zero). *)
 val fmod : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float -> mpfr_float
+
+(** [Mpfr.fmodquo x y] returns the tuple [(x - ny, q)]. See
+   [Mpfr.remquo] for the meanings of [n] and [q]. *)
+val fmodquo : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float -> mpfr_float * int
 
 (** [Mpfr.remainder x y] returns the value [x - ny], where [n] is the integer quotient of [x / y]
 (rounded to the nearest integer, ties rounded to even). *)

@@ -180,6 +180,7 @@ external rint_trunc : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> mpfr
 external frac : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> mpfr_float = "caml_mpfr_frac"
 external modf : ?rnd:mpfr_rnd_t -> ?iprec:mpfr_prec_t -> ?fprec:mpfr_prec_t -> mpfr_float -> mpfr_float * mpfr_float = "caml_mpfr_modf"
 external fmod : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> mpfr_float -> mpfr_float = "caml_mpfr_fmod"
+external fmodquo : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> mpfr_float -> mpfr_float * int = "caml_mpfr_fmodquo"
 external remainder : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> mpfr_float -> mpfr_float = "caml_mpfr_remainder"
 external remquo : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> mpfr_float -> mpfr_float * int = "caml_mpfr_remquo"
 external integer_p : mpfr_float -> bool = "caml_mpfr_integer_p"

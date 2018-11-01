@@ -32,6 +32,7 @@ let all op1 op2 =
   let r1, r2 = M.modf op1 in printf "%s %s %s %s\n" (M.get_formatted_str r1) (rounding_to_string r1)
                                                     (M.get_formatted_str r2) (rounding_to_string r2);
   let r = M.fmod op1 op2 in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);
+  let r, q = M.fmodquo op1 op2 in printf "%s %s %d\n" (M.get_formatted_str r) (rounding_to_string r) q;
   let r = M.remainder op1 op2 in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);
   let r, q = M.remquo op1 op2 in printf "%s %s %d\n" (M.get_formatted_str r) (rounding_to_string r) q;
   let r = M.integer_p op1 in printf "%b\n" r
