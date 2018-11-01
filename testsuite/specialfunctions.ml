@@ -50,6 +50,7 @@ let all op1 op2 =
   let r = M.log1p op1 in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);
   let r = M.expm1 op1 in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);
   let r = M.eint op1 in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);
+  let r = M.eint op2 in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);
   let r = M.li2 op1 in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);
   let r = M.gamma op1 in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);
   let r = M.lngamma op1 in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);

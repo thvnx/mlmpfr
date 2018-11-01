@@ -123,6 +123,8 @@ void all (mpfr_t op1, mpfr_t op2)
   mpfr_printf ("%.Re %s\n", rop, rounding_to_string (ter));
   ter = mpfr_eint (rop, op1, MPFR_RNDN);
   mpfr_printf ("%.Re %s\n", rop, rounding_to_string (ter));
+  ter = mpfr_eint (rop, op2, MPFR_RNDN);
+  mpfr_printf ("%.Re %s\n", rop, rounding_to_string (ter));
   ter = mpfr_li2 (rop, op1, MPFR_RNDN);
   mpfr_printf ("%.Re %s\n", rop, rounding_to_string (ter));
   ter = mpfr_gamma (rop, op1, MPFR_RNDN);

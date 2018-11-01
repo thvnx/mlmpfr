@@ -1,7 +1,6 @@
 release_400:
 * Add mpfr_fmma and mpfr_fmms.
 * Add mpfr_log_ui and mpfr_gamma_inc.
-* Check mpfr_eint for negative arguments.
 * Add mpfr_rint_roundeven and mpfr_roundeven.
 master:
 * Support FILE *stream in bindings (mpfr_fpif_export, mpfr_fpif_import).
