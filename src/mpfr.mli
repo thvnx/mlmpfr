@@ -501,9 +501,21 @@ val fma : ?rnd:mpfr_rnd_t -> ?prec:int ->
           mpfr_float -> mpfr_float -> mpfr_float -> mpfr_float
 
 (** Return the fused multiply and sub of [mpfr_float]
-numbers. [Mpfr.fma x y z] retuns [xy-z]. *)
+numbers. [Mpfr.fms x y z] retuns [xy-z]. *)
 val fms : ?rnd:mpfr_rnd_t -> ?prec:int ->
           mpfr_float -> mpfr_float -> mpfr_float -> mpfr_float
+
+(** [Mpfr.fmma x y z t] retuns [xy+zt]. In case the computation of
+   [xy] overflows or underflows (or that of [zt]), the result is
+   computed as if the two intermediate products were computed with
+   rounding toward zero.*)
+val fmma : ?rnd:mpfr_rnd_t -> ?prec:int ->
+           mpfr_float -> mpfr_float -> mpfr_float -> mpfr_float -> mpfr_float
+
+(** [Mpfr.fmms x y z t] retuns [xy-zt]. See [Mpfr.fmma] for further
+   comments *)
+val fmms : ?rnd:mpfr_rnd_t -> ?prec:int ->
+           mpfr_float -> mpfr_float -> mpfr_float -> mpfr_float -> mpfr_float
 
 (** Return the arithmetic-geometric mean of a [mpfr_float] number. *)
 val agm : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float -> mpfr_float

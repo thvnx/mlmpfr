@@ -168,6 +168,11 @@ void all (mpfr_t op1, mpfr_t op2)
   ter = mpfr_fms (rop, op1, op2, rop, MPFR_RNDN);
   mpfr_printf ("%.Re %s\n", rop, rounding_to_string (ter));
 
+  ter = mpfr_fmma (rop, op1, op2, rop, rop, MPFR_RNDN);
+  mpfr_printf ("%.Re %s\n", rop, rounding_to_string (ter));
+  ter = mpfr_fmms (rop, op1, op2, rop, rop, MPFR_RNDN);
+  mpfr_printf ("%.Re %s\n", rop, rounding_to_string (ter));
+
   ter = mpfr_agm (rop, op1, op2, MPFR_RNDN);
   mpfr_printf ("%.Re %s\n", rop, rounding_to_string (ter));
   ter = mpfr_hypot (rop, op1, op2, MPFR_RNDN);

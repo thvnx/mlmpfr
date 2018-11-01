@@ -1198,6 +1198,46 @@ CAMLprim value caml_mpfr_fms (value rnd, value prec,
   CAMLreturn (mpfr_float (rop, val_some (val_ter (ter))));
 }
 
+CAMLprim value caml_mpfr_fmma_native (value rnd, value prec,
+				      value op1, value op2, value op3, value op4)
+{
+  CAMLparam5 (op1, op2, op3, op3, rnd);
+  CAMLlocal1 (rop);
+  int ter;
+
+  rop = caml_mpfr_init2_opt (prec);
+  ter = mpfr_fmma (MPFR_val (rop),
+		   MPFR_val2 (op1), MPFR_val2 (op2), MPFR_val2 (op3), MPFR_val2 (op4),
+		   rnd_val_opt (rnd));
+
+  CAMLreturn (mpfr_float (rop, val_some (val_ter (ter))));
+}
+CAMLprim value caml_mpfr_fmma_bytecode (value * argv, int argn)
+{
+  return caml_mpfr_fmma_native(argv[0], argv[1], argv[2],
+			       argv[3], argv[4], argv[5]);
+}
+
+CAMLprim value caml_mpfr_fmms_native (value rnd, value prec,
+				      value op1, value op2, value op3, value op4)
+{
+  CAMLparam5 (op1, op2, op3, op3, rnd);
+  CAMLlocal1 (rop);
+  int ter;
+
+  rop = caml_mpfr_init2_opt (prec);
+  ter = mpfr_fmms (MPFR_val (rop),
+		   MPFR_val2 (op1), MPFR_val2 (op2), MPFR_val2 (op3), MPFR_val2 (op4),
+		   rnd_val_opt (rnd));
+
+  CAMLreturn (mpfr_float (rop, val_some (val_ter (ter))));
+}
+CAMLprim value caml_mpfr_fmms_bytecode (value * argv, int argn)
+{
+  return caml_mpfr_fmms_native(argv[0], argv[1], argv[2],
+			       argv[3], argv[4], argv[5]);
+}
+
 CAMLprim value caml_mpfr_agm (value rnd, value prec, value op1, value op2)
 {
   CAMLparam3 (op1, op2, rnd);
