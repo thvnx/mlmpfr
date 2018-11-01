@@ -7,6 +7,9 @@ mlmpfr
 - support for mpfr_flags_* functions
 - support mpfr_beta
 - support mpfr_fmodquo
+- support mpfr_fmma and mpfr_fmms
+- support mpfr_log_ui and mpfr_gamma_inc
+- support mpfr_rint_roundeven and mpfr_roundeven
 
 # release_316 branch
 
