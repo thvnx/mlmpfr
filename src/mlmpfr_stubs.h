@@ -212,6 +212,16 @@ static value mpfr_float (value mpfr_t, value ternary)
   return t;
   }*/
 
+#define MPFR_REGULAR_FUNCTION0(N)				\
+  {								\
+    CAMLparam1 (op);						\
+    CAMLlocal1 (rop);						\
+    int ter;							\
+    rop = caml_mpfr_init2_opt (prec);				\
+    ter = N (MPFR_val (rop), MPFR_val2 (op));			\
+    CAMLreturn (mpfr_float (rop, val_some (val_ter (ter))));	\
+  }
+
 #define MPFR_REGULAR_FUNCTION1(N)				 \
   {								 \
     CAMLparam2 (op, rnd);					 \
@@ -220,6 +230,16 @@ static value mpfr_float (value mpfr_t, value ternary)
     rop = caml_mpfr_init2_opt (prec);				 \
     ter = N (MPFR_val (rop), MPFR_val2 (op), rnd_val_opt (rnd)); \
     CAMLreturn (mpfr_float (rop, val_some (val_ter (ter))));	 \
+  }
+
+#define MPFR_TWO_MPFR_OPERANDS(N)					\
+  {									\
+    CAMLparam3 (op1, op2, rnd);						\
+    CAMLlocal1 (rop);							\
+    int ter;								\
+    rop = caml_mpfr_init2_opt (prec);					\
+    ter = N (MPFR_val (rop), MPFR_val2 (op1), MPFR_val2 (op2), rnd_val_opt (rnd)); \
+    CAMLreturn (mpfr_float (rop, val_some (val_ter (ter))));		\
   }
 
 value caml_mpfr_get_default_prec ();

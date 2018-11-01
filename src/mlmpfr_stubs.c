@@ -172,13 +172,6 @@ CAMLprim value caml_mpfr_set_d (value rop, value op, value rnd)
 				   DBL_val (op), rnd_val_opt (rnd))));
 }
 
-/* CAMLprim value caml_mpfr_set_str (value rop, value op, value base, value rnd)
-{
-  CAMLparam4 (rop, op, base, rnd);
-  CAMLreturn (val_ter (mpfr_set_str (MPFR_val (rop), String_val (op),
-				     Int_val (base), rnd_val (rnd))));
-} */
-
 CAMLprim value caml_mpfr_strtofr (value rop, value op, value base, value rnd)
 {
   CAMLparam4 (rop, op, base, rnd);
@@ -379,17 +372,7 @@ CAMLprim value caml_mpfr_fits_sint_p (value rnd, value op)
 /******************************/
 
 CAMLprim value caml_mpfr_add (value rnd, value prec, value op1, value op2)
-{
-  CAMLparam3 (op1, op2, rnd);
-  CAMLlocal1 (rop);
-  int ter;
-
-  rop = caml_mpfr_init2_opt (prec);
-  ter = mpfr_add (MPFR_val (rop),
-		  MPFR_val2 (op1), MPFR_val2 (op2), rnd_val_opt (rnd));
-
-  CAMLreturn (mpfr_float (rop, val_some (val_ter (ter))));
-}
+  MPFR_TWO_MPFR_OPERANDS (mpfr_add);
 
 CAMLprim value caml_mpfr_add_si (value rnd, value prec, value op1, value op2)
 {
@@ -418,17 +401,7 @@ CAMLprim value caml_mpfr_add_d (value rnd, value prec, value op1, value op2)
 }
 
 CAMLprim value caml_mpfr_sub (value rnd, value prec, value op1, value op2)
-{
-  CAMLparam3 (op1, op2, rnd);
-  CAMLlocal1 (rop);
-  int ter;
-
-  rop = caml_mpfr_init2_opt (prec);
-  ter = mpfr_sub (MPFR_val (rop),
-		  MPFR_val2 (op1), MPFR_val2 (op2), rnd_val_opt (rnd));
-
-  CAMLreturn (mpfr_float (rop, val_some (val_ter (ter))));
-}
+  MPFR_TWO_MPFR_OPERANDS (mpfr_sub);
 
 CAMLprim value caml_mpfr_si_sub (value rnd, value prec, value op1, value op2)
 {
@@ -483,17 +456,7 @@ CAMLprim value caml_mpfr_sub_d (value rnd, value prec, value op1, value op2)
 }
 
 CAMLprim value caml_mpfr_mul (value rnd, value prec, value op1, value op2)
-{
-  CAMLparam3 (op1, op2, rnd);
-  CAMLlocal1 (rop);
-  int ter;
-
-  rop = caml_mpfr_init2_opt (prec);
-  ter = mpfr_mul (MPFR_val (rop),
-		  MPFR_val2 (op1), MPFR_val2 (op2), rnd_val_opt (rnd));
-
-  CAMLreturn (mpfr_float (rop, val_some (val_ter (ter))));
-}
+  MPFR_TWO_MPFR_OPERANDS (mpfr_mul);
 
 CAMLprim value caml_mpfr_mul_si (value rnd, value prec, value op1, value op2)
 {
@@ -535,17 +498,7 @@ CAMLprim value caml_mpfr_sqr (value rnd, value prec, value op)
 }
 
 CAMLprim value caml_mpfr_div (value rnd, value prec, value op1, value op2)
-{
-  CAMLparam3 (op1, op2, rnd);
-  CAMLlocal1 (rop);
-  int ter;
-
-  rop = caml_mpfr_init2_opt (prec);
-  ter = mpfr_div (MPFR_val (rop),
-		  MPFR_val2 (op1), MPFR_val2 (op2), rnd_val_opt (rnd));
-
-  CAMLreturn (mpfr_float (rop, val_some (val_ter (ter))));
-}
+  MPFR_TWO_MPFR_OPERANDS (mpfr_div);
 
 CAMLprim value caml_mpfr_si_div (value rnd, value prec, value op1, value op2)
 {
@@ -668,17 +621,7 @@ CAMLprim value caml_mpfr_rootn_ui (value rnd, value prec, value op, value k)
 }
 
 CAMLprim value caml_mpfr_pow (value rnd, value prec, value op1, value op2)
-{
-  CAMLparam3 (op1, op2, rnd);
-  CAMLlocal1 (rop);
-  int ter;
-
-  rop = caml_mpfr_init2_opt (prec);
-  ter = mpfr_pow (MPFR_val (rop),
-		  MPFR_val2 (op1), MPFR_val2 (op2), rnd_val_opt (rnd));
-
-  CAMLreturn (mpfr_float (rop, val_some (val_ter (ter))));
-}
+  MPFR_TWO_MPFR_OPERANDS (mpfr_pow);
 
 CAMLprim value caml_mpfr_pow_si (value rnd, value prec, value op1, value op2)
 {
@@ -692,32 +635,6 @@ CAMLprim value caml_mpfr_pow_si (value rnd, value prec, value op1, value op2)
 
   CAMLreturn (mpfr_float (rop, val_some (val_ter (ter))));
 }
-
-/* CAMLprim value caml_mpfr_ui_pow_ui (value rnd, value prec, value op1, value op2)
-{
-  CAMLparam3 (op1, op2, rnd);
-  CAMLlocal1 (rop);
-  int ter;
-
-  rop = caml_mpfr_init2_opt (prec);
-  ter = mpfr_ui_pow_ui (MPFR_val (rop),
-			SI_val (op1), SI_val (op2), rnd_val_opt (rnd));
-
-  CAMLreturn (mpfr_float (rop, val_some (val_ter (ter))));
-} */
-
-/* CAMLprim value caml_mpfr_ui_pow (value rnd, value prec, value op1, value op2)
-{
-  CAMLparam3 (op1, op2, rnd);
-  CAMLlocal1 (rop);
-  int ter;
-
-  rop = caml_mpfr_init2_opt (prec);
-  ter = mpfr_ui_pow (MPFR_val (rop),
-		     SI_val (op1), MPFR_val2 (op2), rnd_val_opt (rnd));
-
-  CAMLreturn (mpfr_float (rop, val_some (val_ter (ter))));
-} */
 
 CAMLprim value caml_mpfr_neg (value rnd, value prec, value op)
 {
@@ -744,17 +661,7 @@ CAMLprim value caml_mpfr_abs (value rnd, value prec, value op)
 }
 
 CAMLprim value caml_mpfr_dim (value rnd, value prec, value op1, value op2)
-{
-  CAMLparam3 (op1, op2, rnd);
-  CAMLlocal1 (rop);
-  int ter;
-
-  rop = caml_mpfr_init2_opt (prec);
-  ter = mpfr_dim (MPFR_val (rop),
-		  MPFR_val2 (op1), MPFR_val2 (op2), rnd_val_opt (rnd));
-
-  CAMLreturn (mpfr_float (rop, val_some (val_ter (ter))));
-}
+  MPFR_TWO_MPFR_OPERANDS (mpfr_dim);
 
 CAMLprim value caml_mpfr_mul_2si (value rnd, value prec, value op1, value op2)
 {
@@ -1134,14 +1041,7 @@ CAMLprim value caml_mpfr_zeta (value rnd, value prec, value op)
 } */
 
 CAMLprim value caml_mpfr_beta (value rnd, value prec, value op1, value op2)
-{
-  CAMLparam4 (op1, op2, rnd, prec);
-  CAMLlocal1 (rop);
-  int ter;
-  rop = caml_mpfr_init2_opt (prec);
-  ter = mpfr_beta(MPFR_val (rop), MPFR_val2 (op1), MPFR_val2(op2), rnd_val_opt (rnd));
-  CAMLreturn (mpfr_float (rop, val_some (val_ter (ter))));
-}
+  MPFR_TWO_MPFR_OPERANDS (mpfr_beta);
 
 CAMLprim value caml_mpfr_erf (value rnd, value prec, value op)
   MPFR_REGULAR_FUNCTION1 (mpfr_erf);
@@ -1264,30 +1164,10 @@ CAMLprim value caml_mpfr_fmms_bytecode (value * argv, int argn)
 }
 
 CAMLprim value caml_mpfr_agm (value rnd, value prec, value op1, value op2)
-{
-  CAMLparam3 (op1, op2, rnd);
-  CAMLlocal1 (rop);
-  int ter;
+  MPFR_TWO_MPFR_OPERANDS (mpfr_agm);
 
-  rop = caml_mpfr_init2_opt (prec);
-  ter = mpfr_agm (MPFR_val (rop),
-		  MPFR_val2 (op1), MPFR_val2 (op2), rnd_val_opt (rnd));
-
-  CAMLreturn (mpfr_float (rop, val_some (val_ter (ter))));
-}
-
-CAMLprim value caml_mpfr_hypot (value rnd, value prec, value x, value y)
-{
-  CAMLparam3 (x, y, rnd);
-  CAMLlocal1 (rop);
-  int ter;
-
-  rop = caml_mpfr_init2_opt (prec);
-  ter = mpfr_hypot (MPFR_val (rop),
-		    MPFR_val2 (x), MPFR_val2 (y), rnd_val_opt (rnd));
-
-  CAMLreturn (mpfr_float (rop, val_some (val_ter (ter))));
-}
+CAMLprim value caml_mpfr_hypot (value rnd, value prec, value op1, value op2)
+  MPFR_TWO_MPFR_OPERANDS (mpfr_hypot);
 
 CAMLprim value caml_mpfr_ai (value rnd, value prec, value op)
   MPFR_REGULAR_FUNCTION1 (mpfr_ai);
@@ -1386,64 +1266,19 @@ CAMLprim value caml_mpfr_rint (value rnd, value prec, value op)
   MPFR_REGULAR_FUNCTION1 (mpfr_rint);
 
 CAMLprim value caml_mpfr_ceil (value prec, value op)
-{
-  CAMLparam1 (op);
-  CAMLlocal1 (rop);
-  int ter;
-
-  rop = caml_mpfr_init2_opt (prec);
-  ter = mpfr_ceil (MPFR_val (rop), MPFR_val2 (op));
-
-  CAMLreturn (mpfr_float (rop, val_some (val_ter (ter))));
-}
+  MPFR_REGULAR_FUNCTION0 (mpfr_ceil);
 
 CAMLprim value caml_mpfr_floor (value prec, value op)
-{
-  CAMLparam1 (op);
-  CAMLlocal1 (rop);
-  int ter;
-
-  rop = caml_mpfr_init2_opt (prec);
-  ter = mpfr_floor (MPFR_val (rop), MPFR_val2 (op));
-
-  CAMLreturn (mpfr_float (rop, val_some (val_ter (ter))));
-}
+  MPFR_REGULAR_FUNCTION0 (mpfr_floor);
 
 CAMLprim value caml_mpfr_round (value prec, value op)
-{
-  CAMLparam1 (op);
-  CAMLlocal1 (rop);
-  int ter;
-
-  rop = caml_mpfr_init2_opt (prec);
-  ter = mpfr_round (MPFR_val (rop), MPFR_val2 (op));
-
-  CAMLreturn (mpfr_float (rop, val_some (val_ter (ter))));
-}
+  MPFR_REGULAR_FUNCTION0 (mpfr_round);
 
 CAMLprim value caml_mpfr_roundeven (value prec, value op)
-{
-  CAMLparam1 (op);
-  CAMLlocal1 (rop);
-  int ter;
-
-  rop = caml_mpfr_init2_opt (prec);
-  ter = mpfr_roundeven (MPFR_val (rop), MPFR_val2 (op));
-
-  CAMLreturn (mpfr_float (rop, val_some (val_ter (ter))));
-}
+  MPFR_REGULAR_FUNCTION0 (mpfr_roundeven);
 
 CAMLprim value caml_mpfr_trunc (value prec, value op)
-{
-  CAMLparam1 (op);
-  CAMLlocal1 (rop);
-  int ter;
-
-  rop = caml_mpfr_init2_opt (prec);
-  ter = mpfr_trunc (MPFR_val (rop), MPFR_val2 (op));
-
-  CAMLreturn (mpfr_float (rop, val_some (val_ter (ter))));
-}
+  MPFR_REGULAR_FUNCTION0 (mpfr_trunc);
 
 CAMLprim value caml_mpfr_rint_ceil (value rnd, value prec, value op)
   MPFR_REGULAR_FUNCTION1 (mpfr_rint_ceil);
@@ -1484,18 +1319,8 @@ CAMLprim value caml_mpfr_modf (value rnd, value iprec, value fprec, value op)
 		 mpfr_float (fop, Val_none)));
 }
 
-CAMLprim value caml_mpfr_fmod (value rnd, value prec, value x, value y)
-{
-  CAMLparam3 (x, y, rnd);
-  CAMLlocal1 (rop);
-  int ter;
-
-  rop = caml_mpfr_init2_opt (prec);
-  ter = mpfr_fmod (MPFR_val (rop),
-		   MPFR_val2 (x), MPFR_val2 (y), rnd_val_opt (rnd));
-
-  CAMLreturn (mpfr_float (rop, val_some (val_ter (ter))));
-}
+CAMLprim value caml_mpfr_fmod (value rnd, value prec, value op1, value op2)
+  MPFR_TWO_MPFR_OPERANDS (mpfr_fmod);
 
 CAMLprim value caml_mpfr_fmodquo (value rnd, value prec, value x, value y)
 {
@@ -1511,18 +1336,8 @@ CAMLprim value caml_mpfr_fmodquo (value rnd, value prec, value x, value y)
   CAMLreturn (caml_tuple2 (mpfr_float (rop, val_some (val_ter (ter))), Val_int (q)));
 }
 
-CAMLprim value caml_mpfr_remainder (value rnd, value prec, value x, value y)
-{
-  CAMLparam3 (x, y, rnd);
-  CAMLlocal1 (rop);
-  int ter;
-
-  rop = caml_mpfr_init2_opt (prec);
-  ter = mpfr_remainder (MPFR_val (rop),
-			MPFR_val2 (x), MPFR_val2 (y), rnd_val_opt (rnd));
-
-  CAMLreturn (mpfr_float (rop, val_some (val_ter (ter))));
-}
+CAMLprim value caml_mpfr_remainder (value rnd, value prec, value op1, value op2)
+  MPFR_TWO_MPFR_OPERANDS (mpfr_remainder);
 
 CAMLprim value caml_mpfr_remquo (value rnd, value prec, value x, value y)
 {
@@ -1642,30 +1457,10 @@ CAMLprim value caml_mpfr_nextbelow (value x, value y)
 }
 
 CAMLprim value caml_mpfr_min (value rnd, value prec, value op1, value op2)
-{
-  CAMLparam3 (op1, op2, rnd);
-  CAMLlocal1 (rop);
-  int ter;
-
-  rop = caml_mpfr_init2_opt (prec);
-  ter = mpfr_min (MPFR_val (rop),
-		  MPFR_val2 (op1), MPFR_val2 (op2), rnd_val_opt (rnd));
-
-  CAMLreturn (mpfr_float (rop, val_some (val_ter (ter))));
-}
+  MPFR_TWO_MPFR_OPERANDS (mpfr_min);
 
 CAMLprim value caml_mpfr_max (value rnd, value prec, value op1, value op2)
-{
-  CAMLparam3 (op1, op2, rnd);
-  CAMLlocal1 (rop);
-  int ter;
-
-  rop = caml_mpfr_init2_opt (prec);
-  ter = mpfr_max (MPFR_val (rop),
-		  MPFR_val2 (op1), MPFR_val2 (op2), rnd_val_opt (rnd));
-
-  CAMLreturn (mpfr_float (rop, val_some (val_ter (ter))));
-}
+  MPFR_TWO_MPFR_OPERANDS (mpfr_max);
 
 CAMLprim value caml_mpfr_get_exp (value x)
 {
@@ -1716,17 +1511,7 @@ CAMLprim value caml_mpfr_setsign (value rnd, value prec, value op, value s)
 }
 
 CAMLprim value caml_mpfr_copysign (value rnd, value prec, value op1, value op2)
-{
-  CAMLparam3 (op1, op2, rnd);
-  CAMLlocal1 (rop);
-  int ter;
-
-  rop = caml_mpfr_init2_opt (prec);
-  ter = mpfr_copysign (MPFR_val (rop),
-		       MPFR_val2 (op1), MPFR_val2 (op2), rnd_val_opt (rnd));
-
-  CAMLreturn (mpfr_float (rop, val_some (val_ter (ter))));
-}
+  MPFR_TWO_MPFR_OPERANDS (mpfr_copysign);
 
 CAMLprim value caml_mpfr_get_version ()
 {
