@@ -545,6 +545,9 @@ number of precision [p] from a string in base [b] read on [stdin]. It
 uses [Pervasives.input_line] and [Mpfr.make_from_str]. *)
 val inp_str : in_channel -> int -> int -> mpfr_rnd_t -> mpfr_float
 
+(* val fpif_export : out_channel -> mpfr_float -> unit
+ * val fpif_import : in_channel -> mpfr_float *)
+
 (** {2 Integer and Remainder Related} *)
 
 (** If not provided, default values for [rnd] and [prec] are the defaults MPFR precision and rounding mode

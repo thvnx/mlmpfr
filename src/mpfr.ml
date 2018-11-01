@@ -279,3 +279,7 @@ let out_str chan base n op rnd =
 
 let inp_str chan base prec rnd =
   let str = input_line chan in make_from_str ~rnd:rnd ~prec:prec ~base:base str
+
+(* Require FILE *stream binding support *)
+(* external fpif_export : out_channel -> mpfr_float -> unit = "caml_mpfr_fpif_export"
+ * external fpif_import : in_channel -> mpfr_float = "caml_mpfr_fpif_import" *)

@@ -1,8 +1,9 @@
 release_400:
-* Add support to mpfr_fpif_export and mpfr_fpif_import functions.
 * Add tests for mpfr_flags_clear, mpfr_flags_set, mpfr_flags_test, mpfr_flags_save and mpfr_flags_restore.
 * Add macro mpfr_round_nearest_away.
 * Add mpfr_fmma and mpfr_fmms.
 * Add mpfr_log_ui and mpfr_gamma_inc.
 * Check mpfr_eint for negative arguments.
 * Add mpfr_rint_roundeven and mpfr_roundeven.
+master:
+* Support FILE *stream in bindings (mpfr_fpif_export, mpfr_fpif_import).
