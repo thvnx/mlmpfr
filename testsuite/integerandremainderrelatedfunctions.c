@@ -52,6 +52,8 @@ void all (mpfr_t op1, mpfr_t op2)
   mpfr_printf ("%.Re %s\n", rop, rounding_to_string (ter));
   ter = mpfr_round (rop, op1);
   mpfr_printf ("%.Re %s\n", rop, rounding_to_string (ter));
+  ter = mpfr_roundeven (rop, op1);
+  mpfr_printf ("%.Re %s\n", rop, rounding_to_string (ter));
   ter = mpfr_trunc (rop, op1);
   mpfr_printf ("%.Re %s\n", rop, rounding_to_string (ter));
 
@@ -60,6 +62,8 @@ void all (mpfr_t op1, mpfr_t op2)
   ter = mpfr_rint_floor (rop, op1, MPFR_RNDN);
   mpfr_printf ("%.Re %s\n", rop, rounding_to_string (ter));
   ter = mpfr_rint_round (rop, op1, MPFR_RNDN);
+  mpfr_printf ("%.Re %s\n", rop, rounding_to_string (ter));
+  ter = mpfr_rint_roundeven (rop, op1, MPFR_RNDN);
   mpfr_printf ("%.Re %s\n", rop, rounding_to_string (ter));
   ter = mpfr_rint_trunc (rop, op1, MPFR_RNDN);
   mpfr_printf ("%.Re %s\n", rop, rounding_to_string (ter));

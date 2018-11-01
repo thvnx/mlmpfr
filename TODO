@@ -1,5 +1,3 @@
-release_400:
-* Add mpfr_rint_roundeven and mpfr_roundeven.
 master:
 * Support FILE *stream in bindings (mpfr_fpif_export, mpfr_fpif_import).
 * Try to factorize some code in mlmpfr_stubs.c.

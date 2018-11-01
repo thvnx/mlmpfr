@@ -1421,6 +1421,18 @@ CAMLprim value caml_mpfr_round (value prec, value op)
   CAMLreturn (mpfr_float (rop, val_some (val_ter (ter))));
 }
 
+CAMLprim value caml_mpfr_roundeven (value prec, value op)
+{
+  CAMLparam1 (op);
+  CAMLlocal1 (rop);
+  int ter;
+
+  rop = caml_mpfr_init2_opt (prec);
+  ter = mpfr_roundeven (MPFR_val (rop), MPFR_val2 (op));
+
+  CAMLreturn (mpfr_float (rop, val_some (val_ter (ter))));
+}
+
 CAMLprim value caml_mpfr_trunc (value prec, value op)
 {
   CAMLparam1 (op);
@@ -1441,6 +1453,9 @@ CAMLprim value caml_mpfr_rint_floor (value rnd, value prec, value op)
 
 CAMLprim value caml_mpfr_rint_round (value rnd, value prec, value op)
   MPFR_REGULAR_FUNCTION1 (mpfr_rint_round);
+
+CAMLprim value caml_mpfr_rint_roundeven (value rnd, value prec, value op)
+  MPFR_REGULAR_FUNCTION1 (mpfr_rint_roundeven);
 
 CAMLprim value caml_mpfr_rint_trunc (value rnd, value prec, value op)
   MPFR_REGULAR_FUNCTION1 (mpfr_rint_trunc);

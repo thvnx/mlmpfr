@@ -584,6 +584,11 @@ val floor : ?prec:int -> mpfr_float -> mpfr_float
 away from zero as in the roundTiesToAway mode of IEEE 754-2008). *)
 val round : ?prec:int -> mpfr_float -> mpfr_float
 
+(** Retrun the input rounded to an integer, i.e. the nearest
+   representable integer (rounding halfway cases athe even-rounding
+   rule). *)
+val roundeven : ?prec:int -> mpfr_float -> mpfr_float
+
 (** Retrun the input rounded to an integer, i.e. the nearest representable integer toward zero. *)
 val trunc : ?prec:int -> mpfr_float -> mpfr_float
 
@@ -598,6 +603,12 @@ val rint_floor : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
 (** Retrun the input rounded to an integer, i.e. the nearest representable integer (rounding halfway
 cases away from zero). If the result is not representable, it is rounded in the direction [~rnd] *)
 val rint_round : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
+
+(** Retrun the input rounded to an integer, i.e. the nearest
+   representable integer (rounding halfway cases to the nearest even
+   integer). If the result is not representable, it is rounded in the
+   direction [~rnd] *)
+val rint_roundeven : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
 
 (** Retrun the input rounded to an integer, i.e. the next integer toward zero.
 If the result is not representable, it is rounded in the direction [~rnd] *)
