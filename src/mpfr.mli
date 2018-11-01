@@ -347,6 +347,9 @@ them). *)
 (** Return the natural logarithm of a [mpfr_float]. *)
 val log : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
 
+(** Return the natural logarithm of an [int]. *)
+val log_int : ?rnd:mpfr_rnd_t -> ?prec:int -> int -> mpfr_float
+
 (** Return the log2 of a [mpfr_float]. *)
 val log2 : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
 
@@ -446,6 +449,9 @@ val li2 : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
 
 (** Return the Gamma function on a [mpfr_float]. *)
 val gamma : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
+
+(** [Mpfr.gamma_inc x y] returns the incomplete Gamma function on [x] and [y]. *)
+val gamma_inc : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float -> mpfr_float
 
 (** Return the logarithm of the Gamma function on a [mpfr_float]. *)
 val lngamma : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float

@@ -47,6 +47,18 @@ void all (mpfr_t op1, mpfr_t op2)
 
   ter = mpfr_log (rop, op1, MPFR_RNDN);
   mpfr_printf ("%.Re %s\n", rop, rounding_to_string (ter));
+
+  if (mpfr_sgn (op1) >= 0)
+    {
+      ter = mpfr_log_ui (rop, (mpfr_get_si (op1, MPFR_RNDN)), MPFR_RNDN);
+      mpfr_printf ("%.Re %s\n", rop, rounding_to_string (ter));
+    }
+  else
+    {
+      mpfr_set_nan (rop);
+      mpfr_printf ("%.Re None\n", rop);
+    }
+
   ter = mpfr_log2 (rop, op1, MPFR_RNDN);
   mpfr_printf ("%.Re %s\n", rop, rounding_to_string (ter));
   ter = mpfr_log10 (rop, op1, MPFR_RNDN);
@@ -128,6 +140,8 @@ void all (mpfr_t op1, mpfr_t op2)
   ter = mpfr_li2 (rop, op1, MPFR_RNDN);
   mpfr_printf ("%.Re %s\n", rop, rounding_to_string (ter));
   ter = mpfr_gamma (rop, op1, MPFR_RNDN);
+  mpfr_printf ("%.Re %s\n", rop, rounding_to_string (ter));
+  ter = mpfr_gamma_inc (rop, op1, op2, MPFR_RNDN);
   mpfr_printf ("%.Re %s\n", rop, rounding_to_string (ter));
   ter = mpfr_lngamma (rop, op1, MPFR_RNDN);
   mpfr_printf ("%.Re %s\n", rop, rounding_to_string (ter));

@@ -20,6 +20,7 @@ module M = Mpfr
 
 let all op1 op2 =
   let r = M.log op1 in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);
+  let r = M.log_int (M.get_int op1) in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);
   let r = M.log2 op1 in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);
   let r = M.log10 op1 in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);
   let r = M.exp op1 in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);
@@ -53,6 +54,7 @@ let all op1 op2 =
   let r = M.eint op2 in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);
   let r = M.li2 op1 in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);
   let r = M.gamma op1 in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);
+  let r = M.gamma_inc op1 op2 in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);
   let r = M.lngamma op1 in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);
   let r, s = M.lgamma op1 in printf "%s %s %s\n" (M.get_formatted_str r)
                                     (match s with M.Positive -> "Positive" | M.Negative -> "Negative") (rounding_to_string r);

@@ -915,6 +915,21 @@ static int custom_compare (value v1, value v2)
 CAMLprim value caml_mpfr_log (value rnd, value prec, value op)
   MPFR_REGULAR_FUNCTION1 (mpfr_log);
 
+CAMLprim value caml_mpfr_log_ui (value rnd, value prec, value op)
+{
+  CAMLparam2 (op, rnd);
+  CAMLlocal1 (rop);
+  int ter;
+
+  if (SI_val (op) < 0)
+    CAMLreturn (caml_mpfr_init_set_nan (prec));
+
+  rop = caml_mpfr_init2_opt (prec);
+  ter = mpfr_log_ui (MPFR_val (rop), SI_val (op), rnd_val_opt (rnd));
+
+  CAMLreturn (mpfr_float (rop, val_some (val_ter (ter))));
+}
+
 CAMLprim value caml_mpfr_log2 (value rnd, value prec, value op)
   MPFR_REGULAR_FUNCTION1 (mpfr_log2);
 
@@ -1068,6 +1083,16 @@ CAMLprim value caml_mpfr_li2 (value rnd, value prec, value op)
 
 CAMLprim value caml_mpfr_gamma (value rnd, value prec, value op)
   MPFR_REGULAR_FUNCTION1 (mpfr_gamma);
+
+CAMLprim value caml_mpfr_gamma_inc (value rnd, value prec, value op1, value op2)
+{
+  CAMLparam4 (op1, op2, rnd, prec);
+  CAMLlocal1 (rop);
+  int ter;
+  rop = caml_mpfr_init2_opt (prec);
+  ter = mpfr_gamma_inc(MPFR_val (rop), MPFR_val2 (op1), MPFR_val2(op2), rnd_val_opt (rnd));
+  CAMLreturn (mpfr_float (rop, val_some (val_ter (ter))));
+}
 
 CAMLprim value caml_mpfr_lngamma (value rnd, value prec, value op)
   MPFR_REGULAR_FUNCTION1 (mpfr_lngamma);
