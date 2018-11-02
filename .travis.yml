@@ -1,0 +1,31 @@
+language: c
+
+env:
+  global:
+    - MPFR_VERSION="3.1.6"
+    - MPFR_TARGZ="mpfr-$MPFR_VERSION.tar.gz"
+    - MPFR_BUILD_DIR="/tmp"
+
+before_install:
+  - sudo add-apt-repository ppa:ansible/bubblewrap -y && sudo apt-get update
+  - wget https://www.mpfr.org/mpfr-$MPFR_VERSION/$MPFR_TARGZ
+
+install:
+  - sudo apt-get install bubblewrap
+  - yes /usr/local/bin | sh <(curl -sL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh)
+
+before_script:
+  - opam init -a && eval $(opam env)
+  - opam install oasis -y
+  - mv $MPFR_TARGZ $MPFR_BUILD_DIR
+  - BUILD_DIR=`pwd`
+  - cd $MPFR_BUILD_DIR && tar xvzf $MPFR_TARGZ
+  - cd $MPFR_BUILD_DIR/mpfr-$MPFR_VERSION && ./configure && make && sudo make install
+  - cd $BUILD_DIR
+
+script:
+  - oasis setup
+  - ./configure --enable-tests
+  - make
+  - make doc
+  - LD_LIBRARY_PATH=/usr/local/lib/ make test
