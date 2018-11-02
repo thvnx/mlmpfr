@@ -5,7 +5,7 @@ install:
   - sudo apt-get install opam
   - opam init -a
   - opam update
-  - opam install ocamlfind
+  - opam install oasis
 
 script:
   - oasis setup
