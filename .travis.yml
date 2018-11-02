@@ -17,7 +17,7 @@ before_script:
 #  - opam init -a && eval $(opam env)
 #  - opam install oasis -y
   - echo $MPFR_BUILD_DIR
-  - mkdir ${MPFR_BUILD_DIR}
+  - mkdir ${MPFR_BUILD_DIR} && mv mpfr-4.0.1.tar.gz $MPFR_BUILD_DIR
   - ls /tmp
   - pwd
   - ls ${MPFR_BUILD_DIR}
