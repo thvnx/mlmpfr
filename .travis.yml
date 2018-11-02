@@ -2,7 +2,8 @@ language: c
 
 env:
   global:
-    - MPFR_BUILD_DIR="/tmp/mpfr-4.0.1"
+    - MPFR_VERSION="4.0.1"
+    - MPFR_BUILD_DIR="/tmp/mpfr-$MPFR_VERSION"
 
 before_install:
   - sudo add-apt-repository ppa:ansible/bubblewrap -y && sudo apt-get update
