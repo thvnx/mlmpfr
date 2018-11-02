@@ -28,4 +28,4 @@ script:
   - ./configure --enable-tests
   - make
   - make doc
-  - make tests
+  - make test
