@@ -1,7 +1,8 @@
 language: c
 
 env:
-  - MPFR_BUILD_DIR="/tmp/mpfr-4.0.1"
+  global:
+    - MPFR_BUILD_DIR="/tmp/mpfr-4.0.1"
 
 before_install:
   - sudo add-apt-repository ppa:ansible/bubblewrap -y && sudo apt-get update
@@ -14,6 +15,7 @@ install:
 before_script:
   - opam init -a && eval $(opam env)
   - opam install oasis -y
+  - echo $MPFR_BUILD_DIR
   - mkdir $MPFR_BUILD_DIR && tar xzf mpfr-4.0.1.tar.gz -C $MPFR_BUILD_DIR
   - cd $MPFR_BUILD_DIR && ./configure && make && sudo make install && cd -
 
