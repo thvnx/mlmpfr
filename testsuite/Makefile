@@ -13,7 +13,7 @@ check: all
 		./$$tst.ocaml > /tmp/out.ocaml ; \
 		./$$tst.gcc > /tmp/out.gcc ; \
 		diff /tmp/out.ocaml /tmp/out.gcc ; \
-		if [ "$$?" == "0" ]; then \
+		if [ "$$?" = "0" ]; then \
 			echo "[PASS] $$tst" ; \
 		else \
 			echo "[FAIL] $$tst" ; \
