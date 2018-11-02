@@ -2,16 +2,26 @@
 |--------|--------------|--------------|--------------|
 | [![Build Status](https://travis-ci.com/thvnx/mlmpfr.svg?branch=master)](https://travis-ci.com/thvnx/mlmpfr) | [![Build Status](https://travis-ci.com/thvnx/mlmpfr.svg?branch=release_400)](https://travis-ci.com/thvnx/mlmpfr) | [![Build Status](https://travis-ci.com/thvnx/mlmpfr.svg?branch=release_400)](https://travis-ci.com/thvnx/mlmpfr) | [![Build Status](https://travis-ci.com/thvnx/mlmpfr.svg?branch=release_316)](https://travis-ci.com/thvnx/mlmpfr) |
 
+(tested on linux and osx)
+
 # mlmpfr
 OCaml bindings for MPFR.
 
 #### build and install
 
-*mlmpfr* depends on _ocamlfind_, _oasis_, _ocaml_ version >= 4.04, and
-_MPFR_ library version 3.1.6, 4.0.0, and 4.0.1.
+Building *mlmpfr* depends on
+[_oasis_](http://oasis.forge.ocamlcore.org/) (an OCaml build system),
+_ocaml_ version >= 4.04, and _MPFR_ library version 3.1.6, 4.0.0, or
+4.0.1. Basically you just need to install _oasis_ via the _opam_
+package manager, which will triggers all the dependencies (such as
+ocamlfind for example).
 
-From source: in mlmpfr main directory, on branch _release_316_ for _MPFR 3.1.6_, _release_400_ for _MPFR 4.0.[0-1]_.
-Make sure that you have the proper _MPFR_ library version installed because mlmpfr won't check for it.
+From sources (github repo or
+[releases](https://github.com/thvnx/mlmpfr/releases)): in mlmpfr main
+directory, on branch _release_316_ (resp. release mlmpfr.3.1.6) for
+_MPFR 3.1.6_, _release_400_ for _MPFR 4.0.[0-1]_ (resp. releases
+mlmpfr.4.0.0 and mlmpfr.4.0.1).  Make sure that you have the proper
+_MPFR_ library version installed because mlmpfr won't check for it.
 
 ```bash
 oasis setup
@@ -28,7 +38,9 @@ From _opam_ (targeting _MPFR 3.1.6_).
 opam install mlmpfr.3.1.6
 # `opam remove mlmpfr` to remove the package.
 ```
-Note: opam package `mlmpfr.4.0.0` also exists and its suitable for both _MPFR 4.0.0_ and _4.0.1_ versions.
+
+Note: opam package `mlmpfr.4.0.0` also exists and its suitable for
+both _MPFR 4.0.0_ and _4.0.1_ versions.
 
 #### documentation
 
@@ -36,7 +48,9 @@ Run:
 ```bash
 make doc # Generate HTML documentation
 ```
-or see [here](https://thvnx.github.io/mlmpfr/Mpfr.html).
+
+or see an HTML version
+[here](https://thvnx.github.io/mlmpfr/Mpfr.html).
 
 #### usage
 
@@ -61,4 +75,3 @@ will results in:
 $ ./a.out
 9.449569463147377e-01
 ```
-
