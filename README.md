@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/thvnx/mlmpfr.svg?branch=travis-ci)](https://travis-ci.com/thvnx/mlmpfr)
+[![Build Status](https://travis-ci.com/thvnx/mlmpfr.svg?branch=master)](https://travis-ci.com/thvnx/mlmpfr)
 
 # mlmpfr
 OCaml bindings for MPFR.
