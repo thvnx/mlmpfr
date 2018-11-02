@@ -3,6 +3,7 @@ language: c
 install:
   - sudo apt-get install ocaml
   - sudo apt-get install opam
+  - opam init
   - opam install ocamlbuild
 
 script:
