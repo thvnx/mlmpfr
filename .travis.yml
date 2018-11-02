@@ -6,6 +6,10 @@ env:
     - MPFR_TARGZ="mpfr-$MPFR_VERSION.tar.gz"
     - MPFR_BUILD_DIR="/tmp"
 
+compiler:
+  - gcc
+  - clang
+
 before_install:
   - sudo add-apt-repository ppa:ansible/bubblewrap -y && sudo apt-get update
   - wget https://www.mpfr.org/mpfr-$MPFR_VERSION/$MPFR_TARGZ
