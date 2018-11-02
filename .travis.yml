@@ -2,9 +2,7 @@ language: c
 
 install:
   - sudo apt-get install ocaml
-  - sudo apt-get install opam
-  - opam init -a
-  - opam update
+  - sh <(curl -sL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh)
   - opam install oasis
 
 script:
@@ -13,4 +11,3 @@ script:
   - make
   - make doc
   - make tests
-
