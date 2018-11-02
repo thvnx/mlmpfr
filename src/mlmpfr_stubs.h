@@ -32,7 +32,7 @@ static int custom_compare (value, value);
 static void custom_finalize (value);
 
 static struct custom_operations mpfr_ops = {
-  "https://github.com/thvnx/mlmpfr/releases/tag/mlmpfr.3.1.6",
+  "https://github.com/thvnx/mlmpfr",
   custom_finalize,
   custom_compare,
   custom_hash_default,
