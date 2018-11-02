@@ -36,7 +36,7 @@ Run:
 ```bash
 make doc # Generate HTML documentation
 ```
-or see [here](https://thvnx.github.io/mlmpfr/).
+or see [here](https://thvnx.github.io/mlmpfr/Mpfr.html).
 
 #### usage
 
