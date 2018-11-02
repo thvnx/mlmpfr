@@ -10,12 +10,16 @@ compiler:
   - gcc
   - clang
 
+os:
+  - linux
+  - osx
+
 before_install:
-  - sudo add-apt-repository ppa:ansible/bubblewrap -y && sudo apt-get update
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo add-apt-repository ppa:ansible/bubblewrap -y && sudo apt-get update ; fi
   - wget https://www.mpfr.org/mpfr-$MPFR_VERSION/$MPFR_TARGZ
 
 install:
-  - sudo apt-get install bubblewrap
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install bubblewrap ; fi
   - yes /usr/local/bin | sh <(curl -sL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh)
 
 before_script:
