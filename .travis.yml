@@ -1,4 +1,9 @@
 language: c
 
-before_install:
+install:
   - sudo apt-get install ocaml
+  - sudo apt-get install opam
+  - opam install ocamlbuild
+
+script:
+  - oasis setup
