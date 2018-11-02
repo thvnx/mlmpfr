@@ -4,7 +4,12 @@ install:
   - sudo apt-get install ocaml
   - sudo apt-get install opam
   - opam init -a
-  - opam install ocamlbuild
+  - opam install ocamlfind
 
 script:
   - oasis setup
+  - ./configure --enable-tests
+  - make
+  - make doc
+  - make tests
+
