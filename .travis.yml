@@ -11,7 +11,8 @@ install:
 before_script:
   - opam init -a && eval $(opam env)
   - opam install oasis -y
-  - tar xvzf mpfr-4.0.1.tar.gz -C /tmp/mpfr-4.0.1 && cd /tmp/mpfr-4.0.1
+  - MPFR_BUILD_DIR=/tmp/mpfr-4.0.1
+  - mkdir $MPFR_BUILD_DIR && tar xzf mpfr-4.0.1.tar.gz -C $MPFR_BUILD_DIR && cd $MPFR_BUILD_DIR
   - ./configure && make && sudo make install
   - cd -
 
