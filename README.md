@@ -1,6 +1,6 @@
 | master | mlmpfr.4.0.1 | mlmpfr.4.0.0 | mlmpfr.3.1.6 |
 |--------|--------------|--------------|--------------|
-| [![Build Status](https://travis-ci.com/thvnx/mlmpfr.svg?branch=master)](https://travis-ci.com/thvnx/mlmpfr) | [![Build Status](https://travis-ci.com/thvnx/mlmpfr.svg?branch=release_400)](https://travis-ci.com/thvnx/mlmpfr) | [![Build Status](https://travis-ci.com/thvnx/mlmpfr.svg?branch=release_400)](https://travis-ci.com/thvnx/mlmpfr) | [![Build Status](https://travis-ci.com/thvnx/mlmpfr.svg?branch=release_316)](https://travis-ci.com/thvnx/mlmpfr) |
+| [![Build Status](https://travis-ci.com/thvnx/mlmpfr.svg?branch=master)](https://travis-ci.com/thvnx/mlmpfr) | [![Build Status](https://travis-ci.com/thvnx/mlmpfr.svg?branch=release_401)](https://travis-ci.com/thvnx/mlmpfr) | [![Build Status](https://travis-ci.com/thvnx/mlmpfr.svg?branch=release_400)](https://travis-ci.com/thvnx/mlmpfr) | [![Build Status](https://travis-ci.com/thvnx/mlmpfr.svg?branch=release_316)](https://travis-ci.com/thvnx/mlmpfr) |
 
 (tested on linux and osx)
 
@@ -11,16 +11,16 @@ OCaml bindings for MPFR.
 
 Building *mlmpfr* depends on
 [_oasis_](http://oasis.forge.ocamlcore.org/) (an OCaml build system),
-_ocaml_ version >= 4.04, and _MPFR_ library version 3.1.6, 4.0.0, or
-4.0.1. Basically you just need to install _oasis_ via the _opam_
-package manager, which will triggers all the dependencies (such as
-ocamlfind for example).
+_ocaml_ version >= 4.04, and _MPFR_ library version 3.1.6, 4.0.0,
+4.0.1 or 4.0.2. Basically you just need to install _oasis_ via the
+_opam_ package manager, which will triggers all the dependencies (such
+as ocamlfind for example).
 
 From sources (github repo or
 [releases](https://github.com/thvnx/mlmpfr/releases)): in mlmpfr main
 directory, on branch _release_316_ (resp. release mlmpfr.3.1.6) for
-_MPFR 3.1.6_, _release_400_ for _MPFR 4.0.[0-1]_ (resp. releases
-mlmpfr.4.0.0 and mlmpfr.4.0.1).  Make sure that you have the proper
+_MPFR 3.1.6_, _release_40[0-2]_ for _MPFR 4.0.[0-2]_ (resp. releases
+mlmpfr.4.0.[0-2]).  Make sure that you have the proper
 _MPFR_ library version installed because mlmpfr won't check for it.
 
 ```bash
@@ -40,7 +40,7 @@ opam install mlmpfr.3.1.6
 ```
 
 Note: opam package `mlmpfr.4.0.0` also exists and its suitable for
-both _MPFR 4.0.0_ and _4.0.1_ versions.
+_MPFR 4.0.0_, _4.0.1_ and _4.0.2_ versions.
 
 #### documentation
 
