@@ -3,7 +3,7 @@ language: c
 env:
   global:
     - MPFR_VERSION="4.0.2"
-    - MPFR_TARGZ="mpfr-$MPFR_VERSION-rc1.tar.gz"
+    - MPFR_TARGZ="mpfr-$MPFR_VERSION-rc2.tar.gz"
     - MPFR_BUILD_DIR="/tmp"
 
 compiler:
@@ -28,7 +28,7 @@ before_script:
   - mv $MPFR_TARGZ $MPFR_BUILD_DIR
   - BUILD_DIR=`pwd`
   - cd $MPFR_BUILD_DIR && tar xvzf $MPFR_TARGZ
-  - cd $MPFR_BUILD_DIR/mpfr-$MPFR_VERSION-rc1 && ./configure && make && sudo make install
+  - cd $MPFR_BUILD_DIR/mpfr-$MPFR_VERSION-rc2 && ./configure && make && sudo make install
   - cd $BUILD_DIR
 
 script:
