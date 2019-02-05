@@ -28,7 +28,7 @@ before_script:
   - mv $MPFR_TARGZ $MPFR_BUILD_DIR
   - BUILD_DIR=`pwd`
   - cd $MPFR_BUILD_DIR && tar xvzf $MPFR_TARGZ
-  - cd $MPFR_BUILD_DIR/mpfr-$MPFR_VERSION && ./configure && make && sudo make install
+  - cd $MPFR_BUILD_DIR/mpfr-$MPFR_VERSION && ./configure && make -j8 && sudo make install
   - cd $BUILD_DIR
 
 script:
