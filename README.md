@@ -69,7 +69,7 @@ Compile the above code with:
 ```bash
 ocamlfind ocamlopt -o a.out -linkpkg -package mlmpfr example.ml -cclib -lmpfr
 ```
-will results in:
+will result in:
 
 ```bash
 $ ./a.out
