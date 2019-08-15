@@ -39,7 +39,7 @@ A few distinctions are made from the original C library:
    {e *_ui*} or {e *_d*} are renamed here with {e *_int*} or {e
    *_float*}, respectively;} {- bindings to functions {e
    mpfr_*printf}, {e mpfr_*random*}, {e mpfr_get_patches}, {e
-   mpfr_buildopt_*}, {e mpfr_fpif_*}, and, macros {e MPFR_VERSION*},
+   mpfr_buildopt_*}, and, macros {e MPFR_VERSION*},
    {e mpfr_round_nearest_away} are not implemented.}}
 
 In the sequel, if not provided, optional parameters [prec] and [rnd]
@@ -790,3 +790,19 @@ val flags_save : unit -> mpfr_flags_t list
 (** [Mpfr.flags_restore f1 f2] restores the flags specified by mask
    [f2] to their state represented in flags [f1]. *)
 val flags_restore : mpfr_flags_t list -> mpfr_flags_t list -> unit
+
+(** [Mpfr.fpif_export chan op] exports the number [op] to the stream [chan] in a
+   floating-point interchange format. In particular one can export on a 32-bit
+   computer and import on a 64-bit computer, or export on a little-endian computer
+   and import on a big-endian computer. The precision of op and the sign bit of a
+   NaN are stored too. *)
+val fpif_export : out_channel -> mpfr_float -> unit
+
+(** [Mpfr.fpif_import chan] imports a [mpfr_float] number from the stream [chan] in a
+   floating-point interchange format (see [Mpfr.mpfr_fpif_export]). Note that the precision
+   of [op] is set to the one read from the stream, and the sign bit is always retrieved
+   (even for NaN). If the stored precision is zero or greater than [Mpfr.mpfr_prec_max],
+   the function fails (its ternary value is non-zero) and [op] is undefined. If the function
+   fails for another reason, [op] is set to NaN. Ternary value is 0 iff the import
+   was successful. *)
+val fpif_import : in_channel -> mpfr_float

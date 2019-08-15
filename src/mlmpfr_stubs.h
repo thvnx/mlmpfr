@@ -244,4 +244,18 @@ static value mpfr_float (value mpfr_t, value ternary)
 
 value caml_mpfr_get_default_prec ();
 
+#include <unistd.h>
+// FIXME Try a way to not include CAML_INTERNALS things
+#define CAML_INTERNALS
+#include <caml/io.h>
+#undef CAML_INTERNALS
+
+static FILE *file_of_file_descr(value file_descr, const char *mode)
+{
+  CAMLparam1 (file_descr);
+  int fd = Channel(file_descr)->fd;
+  FILE *result = fdopen (dup (fd), mode);
+  CAMLreturnT (FILE *, result);
+}
+
 #endif

@@ -1,4 +1,4 @@
 master:
-* Support FILE *stream in bindings (mpfr_fpif_export, mpfr_fpif_import).
+* Add tests for mpfr_fpif_export and mpfr_fpif_import.
 * Try to factorize some code in mlmpfr_stubs.c.
 * Try to factorize some code in testsuite.

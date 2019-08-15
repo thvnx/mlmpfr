@@ -1765,3 +1765,22 @@ CAMLprim value caml_mpfr_flags_restore (value flags1, value flags2)
   mpfr_flags_restore(flags_val(flags1), flags_val(flags2));
   CAMLreturn (Val_unit);
 }
+
+CAMLprim value caml_mpfr_fpif_export (value file_descr, value op)
+{
+  CAMLparam2 (file_descr, op);
+  mpfr_fpif_export (file_of_file_descr (file_descr, "w"), MPFR_val2 (op));
+  CAMLreturn (Val_unit);
+}
+
+CAMLprim value caml_mpfr_fpif_import (value file_descr)
+{
+  CAMLparam1 (file_descr);
+  CAMLlocal1 (rop);
+  int ter;
+
+  rop = caml_mpfr_init2 (caml_mpfr_get_default_prec ());
+  ter = mpfr_fpif_import (MPFR_val (rop), file_of_file_descr (file_descr, "r"));
+
+  CAMLreturn (mpfr_float (rop, val_some (val_ter (ter))));
+}
