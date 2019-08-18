@@ -1766,6 +1766,7 @@ CAMLprim value caml_mpfr_flags_restore (value flags1, value flags2)
   CAMLreturn (Val_unit);
 }
 
+// TODO Add test in testsuite
 CAMLprim value caml_mpfr_fpif_export (value file_descr, value op)
 {
   CAMLparam2 (file_descr, op);
@@ -1773,6 +1774,7 @@ CAMLprim value caml_mpfr_fpif_export (value file_descr, value op)
   CAMLreturn (Val_unit);
 }
 
+// TODO Add test in testsuite
 CAMLprim value caml_mpfr_fpif_import (value file_descr)
 {
   CAMLparam1 (file_descr);
