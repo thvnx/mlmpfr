@@ -17,57 +17,60 @@
 #include <stdio.h>
 #include <mpfr.h>
 
-void all (mpfr_t op1, mpfr_t op2)
+#define PRINTM(X)  mpfr_printf ("%.Re\n", X)
+
+#define INIT(X)    mpfr_t X; mpfr_init (X)
+#define CLEAR(X)   mpfr_clear (X)
+
+#define NAN(X)     mpfr_set_nan (X); PRINTM (X)
+
+#define M_TO_SI(X) mpfr_get_si (X, MPFR_RNDN)
+#define M_TO_UI(X) mpfr_get_ui (X, MPFR_RNDN)
+#define M_TO_D(X)  mpfr_get_d  (X, MPFR_RNDN)
+
+#define UNAOP_M(OP, X, Z)  mpfr_##OP      (Z, X,           MPFR_RNDN); PRINTM (Z)
+#define UNAOP_UI(OP, X, Z) mpfr_##OP##_ui (Z, M_TO_UI (X), MPFR_RNDN); PRINTM (Z)
+
+#define BINOP_MM(OP, X, Y, Z)  mpfr_##OP      (Z, X,           Y,           MPFR_RNDN); PRINTM (Z)
+#define BINOP_MSI(OP, X, Y, Z) mpfr_##OP##_si (Z, X,           M_TO_SI (Y), MPFR_RNDN); PRINTM (Z)
+#define BINOP_MD(OP, X, Y, Z)  mpfr_##OP##_d  (Z, X,           M_TO_D (Y),  MPFR_RNDN); PRINTM (Z)
+#define BINOP_SIM(OP, X, Y, Z) mpfr_si_##OP   (Z, M_TO_SI (X), Y,           MPFR_RNDN); PRINTM (Z)
+#define BINOP_DM(OP, X, Y, Z)  mpfr_d_##OP    (Z, M_TO_D (X),  Y,           MPFR_RNDN); PRINTM (Z)
+
+void
+all (mpfr_t op1, mpfr_t op2)
 {
-  mpfr_t rop;
-  mpfr_init (rop);
+  INIT (rop);
 
-  mpfr_add (rop, op1, op2, MPFR_RNDN);
-  mpfr_printf ("%.Re\n", rop);
-  mpfr_add_si (rop, op1, mpfr_get_si (op2, MPFR_RNDN), MPFR_RNDN);
-  mpfr_printf ("%.Re\n", rop);
-  mpfr_add_d (rop, op1, mpfr_get_d (op2, MPFR_RNDN), MPFR_RNDN);
-  mpfr_printf ("%.Re\n", rop);
+  BINOP_MM  (add, op1, op2, rop);
+  BINOP_MSI (add, op1, op2, rop);
+  BINOP_MD  (add, op1, op2, rop);
 
-  mpfr_sub (rop, op1, op2, MPFR_RNDN);
-  mpfr_printf ("%.Re\n", rop);
-  mpfr_sub_si (rop, op1, mpfr_get_si (op2, MPFR_RNDN), MPFR_RNDN);
-  mpfr_printf ("%.Re\n", rop);
-  mpfr_si_sub (rop, mpfr_get_si (op1, MPFR_RNDN), op2, MPFR_RNDN);
-  mpfr_printf ("%.Re\n", rop);
-  mpfr_sub_d (rop, op1, mpfr_get_d (op2, MPFR_RNDN), MPFR_RNDN);
-  mpfr_printf ("%.Re\n", rop);
-  mpfr_d_sub (rop, mpfr_get_d (op1, MPFR_RNDN), op2, MPFR_RNDN);
-  mpfr_printf ("%.Re\n", rop);
+  BINOP_MM  (sub, op1, op2, rop);
+  BINOP_MSI (sub, op1, op2, rop);
+  BINOP_SIM (sub, op1, op2, rop);
+  BINOP_MD  (sub, op1, op2, rop);
+  BINOP_DM  (sub, op1, op2, rop);
 
-  mpfr_mul (rop, op1, op2, MPFR_RNDN);
-  mpfr_printf ("%.Re\n", rop);
-  mpfr_mul_si (rop, op1, mpfr_get_si (op2, MPFR_RNDN), MPFR_RNDN);
-  mpfr_printf ("%.Re\n", rop);
-  mpfr_mul_d (rop, op1, mpfr_get_d (op2, MPFR_RNDN), MPFR_RNDN);
-  mpfr_printf ("%.Re\n", rop);
+  BINOP_MM  (mul, op1, op2, rop);
+  BINOP_MSI (mul, op1, op2, rop);
+  BINOP_MD  (mul, op1, op2, rop);
 
-  mpfr_div (rop, op1, op2, MPFR_RNDN);
-  mpfr_printf ("%.Re\n", rop);
-  mpfr_div_si (rop, op1, mpfr_get_si (op2, MPFR_RNDN), MPFR_RNDN);
-  mpfr_printf ("%.Re\n", rop);
-  mpfr_si_div (rop, mpfr_get_si (op1, MPFR_RNDN), op2, MPFR_RNDN);
-  mpfr_printf ("%.Re\n", rop);
-  mpfr_div_d (rop, op1, mpfr_get_d (op2, MPFR_RNDN), MPFR_RNDN);
-  mpfr_printf ("%.Re\n", rop);
-  mpfr_d_div (rop, mpfr_get_d (op1, MPFR_RNDN), op2, MPFR_RNDN);
-  mpfr_printf ("%.Re\n", rop);
+  BINOP_MM  (div, op1, op2, rop);
+  BINOP_MSI (div, op1, op2, rop);
+  BINOP_SIM (div, op1, op2, rop);
+  BINOP_MD  (div, op1, op2, rop);
+  BINOP_DM  (div, op1, op2, rop);
 
-  mpfr_sqrt (rop, op1, MPFR_RNDN);
-  mpfr_printf ("%.Re\n", rop);
-  if (mpfr_sgn (op1) < 0)
-    mpfr_set_nan (rop);
-  else
-    mpfr_sqrt_ui (rop, mpfr_get_ui (op1, MPFR_RNDN), MPFR_RNDN);
-  mpfr_printf ("%.Re\n", rop);
+  UNAOP_M   (sqrt, op1, rop);
+  if (mpfr_sgn (op1) < 0) {
+    NAN (rop);
+  } else {
+    UNAOP_UI (sqrt, op1, rop);
+  }
 
-  mpfr_cbrt (rop, op1, MPFR_RNDN);
-  mpfr_printf ("%.Re\n", rop);
+  UNAOP_M   (cbrt, op1, rop);
+
   mpfr_rootn_ui (rop, op1, 10, MPFR_RNDN);
   mpfr_printf ("%.Re\n", rop);
 
@@ -94,39 +97,22 @@ void all (mpfr_t op1, mpfr_t op2)
   mpfr_clear (rop);
 }
 
+#define SETD(X, V) mpfr_set_d (X, V, MPFR_RNDN)
+
+#define RUN(X, Y) {                                             \
+    INIT (op1);     INIT (op2);                                 \
+    SETD (op1, X);  SETD (op2, Y);                              \
+    all (op1, op2); printf ("\n");                              \
+    CLEAR (op1);    CLEAR (op2);                                \
+  }
+
 int main ()
 {
-  mpfr_t op1, op2;
-  mpfr_inits (op1, op2, NULL);
+  RUN (1. / 3,  1. / 10);
+  RUN (-4. / 3, 1. / 10);
+  RUN (1. / 3,  -113. / 10);
+  RUN (+0.,     -1. / 10);
+  RUN (-0.,     -0.);
 
-  mpfr_set_d (op1, 1. / 3, MPFR_RNDN);
-  mpfr_set_d (op2, 1. / 10, MPFR_RNDN);
-
-  all(op1, op2);
-  printf("\n");
-
-  mpfr_set_d (op1, -4. / 3, MPFR_RNDN);
-
-  all(op1, op2);
-  printf("\n");
-
-  mpfr_set_d (op1, 1. / 3, MPFR_RNDN);
-  mpfr_set_d (op2, -113. / 10, MPFR_RNDN);
-
-  all(op1, op2);
-  printf("\n");
-
-  mpfr_set_d (op1, +0, MPFR_RNDN);
-  mpfr_set_d (op2, -1. / 10, MPFR_RNDN);
-
-  all(op1, op2);
-  printf("\n");
-
-  mpfr_set_d (op1, -0., MPFR_RNDN);
-  mpfr_set_d (op2, -0., MPFR_RNDN);
-
-  all(op1, op2);
-
-  mpfr_clears (op1, op2, NULL);
   return 0;
 }
