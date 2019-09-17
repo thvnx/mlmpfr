@@ -1,6 +1,10 @@
 mlmpfr
 
-# master branch, work for release_400
+# master branch
+
+- support for mpfr_fpif_import and mpfr_fpif_export
+
+# release_400, release_401, release_402 branches
 
 - root replaced by rootn_ui
 - support failthful rounding mode support
