@@ -49,5 +49,5 @@ let _ =
 Compile the above code with:
 
 ```bash
-ocamlfind ocamlopt -o a.out -linkpkg -package mlmpfr example.ml -cclib -lmpfr
+ocamlfind ocamlc -package mlmpfr -linkpkg example.ml -o a.out
 ```
