@@ -75,3 +75,7 @@ will result in:
 $ ./a.out
 9.449569463147377e-01
 ```
+
+Note: you'll need to link with `-cclib -lmpfr` if you are using
+released versions of mlmpfr (as the ones provided by opam), since
+mlmpfr wasn't linked with mpfr by default before.
