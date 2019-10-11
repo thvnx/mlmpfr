@@ -12,6 +12,7 @@ Library "mlmpfr"
   Path:     src
   Modules:  Mpfr
   CSources: mlmpfr_stubs.c, mlmpfr_stubs.h
+  CCLib:    -lmpfr
   CCOpt:    -Wall
 
 Document "mlmpfr"
