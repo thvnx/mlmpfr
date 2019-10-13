@@ -1139,8 +1139,8 @@ CAMLprim value caml_mpfr_fmma_native (value rnd, value prec,
 }
 CAMLprim value caml_mpfr_fmma_bytecode (value * argv, int argn)
 {
-  return caml_mpfr_fmma_native(argv[0], argv[1], argv[2],
-			       argv[3], argv[4], argv[5]);
+  return caml_mpfr_fmma_native(argv[argn-6], argv[argn-5], argv[argn-4],
+                               argv[argn-3], argv[argn-2], argv[argn-1]);
 }
 
 CAMLprim value caml_mpfr_fmms_native (value rnd, value prec,
@@ -1159,8 +1159,8 @@ CAMLprim value caml_mpfr_fmms_native (value rnd, value prec,
 }
 CAMLprim value caml_mpfr_fmms_bytecode (value * argv, int argn)
 {
-  return caml_mpfr_fmms_native(argv[0], argv[1], argv[2],
-			       argv[3], argv[4], argv[5]);
+  return caml_mpfr_fmms_native(argv[argn-6], argv[argn-5], argv[argn-4],
+                               argv[argn-3], argv[argn-2], argv[argn-1]);
 }
 
 CAMLprim value caml_mpfr_agm (value rnd, value prec, value op1, value op2)
@@ -1428,7 +1428,7 @@ CAMLprim value caml_mpfr_nexttoward (value x, value y)
   CAMLreturn (mpfr_float (rop, Val_none));
 }
 
-CAMLprim value caml_mpfr_nextabove (value x, value y)
+CAMLprim value caml_mpfr_nextabove (value x)
 {
   CAMLparam1 (x);
   CAMLlocal1 (rop);
@@ -1442,7 +1442,7 @@ CAMLprim value caml_mpfr_nextabove (value x, value y)
   CAMLreturn (mpfr_float (rop, Val_none));
 }
 
-CAMLprim value caml_mpfr_nextbelow (value x, value y)
+CAMLprim value caml_mpfr_nextbelow (value x)
 {
   CAMLparam1 (x);
   CAMLlocal1 (rop);
