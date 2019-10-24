@@ -24,6 +24,13 @@ check: all
 			exit 1 ; \
 		fi ;\
 	done
+	@diff ./fpif_export.ocaml.data ./fpif_export.c.data ; \
+		if [ "$$?" = "0" ]; then \
+			echo "[PASS] fpif_export data" ; \
+		else \
+			echo "[FAIL] fpif_export data" ; \
+			exit 1 ; \
+		fi ;\
 
 clean:
 	@rm -f *.ocaml *.gcc *.o *.cmi *.cmo

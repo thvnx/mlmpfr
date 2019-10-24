@@ -28,5 +28,12 @@ let _ =
   let m, n = M.get_str x in
   printf "%s %s\n" m n;
   printf "%s\n" (M.get_formatted_str x);
+  let stream = open_out "fpif_export.ocaml.data" in
+  M.fpif_export stream x;
+  close_out stream;
+  let stream = open_in "fpif_export.data" in
+  let m = M.fpif_import stream in
+  printf "%s\n" (M.get_formatted_str m);
+  close_in stream;
   printf "%b\n" (M.fits_int_p x);
   Gc.full_major (); (* garbage collector full major *)

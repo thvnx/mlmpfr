@@ -20,7 +20,7 @@
 
 int main()
 {
-  mpfr_t x, y;
+  mpfr_t x, y, z;
   double d;
   int i;
   mpfr_exp_t e;
@@ -46,6 +46,17 @@ int main()
   printf("%s %ld\n", buffer, e);
 
   mpfr_printf ("%.Re\n", x);
+
+  FILE *stream;
+  stream = fopen ("fpif_export.c.data", "w");
+  mpfr_fpif_export (stream, x);
+  fclose (stream);
+
+  mpfr_init (z);
+  stream = fopen ("fpif_export.data", "r");
+  mpfr_fpif_import (z, stream);
+  mpfr_printf ("%.Re\n", z);
+  fclose (stream);
 
   if (mpfr_fits_sint_p (x, MPFR_RNDN))
     printf ("true\n");
