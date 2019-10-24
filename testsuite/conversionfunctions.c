@@ -48,7 +48,7 @@ int main()
   mpfr_printf ("%.Re\n", x);
 
   FILE *stream;
-  stream = fopen ("fpif_export.c.data", "w");
+  stream = fopen ("fpif_export.co.data", "w");
   mpfr_fpif_export (stream, x);
   fclose (stream);
 

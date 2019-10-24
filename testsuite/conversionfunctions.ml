@@ -28,7 +28,7 @@ let _ =
   let m, n = M.get_str x in
   printf "%s %s\n" m n;
   printf "%s\n" (M.get_formatted_str x);
-  let stream = open_out "fpif_export.ocaml.data" in
+  let stream = open_out "fpif_export.oo.data" in
   M.fpif_export stream x;
   close_out stream;
   let stream = open_in "fpif_export.data" in

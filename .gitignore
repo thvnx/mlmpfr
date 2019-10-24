@@ -1,7 +1,5 @@
 *.cmi
 *.cmo
-testsuite/*.gcc
-testsuite/*.ocaml
 *.o
 myocamlbuild.ml
 setup.ml
