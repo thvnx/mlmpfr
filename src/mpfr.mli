@@ -61,6 +61,9 @@ exception Precision_range of int
      detection). *)
 exception Base_range of int
 
+(** Raised if mlmpfr fails to perfom some internal [mpfr_t] copies. *)
+exception Error of string
+
 type sign = Positive | Negative
 
 (** Binding to C MPFR
@@ -765,13 +768,16 @@ val get_emax_max : unit -> int
 
 (** [Mpfr.check_range ~rnd:r x] assumes that [x] is the correctly-rounded
     value of some real value [y] in the direction [r] and some extended exponent
-    range. *)
+    range. Note that this function doesn't modify [x] as mpfr does (it returns
+    a copy, or fails with [Error]). *)
 val check_range : ?rnd:mpfr_rnd_t -> mpfr_float -> mpfr_float
 
 (** [Mpfr.subnormalize ~rnd:r x] rounds [x] emulating subnormal number
     arithmetic: if [x] is outside the subnormal exponent range, it just return
     a copy of [x]; otherwise, it returns a roudning of [x] to precision
-    {e EXP([x])-emin+1} according to rounding mode [r]. *)
+    {e EXP([x])-emin+1} according to rounding mode [r]. Note that this function
+    doesn't modify [x] as mpfr does (it returns a copy, or fails with
+    [Error]). *)
 val subnormalize : ?rnd:mpfr_rnd_t -> mpfr_float -> mpfr_float
 
 val clear_underflow : unit -> unit (** Clear the underflow flag. *)

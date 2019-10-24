@@ -1735,10 +1735,10 @@ caml_mpfr_check_range (value rnd, value x)
   rop = caml_mpfr_init2 (caml_mpfr_get_prec (x));
   if (!mpfr_set (MPFR_val (rop), MPFR_val2 (x), MPFR_RNDN))
     ter = mpfr_check_range (MPFR_val (rop), ter_val_opt (MPFR_val22 (x)),
-			    rnd_val_opt (rnd));
+                            rnd_val_opt (rnd));
   else
-    caml_failwith (__FUNCTION__);
-  // TODO: raise an exception instead of failwith
+    caml_raise_with_string (*caml_named_value ("internal copy exception"),
+                            "caml_mpfr_check_range");
 
   CAMLreturn (mpfr_float (rop, val_some (val_ter (ter))));
 }
@@ -1753,10 +1753,10 @@ caml_mpfr_subnormalize (value rnd, value x)
   rop = caml_mpfr_init2 (caml_mpfr_get_prec (x));
   if (!mpfr_set (MPFR_val (rop), MPFR_val2 (x), MPFR_RNDN))
     ter = mpfr_subnormalize (MPFR_val (rop), ter_val_opt (MPFR_val22 (x)),
-			     rnd_val_opt (rnd));
+                             rnd_val_opt (rnd));
   else
-    caml_failwith (__FUNCTION__);
-  // TODO: raise an exception instead of failwith
+    caml_raise_with_string (*caml_named_value ("internal copy exception"),
+                            "caml_mpfr_subnormalize");
 
   CAMLreturn (mpfr_float (rop, val_some (val_ter (ter))));
 }
