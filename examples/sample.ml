@@ -22,16 +22,14 @@
 module M = Mpfr
 
 let main =
-  let t = M.make_from_float ~prec:200 ~rnd:M.Toward_Minus_Infinity 1.0 in
-  let s = M.make_from_float ~prec:200 ~rnd:M.Toward_Minus_Infinity 1.0 in
-  let u = M.make_from_float ~prec:200 ~rnd:M.Toward_Minus_Infinity 1.0 in
+  let one = M.make_from_float ~prec:200 ~rnd:M.Toward_Minus_Infinity 1.0 in
   let rec loop sum fact i j =
     let f = M.mul_int ~prec:200 ~rnd:M.Toward_Plus_Infinity fact i in
-    let d = M.div ~prec:200 ~rnd:M.Toward_Minus_Infinity u f in
+    let d = M.div ~prec:200 ~rnd:M.Toward_Minus_Infinity one f in
     let s = M.add ~prec:200 ~rnd:M.Toward_Minus_Infinity sum d in
     if i = j then s
     else loop s f (i+1) j
   in
   Printf.printf "Sum is %s\n" (M.get_formatted_str ~rnd:M.Toward_Minus_Infinity
-                               ~base:10 ~size:0 (loop s t 1 100));
+                               ~base:10 ~size:0 (loop one one 1 100));
   M.free_cache
