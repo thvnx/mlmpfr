@@ -29,17 +29,16 @@
    <stdio.h> is included too (before mpfr.h) */
 #include <mpfr.h>
 
-
 static int custom_compare (value, value);
 
 static void custom_finalize (value);
 
 static struct custom_operations mpfr_ops = {"https://github.com/thvnx/mlmpfr",
-					    custom_finalize,
-					    custom_compare,
-					    custom_hash_default,
-					    custom_serialize_default,
-					    custom_deserialize_default,
+                                            custom_finalize,
+                                            custom_compare,
+                                            custom_hash_default,
+                                            custom_serialize_default,
+                                            custom_deserialize_default,
 #ifndef custom_fixed_length_default
                                             custom_compare_ext_default};
 #else
@@ -95,16 +94,16 @@ ter_val_opt (value r)
   else
     {
       switch (Long_val (Some_val (r)))
-	{
-	case 0:
-	  return 0;
-	case 1:
-	  return 1;
-	case 2:
-	  return -1;
-	default:
-	  caml_failwith (__FUNCTION__);
-	}
+        {
+        case 0:
+          return 0;
+        case 1:
+          return 1;
+        case 2:
+          return -1;
+        default:
+          caml_failwith (__FUNCTION__);
+        }
       return 0;
     }
 }
@@ -135,7 +134,7 @@ static int
 rnd_val_opt (value r)
 {
   return r == Val_none ? rnd_val (Val_int (mpfr_get_default_rounding_mode ()))
-		       : rnd_val (Some_val (r));
+                       : rnd_val (Some_val (r));
 }
 
 static int
@@ -173,31 +172,31 @@ flags_val (value f)
     {
       head = Field (f, 0);
       switch (Long_val (head))
-	{
-	case 0:
-	  flags |= MPFR_FLAGS_UNDERFLOW;
-	  break;
-	case 1:
-	  flags |= MPFR_FLAGS_OVERFLOW;
-	  break;
-	case 2:
-	  flags |= MPFR_FLAGS_NAN;
-	  break;
-	case 3:
-	  flags |= MPFR_FLAGS_INEXACT;
-	  break;
-	case 4:
-	  flags |= MPFR_FLAGS_ERANGE;
-	  break;
-	case 5:
-	  flags |= MPFR_FLAGS_DIVBY0;
-	  break;
-	case 6:
-	  flags |= MPFR_FLAGS_ALL;
-	  break;
-	default:
-	  caml_failwith (__FUNCTION__);
-	}
+        {
+        case 0:
+          flags |= MPFR_FLAGS_UNDERFLOW;
+          break;
+        case 1:
+          flags |= MPFR_FLAGS_OVERFLOW;
+          break;
+        case 2:
+          flags |= MPFR_FLAGS_NAN;
+          break;
+        case 3:
+          flags |= MPFR_FLAGS_INEXACT;
+          break;
+        case 4:
+          flags |= MPFR_FLAGS_ERANGE;
+          break;
+        case 5:
+          flags |= MPFR_FLAGS_DIVBY0;
+          break;
+        case 6:
+          flags |= MPFR_FLAGS_ALL;
+          break;
+        default:
+          caml_failwith (__FUNCTION__);
+        }
       f = Field (f, 1);
     }
 
@@ -213,18 +212,18 @@ val_flags (int s)
   while (i < 7)
     {
       switch (s >> i & 0x1)
-	{
-	case 0:
-	  break;
-	case 1:
-	  head = caml_alloc (2, 0);
-	  Store_field (head, 0, Val_int (i));
-	  Store_field (head, 1, tail);
-	  tail = head;
-	  break;
-	default:
-	  caml_failwith (__FUNCTION__);
-	}
+        {
+        case 0:
+          break;
+        case 1:
+          head = caml_alloc (2, 0);
+          Store_field (head, 0, Val_int (i));
+          Store_field (head, 1, tail);
+          tail = head;
+          break;
+        default:
+          caml_failwith (__FUNCTION__);
+        }
       i++;
     }
 
