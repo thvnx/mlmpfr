@@ -40,7 +40,12 @@ static struct custom_operations mpfr_ops = {"https://github.com/thvnx/mlmpfr",
 					    custom_hash_default,
 					    custom_serialize_default,
 					    custom_deserialize_default,
-					    custom_compare_ext_default};
+#ifndef custom_fixed_length_default
+                                            custom_compare_ext_default};
+#else
+                                            custom_compare_ext_default,
+                                            custom_fixed_length_default};
+#endif
 
 #define Val_none Val_int (0)
 #define Some_val(v) Field (v, 0)
