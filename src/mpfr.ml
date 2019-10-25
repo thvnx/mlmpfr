@@ -89,6 +89,7 @@ external make_from_float
 external make_from_str
   : ?prec:int -> ?rnd:mpfr_rnd_t -> ?base:int -> string -> mpfr_float
   = "caml_mpfr_init_set_str"
+(* TODO implement mpfr_set_str with exception handling when str isn't valid *)
 external make_nan
   : ?prec:int -> unit -> mpfr_float
   = "caml_mpfr_init_set_nan"
