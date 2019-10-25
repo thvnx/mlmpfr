@@ -24,7 +24,7 @@ install:
 
 before_script:
   - opam init -a && eval $(opam env)
-  - opam install oasis -y
+  - opam install dune -y
   - mv $MPFR_TARGZ $MPFR_BUILD_DIR
   - BUILD_DIR=`pwd`
   - cd $MPFR_BUILD_DIR && tar xvzf $MPFR_TARGZ
@@ -32,8 +32,6 @@ before_script:
   - cd $BUILD_DIR
 
 script:
-  - oasis setup
-  - ./configure --enable-tests
-  - make
-  - make doc
-  - LD_LIBRARY_PATH=/usr/local/lib/ make test
+  - dune build @install
+  - dune exec examples/example.exe
+  - echo "TODO @runtest"
