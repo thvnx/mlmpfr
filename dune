@@ -1,5 +1,5 @@
 (env
  (dev
-  (flags (:standard -w +42)))
+  (flags (:standard -w +42 -ccopt -L/usr/local/lib)))
  (release
   (flags (:standard -warn-error))))
