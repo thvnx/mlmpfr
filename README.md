@@ -39,7 +39,7 @@ opam install mlmpfr.3.1.6
 # `opam remove mlmpfr` to remove the package.
 ```
 
-Note: opam package `mlmpfr.4.0.0` also exists and its suitable for
+Note: opam packages `mlmpfr.4.0.x` also exist and are suitable for
 _MPFR 4.0.0_, _4.0.1_ and _4.0.2_ versions.
 
 #### documentation
