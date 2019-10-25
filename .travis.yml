@@ -33,5 +33,5 @@ before_script:
 
 script:
   - dune build @install
-  - dune exec examples/example.exe
+  - LD_LIBRARY_PATH=/usr/local/lib dune exec examples/example.exe
   - echo "TODO @runtest"
