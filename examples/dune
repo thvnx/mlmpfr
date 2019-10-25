@@ -1,3 +1,4 @@
-(executable
-  (name example)
+(executables
+  (names example rndo-add sample)
+  (flags (-w -24))
   (libraries mlmpfr))
