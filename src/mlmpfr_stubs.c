@@ -195,7 +195,7 @@ caml_mpfr_strtofr (value rop, value op, value base, value rnd)
   int b;
 
   b = base == Val_none ? 0 : Some_val (base);
-  base_in_range (b);
+  base_in_range (Val_int (b));
 
   CAMLreturn (val_ter (mpfr_strtofr (MPFR_val (rop), String_val (op), NULL,
                                      UI_val (b), rnd_val_opt (rnd))));
@@ -377,7 +377,7 @@ caml_mpfr_get_str (value rnd, value base, value n, value op)
 
   b = base == Val_none ? 10 : UI_val (Some_val (base));
   size = n == Val_none ? 0 : UI_val (Some_val (n));
-  base_in_range (b);
+  base_in_range (Val_int (b));
 
   ret
     = mpfr_get_str (NULL, &expptr, b, size, MPFR_val2 (op), rnd_val_opt (rnd));
