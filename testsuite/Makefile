@@ -1,6 +1,9 @@
-# ocamlc -> -ccopt -L/usr/local/lib
-# gcc -> -L/usr/local/lib
-# make check -> LD_LIBRARY_PATH=/usr/local/lib make check
+# Instructions to build tests, linked to a local installation of mpfr,
+# assuming library installed in /usr/local/lib:
+# -> ocamlc: add "-ccopt -L/usr/local/lib" flag,
+# -> gcc: add "-L/usr/local/lib" flag,
+# then run with:
+# LD_LIBRARY_PATH=/usr/local/lib make check
 
 TESTS=initializationfunctions conversionfunctions basicarithmeticfunctions comparisonfunctions \
 	specialfunctions integerandremainderrelatedfunctions roundingrelatedfunctions \
@@ -9,7 +12,7 @@ TESTS=initializationfunctions conversionfunctions basicarithmeticfunctions compa
 all:
 	@for tst in $(TESTS) ; do \
 		ocamlc -I ../_build/src -custom -o $$tst.oo ../_build/src/mpfr.cmo common.ml $$tst.ml ../_build/src/mlmpfr_stubs.o -ccopt -L/usr/local/lib -cclib -lmpfr || exit 1 ; \
-		gcc -o $$tst.co $$tst.c -L /usr/local/lib -lmpfr || exit 1 ; \
+		gcc -o $$tst.co $$tst.c -L/usr/local/lib -lmpfr || exit 1 ; \
 	done
 
 check: all
