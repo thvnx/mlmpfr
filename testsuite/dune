@@ -1,0 +1,3 @@
+(tests
+  (names basicarithmeticfunctions comparisonfunctions exceptionrelatedfunctions)
+  (libraries mlmpfr))

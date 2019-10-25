@@ -24,7 +24,7 @@ install:
 
 before_script:
   - opam init -a && eval $(opam env)
-  - opam install dune -y
+  - opam install dune odoc -y
   - mv $MPFR_TARGZ $MPFR_BUILD_DIR
   - BUILD_DIR=`pwd`
   - cd $MPFR_BUILD_DIR && tar xvzf $MPFR_TARGZ
@@ -33,5 +33,6 @@ before_script:
 
 script:
   - dune build @install
+  - dune build @doc
   - LD_LIBRARY_PATH=/usr/local/lib dune exec examples/example.exe
   - echo "TODO @runtest"
