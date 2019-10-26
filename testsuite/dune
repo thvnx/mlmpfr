@@ -4,5 +4,5 @@
          conversionfunctions exceptionrelatedfunctions
          initializationfunctions integerandremainderrelatedfunctions
          miscellaneousfunctions roundingrelatedfunctions
-         specialfunctions example)
+         specialfunctions)
   (libraries mlmpfr))
