@@ -29,7 +29,7 @@ let all op p r1 r2 err =
 
 let _ =
   all (M.make_from_str ~base:2 "1.101010111001001001100e17") 40 M.Toward_Minus_Infinity M.Toward_Plus_Infinity 1;
-  all (M.make_from_float ~rnd:To_Nearest (1. /. 3.)) 80 M.Toward_Minus_Infinity M.Toward_Zero 400;
+  all (M.make_from_float ~rnd:M.To_Nearest (1. /. 3.)) 80 M.Toward_Minus_Infinity M.Toward_Zero 400;
   all (M.make_from_float (12345.78 /. 3.)) 800 M.Away_From_Zero M.Toward_Zero 400;
   all (M.make_from_float (12345.78 /. 3.)) 800 M.Faithful M.Toward_Zero 400;
   all (M.make_nan ()) 80 M.Away_From_Zero M.Toward_Zero 40;
