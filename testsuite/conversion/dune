@@ -5,19 +5,19 @@
 
 (rule
  (targets fpif_export.expected conversionfunctions.expected)
- (deps conversionfunctions.ece (file fpif_export.data))
+ (deps conversionfunctions.ece (file fpif_import.data))
  (action (with-stdout-to conversionfunctions.expected (run %{deps}))))
 
 (rule
  (targets fpif_export.output converstionfunctions.output)
- (deps conversionfunctions.exe (file fpif_export.data))
+ (deps conversionfunctions.exe (file fpif_import.data))
  (action (with-stdout-to converstionfunctions.output (run %{deps}))))
 
 (test
   (deps conversionfunctions.expected)
   (name conversionfunctions)
   (libraries mlmpfr)
-  (action (run %{test} fpif_export.data)))
+  (action (run %{test} fpif_import.data)))
 
 (alias
  (name runtest)
