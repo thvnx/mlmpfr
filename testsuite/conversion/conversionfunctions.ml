@@ -28,10 +28,10 @@ let _ =
   let m, n = M.get_str x in
   printf "%s %s\n" m n;
   printf "%s\n" (M.get_formatted_str x);
-  let stream = open_out "fpif_export.oo.data" in
+  let stream = open_out "fpif_export.output" in
   M.fpif_export stream x;
   close_out stream;
-  let stream = open_in "fpif_import.data" in
+  let stream = open_in Sys.argv.(1) in
   let m = M.fpif_import stream in
   printf "%s\n" (M.get_formatted_str m);
   close_in stream;

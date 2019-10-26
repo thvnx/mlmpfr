@@ -1,8 +1,23 @@
 (tests
-  (deps (glob_files *.data))
+  ;(deps (glob_files *.expected))
   (names basicarithmeticfunctions comparisonfunctions
-         conversionfunctions exceptionrelatedfunctions
+         exceptionrelatedfunctions
          initializationfunctions integerandremainderrelatedfunctions
          miscellaneousfunctions roundingrelatedfunctions
          specialfunctions)
   (libraries mlmpfr))
+
+; don't use makefile, split this like for conversionfunctions
+(rule
+ (deps (source_tree refs))
+ (targets basicarithmeticfunctions.expected comparisonfunctions.expected
+          exceptionrelatedfunctions.expected
+          initializationfunctions.expected
+          integerandremainderrelatedfunctions.expected
+          miscellaneousfunctions.expected roundingrelatedfunctions.expected
+          specialfunctions.expected)
+ (action (chdir refs (run make))))
+
+
+
+
