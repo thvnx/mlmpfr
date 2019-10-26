@@ -31,7 +31,7 @@ let _ =
   let stream = open_out "fpif_export.oo.data" in
   M.fpif_export stream x;
   close_out stream;
-  let stream = open_in "fpif_export.data" in
+  let stream = open_in "fpif_import.data" in
   let m = M.fpif_import stream in
   printf "%s\n" (M.get_formatted_str m);
   close_in stream;

@@ -53,7 +53,7 @@ int main()
   fclose (stream);
 
   mpfr_init (z);
-  stream = fopen ("fpif_export.data", "r");
+  stream = fopen ("fpif_import.data", "r");
   mpfr_fpif_import (z, stream);
   mpfr_printf ("%.Re\n", z);
   fclose (stream);
