@@ -33,8 +33,8 @@ before_script:
 
 script:
 #  - dune build @all --disable-promotion --profile ci
-  - dune build @install
+  - dune build @install --profile dev
   - dune build @doc
-  - dune build @runtest
+  - dune build @runtest --profile dev
   - LD_LIBRARY_PATH=/usr/local/lib dune exec examples/example.exe
 
