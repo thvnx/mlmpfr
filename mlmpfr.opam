@@ -11,10 +11,7 @@ build: [
   ["cc" "mlmpfr-compatibility-test.c" "-lmpfr" "-o" "mlmpfr-compatibility-test"]
   ["./mlmpfr-compatibility-test"]
   ["dune" "subst"] {pinned}
-  ["dune" "build" "-p" name "-j" jobs
-    "@install"
-    "@runtest" {with-test}
-    "@doc" {with-doc}]
+  ["dune" "build" "-p" name "-j" jobs]
 ]
 depends: [
   "ocaml" {>= "4.04"}
