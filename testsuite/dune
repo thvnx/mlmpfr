@@ -112,4 +112,3 @@
  (target specialfunctions.expected)
  (deps   specialfunctions.ref)
  (action (with-stdout-to specialfunctions.expected (run %{deps}))))
-
