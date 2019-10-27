@@ -23,7 +23,11 @@ check for it (see `utils/mpfr_version.c`).
 
 ```bash
 dune build @install @runtest
+dune install
 ```
+
+Use `--prefix <path>` to set another path (the default path is the parent of the
+directory where _ocamlc_ was found).
 
 - From _opam_ (targeting _MPFR 4.0.2_):
 
