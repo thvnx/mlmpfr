@@ -1,11 +1,12 @@
+; conversion functions
 (rule
- (target conversionfunctions.ece)
+ (target conversionfunctions.ref)
  (deps   conversionfunctions.c)
- (action (run %{cc} -o %{target} %{deps} -L/usr/local/lib -lmpfr)))
+ (action (run %{cc} -o %{target} %{deps} -lmpfr)))
 
 (rule
  (targets fpif_export.expected conversionfunctions.expected)
- (deps conversionfunctions.ece (file fpif_import.data))
+ (deps conversionfunctions.ref (file fpif_import.data))
  (action (with-stdout-to conversionfunctions.expected (run %{deps}))))
 
 (rule
@@ -14,10 +15,10 @@
  (action (with-stdout-to converstionfunctions.output (run %{deps}))))
 
 (test
-  (deps conversionfunctions.expected)
-  (name conversionfunctions)
-  (libraries mlmpfr)
-  (action (run %{test} fpif_import.data)))
+ (deps conversionfunctions.expected)
+ (name conversionfunctions)
+ (libraries mlmpfr)
+ (action (run %{test} fpif_import.data)))
 
 (alias
  (name runtest)

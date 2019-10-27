@@ -25,6 +25,9 @@ int main(int argc, char **argv)
   int i;
   mpfr_exp_t e;
 
+  if (argc != 2)
+    exit (1);
+
   mpfr_init (x);
   mpfr_set_d (x, 1./3., MPFR_RNDN);
 

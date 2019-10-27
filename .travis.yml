@@ -37,4 +37,3 @@ script:
   - dune build @doc
   - dune build @runtest --profile dev
   - LD_LIBRARY_PATH=/usr/local/lib dune exec examples/example.exe
-
