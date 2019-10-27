@@ -8,8 +8,8 @@ bug-reports:  "https://github.com/thvnx/mlmpfr/issues"
 license:      "LGPL-3.0"
 dev-repo:     "git+https://github.com/thvnx/mlmpfr.git"
 build: [
-  ["cc" "mlmpfr-compatibility-test.c" "-lmpfr" "-o" "mlmpfr-compatibility-test"]
-  ["./mlmpfr-compatibility-test"]
+  ["cc" "mlmpfr_compatibility_test.c" "-lmpfr" "-o" "mlmpfr_compatibility_test"]
+  ["./mlmpfr_compatibility_test"]
   ["dune" "subst"] {pinned}
   ["dune" "build" "-p" name "-j" jobs]
 ]
@@ -33,5 +33,5 @@ The package provides bindings for MPFR-4.0.2.
 
 You'll need to have MPFR-4.0.2 installed on your system.
 See opam info mlmpfr for all available versions."""
-extra-files: ["mlmpfr-compatibility-test.c"
+extra-files: ["mlmpfr_compatibility_test.c"
               "md5=56e82ee5c1ca319b0c5ad514fb306f97"]
