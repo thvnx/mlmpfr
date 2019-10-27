@@ -70,7 +70,7 @@
 (rule
  (target integerandremainderrelatedfunctions.ref)
  (deps   integerandremainderrelatedfunctions.c)
- (action (run %{cc} -o %{target} %{deps} -lmpfr)))
+ (action (run %{cc} -O0 -o %{target} %{deps} -lmpfr)))
 
 (rule
  (target integerandremainderrelatedfunctions.expected)
