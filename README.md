@@ -11,15 +11,15 @@ OCaml bindings for MPFR.
 
 Building *mlmpfr.4.0.2* depends on [_dune_](https://github.com/ocaml/dune) (an
 OCaml build system), _ocaml_ version >= 4.04, and _MPFR_ library version 4.0.2
-(see footnote for building older mlmpfr releases). Basically you just need to
+(see footnote for building older _mlmpfr_ releases). Basically you just need to
 install _mlmpfr_ via the _opam_ package manager, which will triggers all the
-dependencies (such as dune for example).
+dependencies (such as _dune_ for example).
 
 - From sources (github repo or with latest
-[releases](https://github.com/thvnx/mlmpfr/releases)): in mlmpfr main directory,
-on branch __master_ or _release_402_. Make sure that you have the proper _MPFR_
-library version installed on your system because mlmpfr won't check for it (see
-`utils/mpfr_version.c`).
+[releases](https://github.com/thvnx/mlmpfr/releases)): in _mlmpfr_ main
+directory, on branch `master` or `release_402`. Make sure that you have the
+proper _MPFR_ library version installed on your system because _mlmpfr_ won't
+check for it (see `utils/mpfr_version.c`).
 
 ```bash
 dune build @install @runtest
@@ -57,7 +57,7 @@ let _ =
 Compile the above code with:
 
 ```bash
-ocamlfind ocamlc -package mlmpfr -linkpkg example.ml -o a.out
+$ ocamlfind ocamlc -package mlmpfr -linkpkg example.ml -o a.out
 ```
 will result in:
 
@@ -69,14 +69,12 @@ $ ./a.out
 You can also use _dune_ with
 
 ```bash
-dune exec examples/example.exe
+$ dune exec examples/example.exe
+9.449569463147377e-01
 ```
+----
 
-Note 1: you'll need to link with `-cclib -lmpfr` (along with `ocamlopt`) if you
-are using released versions of mlmpfr (as the ones provided by opam), since
-mlmpfr wasn't linked with mpfr by default before.
-
-##### Note: install an older release of mlmpfr
+##### Note: install an older release of _mlmpfr_
 
 Older releases of mlmpfr (3.1.6, 4.0.0, and 4.0.1) depend on
 [_oasis_](http://oasis.forge.ocamlcore.org/), an obsolete build system replaced
@@ -100,3 +98,9 @@ make install
 
 opam packages `mlmpfr.4.0.0` and `mlmpfr.4.0.1` also exist and are suitable for
 _MPFR 4.0.0_ and _4.0.1_ versions.
+
+##### Note: build examples with an older release of _mlmpfr_
+
+You'll need to link with `-cclib -lmpfr` (along with `ocamlopt`) if you are
+using released versions of mlmpfr (as the ones provided by _opam_), since mlmpfr
+wasn't linked with mpfr by default before.
