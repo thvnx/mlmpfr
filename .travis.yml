@@ -32,9 +32,10 @@ before_script:
   - cd $BUILD_DIR
 
 script:
-#  - dune build @all --disable-promotion --profile ci
   - dune build @install --profile dev
   - dune build @runtest --profile dev
   - dune build @doc
   - dune install
+  # LD_LIBRARY_PATH is not exported by dune for executables
+  # FIXME find a way to export LD_LIBRARY_PATH with dune
   - LD_LIBRARY_PATH=/usr/local/lib dune exec examples/example.exe
