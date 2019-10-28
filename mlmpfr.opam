@@ -6,20 +6,16 @@ authors:      "Laurent Thévenoux <lrnt@thvnx.com>"
 homepage:     "https://github.com/thvnx/mlmpfr"
 bug-reports:  "https://github.com/thvnx/mlmpfr/issues"
 license:      "LGPL-3.0"
-dev-repo: "git+https://github.com/thvnx/mlmpfr.git"
+dev-repo:     "git+https://github.com/thvnx/mlmpfr.git"
 build: [
-  ["cc" "test.c" "-lmpfr" "-o" "test_installed"]
-  ["./test_installed"]
-  ["oasis" "setup"]
-  ["./configure" "--prefix=%{prefix}%"]
-  [make]
+  ["cc" "mlmpfr_compatibility_test.c" "-lmpfr" "-o" "mlmpfr_compatibility_test"]
+  ["./mlmpfr_compatibility_test"]
+  ["dune" "subst"] {pinned}
+  ["dune" "build" "-p" name "-j" jobs]
 ]
-install: [make "install"]
-remove:  ["ocamlfind" "remove" "mlmpfr"]
 depends: [
   "ocaml" {>= "4.04"}
-  "ocamlfind"
-  "oasis"
+  "dune" {>= "1.11.0"}
 ]
 depexts: [
   ["libmpfr-dev"] {os-family = "debian"}
@@ -28,14 +24,14 @@ post-messages: [
   "Make sure you had MPFR version 4.0.2 installed on your system." {failure}
 ]
 synopsis: "OCaml C bindings for MPFR-4.0.2"
-flags: light-uninstall
 url {
   src: "https://github.com/thvnx/mlmpfr/archive/mlmpfr.4.0.2.tar.gz"
-  checksum: "md5=5a6e1c8200cc72fd981ef8de40b6d7c6"
+  checksum: "md5=<to compute before sending package to opam>"
 }
 description: """
 The package provides bindings for MPFR-4.0.2.
 
 You'll need to have MPFR-4.0.2 installed on your system.
 See opam info mlmpfr for all available versions."""
-extra-files: ["test.c" "md5=56e82ee5c1ca319b0c5ad514fb306f97"]
+extra-files: ["mlmpfr_compatibility_test.c"
+              "md5=56e82ee5c1ca319b0c5ad514fb306f97"]

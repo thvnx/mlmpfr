@@ -9,48 +9,42 @@ OCaml bindings for MPFR.
 
 #### build and install
 
-Building *mlmpfr* depends on
-[_oasis_](http://oasis.forge.ocamlcore.org/) (an OCaml build system),
-_ocaml_ version >= 4.04, and _MPFR_ library version 3.1.6, 4.0.0,
-4.0.1 or 4.0.2. Basically you just need to install _oasis_ via the
-_opam_ package manager, which will triggers all the dependencies (such
-as ocamlfind for example).
+Building *mlmpfr.4.0.2* depends on [_dune_](https://github.com/ocaml/dune) (an
+OCaml build system), _ocaml_ version >= 4.04, and _MPFR_ library version 4.0.2
+(see footnote for building older _mlmpfr_ releases). Basically you just need to
+install _mlmpfr_ via the _opam_ package manager, which will triggers all the
+dependencies (such as _dune_ for example).
 
-From sources (github repo or
-[releases](https://github.com/thvnx/mlmpfr/releases)): in mlmpfr main
-directory, on branch _release_316_ (resp. release mlmpfr.3.1.6) for
-_MPFR 3.1.6_, _release_40[0-2]_ for _MPFR 4.0.[0-2]_ (resp. releases
-mlmpfr.4.0.[0-2]).  Make sure that you have the proper
-_MPFR_ library version installed because mlmpfr won't check for it.
+- From sources (github repo or with latest
+[releases](https://github.com/thvnx/mlmpfr/releases)): in _mlmpfr_ main
+directory, on branch `master` or `release_402`. Make sure that you have the
+proper _MPFR_ library version installed on your system because _mlmpfr_ won't
+check for it (see `utils/mpfr_version.c`).
 
 ```bash
-oasis setup
-./configure --enable-tests
-make
-make test
-make install
-# `make uninstall` to remove mlmpfr library.
+dune build @install @runtest
+dune install
 ```
 
-From _opam_ (targeting _MPFR 3.1.6_).
+Use `--prefix <path>` to set another path (the default path is the parent of the
+directory where _ocamlc_ was found).
+
+- From _opam_ (targeting _MPFR 4.0.2_):
 
 ```bash
-opam install mlmpfr.3.1.6
+opam install mlmpfr.4.0.2
 # `opam remove mlmpfr` to remove the package.
 ```
 
-Note: opam packages `mlmpfr.4.0.x` also exist and are suitable for
-_MPFR 4.0.0_, _4.0.1_ and _4.0.2_ versions.
-
 #### documentation
 
-Run:
-```bash
-make doc # Generate HTML documentation
-```
+Documentation depends on package [_odoc_](https://github.com/ocaml/odoc).
 
-or see an HTML version
-[here](https://thvnx.github.io/mlmpfr/Mpfr.html).
+```bash
+dune build @doc
+```
+then, see `_build/default/_doc/_html/index.html`. An online version
+is available [here](https://thvnx.github.io/mlmpfr/Mpfr.html).
 
 #### usage
 
@@ -67,7 +61,7 @@ let _ =
 Compile the above code with:
 
 ```bash
-ocamlfind ocamlc -package mlmpfr -linkpkg example.ml -o a.out
+$ ocamlfind ocamlc -package mlmpfr -linkpkg example.ml -o a.out
 ```
 will result in:
 
@@ -76,6 +70,41 @@ $ ./a.out
 9.449569463147377e-01
 ```
 
-Note: you'll need to link with `-cclib -lmpfr` (along with `ocamlopt`) if you
-are using released versions of mlmpfr (as the ones provided by opam), since
-mlmpfr wasn't linked with mpfr by default before.
+You can also use _dune_ with
+
+```bash
+$ dune exec examples/example.exe
+9.449569463147377e-01
+```
+----
+
+##### Note: install an older release of _mlmpfr_
+
+Older releases of mlmpfr (3.1.6, 4.0.0, and 4.0.1) depend on
+[_oasis_](http://oasis.forge.ocamlcore.org/), an obsolete build system replaced
+by dune since `mlmpfr.4.0.2`. Use _opam_ if you need to install an older release
+of mlmpfr, as for example:
+
+```bash
+opam install mlmpfr.3.1.6
+```
+
+Or, you can build it from the sources, as for example from branch _release_316_:
+
+```bash
+oasis setup
+./configure --enable-tests
+make
+make test
+make install
+# `make uninstall` to remove mlmpfr library.
+```
+
+opam packages `mlmpfr.4.0.0` and `mlmpfr.4.0.1` also exist and are suitable for
+_MPFR 4.0.0_ and _4.0.1_ versions.
+
+##### Note: build examples with an older release of _mlmpfr_
+
+You'll need to link with `-cclib -lmpfr` (along with `ocamlopt`) if you are
+using released versions of mlmpfr (as the ones provided by _opam_), since mlmpfr
+wasn't linked with mpfr by default before.

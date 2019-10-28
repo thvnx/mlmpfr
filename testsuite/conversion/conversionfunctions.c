@@ -18,12 +18,15 @@
 #include <stdio.h>
 #include <mpfr.h>
 
-int main()
+int main(int argc, char **argv)
 {
   mpfr_t x, y, z;
   double d;
   int i;
   mpfr_exp_t e;
+
+  if (argc != 2)
+    exit (1);
 
   mpfr_init (x);
   mpfr_set_d (x, 1./3., MPFR_RNDN);
@@ -48,12 +51,12 @@ int main()
   mpfr_printf ("%.Re\n", x);
 
   FILE *stream;
-  stream = fopen ("fpif_export.co.data", "w");
+  stream = fopen ("fpif_export.expected", "w");
   mpfr_fpif_export (stream, x);
   fclose (stream);
 
   mpfr_init (z);
-  stream = fopen ("fpif_import.data", "r");
+  stream = fopen (argv[1], "r");
   mpfr_fpif_import (z, stream);
   mpfr_printf ("%.Re\n", z);
   fclose (stream);
