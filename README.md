@@ -44,7 +44,7 @@ Documentation depends on package [_odoc_](https://github.com/ocaml/odoc).
 dune build @doc
 ```
 then, see `_build/default/_doc/_html/index.html`. An online version
-is available [here](https://thvnx.github.io/mlmpfr/Mpfr.html).
+is available [here](https://thvnx.github.io/mlmpfr/index.html).
 
 #### usage
 
