@@ -529,6 +529,11 @@ let print_rnd_mode = function
   | Away_From_Zero        -> "MPFR_RNDA"
   | Faithful              -> "MPFR_RNDF"
 
+let print_ternary = function
+  | Correct_Rounding -> "Correct"
+  | Lower            -> "Lower"
+  | Greater          -> "Greater"
+
 (* Miscellaneous Functions *)
 external nexttoward
   : mpfr_float -> mpfr_float -> mpfr_float

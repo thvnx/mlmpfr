@@ -694,6 +694,10 @@ val min_prec : mpfr_float -> int
     rounding modes. *)
 val print_rnd_mode : mpfr_rnd_t -> string
 
+(** Return ternary value as a string ("Correct", "Lower", and "Greater" for
+    [Correct_Rounding], [Lower], and [Greater], respectively). *)
+val print_ternary : ternary -> string
+
 (** {2 Miscellaneous} *)
 
 (** [Mpfr.nexttoward x y] returns NaN if [x] or [y] is NaN, returns a copy of

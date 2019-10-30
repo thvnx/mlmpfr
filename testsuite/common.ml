@@ -15,7 +15,5 @@
   <http://www.gnu.org/licenses/>. *)
 
 let rounding_to_string = function
-    _, Some Mpfr.Correct_Rounding -> "Correct"
-  | _, Some Mpfr.Lower            -> "Lower"
-  | _, Some Mpfr.Greater          -> "Greater"
-  | _                             -> "None"
+    _, Some r -> Mpfr.print_ternary r
+  | _         -> "None"
