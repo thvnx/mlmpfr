@@ -5,6 +5,15 @@ env:
     - MPFR_VERSION="4.0.2"
     - MPFR_TARGZ="mpfr-$MPFR_VERSION.tar.gz"
     - MPFR_BUILD_DIR="/tmp"
+  jobs:
+    - OCAML_VERSION="4.04.0"
+    - OCAML_VERSION="4.05.0"
+    - OCAML_VERSION="4.06.0"
+    - OCAML_VERSION="4.07.0"
+    - OCAML_VERSION="4.08.0"
+    - OCAML_VERSION-"4.09.0"
+    - OCAML_VERSION="4.10.0"
+    - OCAML_VERSION="4.11.0"
 
 compiler:
   - gcc
@@ -23,7 +32,7 @@ install:
   - yes /usr/local/bin | sh <(curl -sL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh)
 
 before_script:
-  - opam init -a && eval $(opam env)
+  - opam init --compiler=$OCAML_VERSION -a && eval $(opam env)
   - opam install dune odoc -y
   - mv $MPFR_TARGZ $MPFR_BUILD_DIR
   - BUILD_DIR=`pwd`
