@@ -7,9 +7,7 @@ env:
     - MPFR_BUILD_DIR="/tmp"
   jobs:
     # default version
-    - OCAML_VERSION="4.09.0"
-    # test next one
-    - OCAML_VERSION="4.10.0"
+    - OCAML_VERSION="stable"
     # test a few more ocaml versions since 4.04.0
     - OCAML_VERSION="4.04.0"
     - OCAML_VERSION="4.07.0"
@@ -32,7 +30,10 @@ install:
   - yes /usr/local/bin | sh <(curl -sL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh)
 
 before_script:
-  - opam init --compiler=$OCAML_VERSION -a
+  - if [[ "$OCAML_VERSION" == "stable" ]];
+    then opam init -a;
+    else opam init --compiler=$OCAML_VERSION -a;
+    fi
   - eval $(opam env)
   - opam install dune odoc -y
   - mv $MPFR_TARGZ $MPFR_BUILD_DIR
