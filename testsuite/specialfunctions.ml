@@ -80,8 +80,13 @@ let all op1 op2 =
   let r = M.const_pi (M.get_default_prec ()) in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);
   let r = M.const_euler (M.get_default_prec ()) in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);
   let r = M.const_catalan (M.get_default_prec ()) in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);
-  let l = (List.init 1000000 ( fun i -> if i mod 2 == 0 then op1 else op2)) in let r = M.sum l in
-            printf "%s %s %d\n" (M.get_formatted_str r) (rounding_to_string r) (List.length l)
+  let rec s ?acc:(acc = []) n =
+    if n = 0 then acc
+    else s ~acc:(op1::op2::acc) (n-2)
+  in
+  let l = (s 1000000) in
+  let r = M.sum l in
+  printf "%s %s %d\n" (M.get_formatted_str r) (rounding_to_string r) (List.length l)
 
 let _ =
   all (M.make_from_float (1. /. 3.)) (M.make_from_float (1. /. 10.)); printf "\n";
