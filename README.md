@@ -7,7 +7,7 @@
 # mlmpfr
 OCaml bindings for MPFR.
 
-#### build and install
+## build and install
 
 Building *mlmpfr.4.0.2* depends on [_dune_](https://github.com/ocaml/dune) (an
 OCaml build system), _ocaml_ version >= 4.04, and _MPFR_ library version 4.0.2
@@ -36,7 +36,7 @@ opam install mlmpfr.4.0.2
 # `opam remove mlmpfr` to remove the package.
 ```
 
-#### documentation
+## documentation
 
 Documentation depends on package [_odoc_](https://github.com/ocaml/odoc).
 
@@ -46,7 +46,7 @@ dune build @doc
 then, see `_build/default/_doc/_html/index.html`. An online version
 is available [here](https://thvnx.github.io/mlmpfr/index.html).
 
-#### usage
+## usage
 
 For example, let _example.ml_ as follows:
 
@@ -78,7 +78,7 @@ $ dune exec examples/example.exe
 ```
 ----
 
-##### Note: install an older release of _mlmpfr_
+### Note: install an older release of _mlmpfr_
 
 Older releases of mlmpfr (3.1.6, 4.0.0, and 4.0.1) depend on
 [_oasis_](http://oasis.forge.ocamlcore.org/), an obsolete build system replaced
@@ -103,7 +103,7 @@ make install
 opam packages `mlmpfr.4.0.0` and `mlmpfr.4.0.1` also exist and are suitable for
 _MPFR 4.0.0_ and _4.0.1_ versions.
 
-##### Note: build examples with an older release of _mlmpfr_
+### Note: build examples with an older release of _mlmpfr_
 
 You'll need to link with `-cclib -lmpfr` (along with `ocamlopt`) if you are
 using released versions of mlmpfr (as the ones provided by _opam_), since mlmpfr
