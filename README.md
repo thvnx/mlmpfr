@@ -20,7 +20,7 @@ A few distinctions are made from the original C library:
   garbage collector is in charge of memory management. See [initilization
   functions](https://thvnx.github.io/mlmpfr/mlmpfr/Mpfr/index.html#initialization);
 - functions managing the following C types are not supported: `unsigned long
-  int`, `uintmax_t`, ``intmax_t`, `float`, `long double`, `__float128`,
+  int`, `uintmax_t`, `intmax_t`, `float`, `long double`, `__float128`,
   `_Decimal64`, `mpz_t`, `mpq_t`, and `mpf_t`. Except for `mpfr_sqrt_ui` and
   `mpfr_fac_ui` which are partially supported in the range of the positive
   values of an OCaml signed integer. In fact, only the OCaml native types
