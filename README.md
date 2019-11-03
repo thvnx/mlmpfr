@@ -7,6 +7,30 @@
 # mlmpfr
 OCaml bindings for MPFR.
 
+_mlmpfr_ provides `mpfr_float`, an immutable data structure that contains a
+`mpfr_t` number, as well as an optional ternary value, as provided by (and
+described in) the [MPFR library](http://www.mpfr.org/).
+
+A few distinctions are made from the original C library:
+
+- the `mpfr_` prefix is ommited for all functions;
+- `mpfr_init*` and `mpfr_set*` functions are not provided in order to implement
+  these bindings with respect to the functional paradigm (and immutability).
+  Consequently, `mpfr_clear*` functions are not provided too, and so, the
+  garbage collector is in charge of memory management. See [initilization
+  functions](https://thvnx.github.io/mlmpfr/mlmpfr/Mpfr/index.html#initialization);
+- functions managing the following C types are not supported: `unsigned long
+  int`, `uintmax_t`, ``intmax_t`, `float`, `long double`, `__float128`,
+  `_Decimal64`, `mpz_t`, `mpq_t`, and `mpf_t`. Except for `mpfr_sqrt_ui` and
+  `mpfr_fac_ui` which are partially supported in the range of the positive
+  values of an OCaml signed integer. In fact, only the OCaml native types
+  (signed 64-bit `int`, 64-bit `float`, and `string`) are supported. Thus, all
+  functions named with `*_[su]i*` or `*_d*` are renamed here with `*_int*` or
+  `*_float*`, respectively;
+- bindings to functions `mpfr_*printf`, `mpfr_*random*`, `mpfr_get_patches`,
+  `mpfr_buildopt_*`, and, macros `MPFR_VERSION*`, `mpfr_round_nearest_away` are
+  not implemented. Everything else has been ported!
+
 ## build and install
 
 Building *mlmpfr.4.0.2* depends on [_dune_](https://github.com/ocaml/dune) (an
