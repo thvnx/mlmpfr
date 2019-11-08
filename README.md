@@ -53,10 +53,11 @@ dune install
 Use `--prefix <path>` to set another path (the default path is the parent of the
 directory where _ocamlc_ was found).
 
-- From _opam_ (targeting _MPFR 4.0.2_):
+- From _opam_, targeting latest release (see `opam info` to list available
+  releases):
 
 ```bash
-opam install mlmpfr.4.0.2
+opam install mlmpfr
 # `opam remove mlmpfr` to remove the package.
 ```
 
