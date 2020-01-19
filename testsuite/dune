@@ -9,6 +9,7 @@
        specialfunctions.expected)
  (names basicarithmeticfunctions
         comparisonfunctions
+        comparisonoperators
         exceptionrelatedfunctions
         initializationfunctions
         integerandremainderrelatedfunctions

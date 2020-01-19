@@ -881,7 +881,14 @@ caml_mpfr_unordered_p (value op1, value op2)
 static int
 custom_compare (value v1, value v2)
 {
-  return caml_mpfr_cmp (v1, v2);
+  // I do not really understand why yet, but input values aren't of the
+  // mpfr_float format (mpfr data, ternary value). Encapsulate them to Field
+  // structures in order to call caml_mpfr_cmp.
+  value t1 = caml_alloc_tuple (1);
+  value t2 = caml_alloc_tuple (1);
+  Store_field (t1, 0, v1);
+  Store_field (t2, 0, v2);
+  return Int_val (caml_mpfr_cmp (t1, t2));
 }
 
 /*********************/
