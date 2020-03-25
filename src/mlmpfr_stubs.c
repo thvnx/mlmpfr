@@ -39,7 +39,7 @@ precision_in_range (value prec)
   int p = Int_val (prec);
 
   if (p <= Int_val (caml_mpfr_prec_min ())
-      || p >= Int_val (caml_mpfr_prec_max ()))
+      || p >= Unsigned_int_val (caml_mpfr_prec_max ()))
     caml_raise_with_arg (*caml_named_value ("precision range exception"),
                          Val_int (p));
 }
