@@ -49,7 +49,9 @@ base_in_range (value base)
 {
   int b = Int_val (base);
 
-  if ((b < 2 || b > 64) && b != 0)
+  if (b == 0 || (2 <= b && b <= 64) || (-36 <= b && b <= -2))
+    return;
+  else
     caml_raise_with_arg (*caml_named_value ("base range exception"),
                          Val_int (b));
 }
@@ -375,7 +377,7 @@ caml_mpfr_get_str (value rnd, value base, value n, value op)
   mpfr_exp_t expptr;
   int b, size;
 
-  b = base == Val_none ? 10 : UI_val (Some_val (base));
+  b = base == Val_none ? 10 : SI_val (Some_val (base));
   size = n == Val_none ? 0 : UI_val (Some_val (n));
   base_in_range (Val_int (b));
 
