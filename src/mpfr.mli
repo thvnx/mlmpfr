@@ -30,8 +30,8 @@
            management;}
         {- functions managing the following types are not supported:
            {e unsigned long int}, {e uintmax_t}, {e intmax_t}, {e float},
-           {e long double}, {e __float128}, {e _Decimal64}, {e mpz_t},
-           {e mpq_t}, and {e mpf_t}. Except for {e mpfr_sqrt_ui} and
+           {e long double}, {e __float128}, {e _Decimal64}, {e _Decimal128},
+           {e mpz_t}, {e mpq_t}, and {e mpf_t}. Except for {e mpfr_sqrt_ui} and
            {e mpfr_fac_ui} which are partially supported on the range of the
            positive values of an OCaml signed integer. In fact, only the OCaml
            native types ([int], [float], and [string]) are supported, assuming
