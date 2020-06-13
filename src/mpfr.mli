@@ -181,8 +181,9 @@ val get_mpfr_2exp : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float * i
 val get_str : ?rnd:mpfr_rnd_t -> ?base:int -> ?size:int -> mpfr_float -> string * string
 
 (** [Mpfr.get_formatted_str] is identical to [Mpfr.get_str] except that it
-    returns a full-formatted string (equivalent to {e mpfr_printf("%.Re", x)}). *)
-val get_formatted_str : ?rnd:mpfr_rnd_t -> ?base:int -> ?size:int -> mpfr_float -> string
+    returns a full-formatted string (equivalent to {e mpfr_printf("%.Re", x)}).
+    Set [ktz] to false to remove trailing zeroes. *)
+val get_formatted_str : ?rnd:mpfr_rnd_t -> ?base:int -> ?size:int -> ?ktz:bool -> mpfr_float -> string
 
 (** Return true if the [mpfr_float] would fit in a [int], when rounded to an
     integer in the direction [~rnd]. *)

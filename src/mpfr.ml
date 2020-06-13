@@ -674,8 +674,9 @@ external flags_restore
   = "caml_mpfr_flags_restore"
 
 (* Input and Output Functions *)
-let get_formatted_str ?rnd:(rnd = To_Nearest) ?base:(base = 10) ?size:(size = 0) x =
+let get_formatted_str ?rnd:(rnd = To_Nearest) ?base:(base = 10) ?size:(size = 0) ?ktz:(ktz = true) x =
   let saved_flags = flags_save () in
+  (* behavior of mpfr_get_str changed from mpfr 4.1.0 and thus, trailing zeros are kept, set ktz to false to remove trailing zeros. *)
   let rec remove_trailing_zeros s =
     match s.[(String.length s) - 1] with
     '0' -> remove_trailing_zeros (String.sub s 0 ((String.length s) -1))
@@ -683,15 +684,15 @@ let get_formatted_str ?rnd:(rnd = To_Nearest) ?base:(base = 10) ?size:(size = 0)
   in
   let significand, exponent = get_str ~rnd:rnd ~base:base ~size:size x in
   let neg = if significand.[0] == '-' then true else false in
-  let zero = zero_p x in (* if x is zero, print 0e+00 *)
+  let zero = zero_p x in (* if x is zero, print 0.0000000000000000e+00 *)
   flags_restore saved_flags [All];
   if zero then
-    Printf.sprintf "%s0%c+00" (if neg then "-" else "") (if base > 10 then '@' else 'e')
+    Printf.sprintf "%s%s%c+00" (if neg then "-" else "") (if ktz then "0.0000000000000000" else "0") (if base > 10 then '@' else 'e')
   else
   if String.contains significand '@' (* nan or inf *)
   then String.lowercase_ascii (String.concat "" (String.split_on_char '@' significand))
   else begin
-    let mantissa = remove_trailing_zeros significand in
+    let mantissa = if ktz then significand else remove_trailing_zeros significand in
     let exponent = (int_of_string exponent) - 1 in
     Printf.sprintf "%s%s%s%c%+03d" (if neg then String.sub mantissa 0 2 else Char.escaped mantissa.[0])
       (if (neg && (String.length mantissa == 2)) || (neg == false && (String.length mantissa == 1)) then "" else ".")
