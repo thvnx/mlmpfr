@@ -2,8 +2,8 @@ language: c
 
 env:
   global:
-    - MPFR_VERSION="4.0.2"
-    - MPFR_TARGZ="mpfr-$MPFR_VERSION.tar.gz"
+    - MPFR_VERSION="4.1.0"
+    - MPFR_TARGZ="mpfr-$MPFR_VERSION-rc1.tar.gz"
     - MPFR_BUILD_DIR="/tmp"
   jobs:
     # default version
@@ -40,7 +40,7 @@ before_script:
   - BUILD_DIR=`pwd`
   - cd $MPFR_BUILD_DIR
   - tar xvzf $MPFR_TARGZ
-  - cd mpfr-$MPFR_VERSION
+  - cd mpfr-$MPFR_VERSION-rc1
   - ./configure
   - make -j8
   - sudo make install
