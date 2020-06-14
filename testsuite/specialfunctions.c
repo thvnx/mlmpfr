@@ -213,6 +213,8 @@ void all (mpfr_t op1, mpfr_t op2)
     }
   ter = mpfr_sum (rop, ptab, size, MPFR_RNDN);
   mpfr_printf ("%.Re %s %d\n", rop, rounding_to_string (ter), size);
+  ter = mpfr_dot (rop, ptab, ptab, size/10, MPFR_RNDN);
+  mpfr_printf ("%.Re %s %d\n", rop, rounding_to_string (ter), size/10);
 
   mpfr_clear (rop);
   mpfr_clear (sop);

@@ -555,6 +555,10 @@ val free_cache : unit -> unit
 (** Return the sum of all the elements of the list. *)
 val sum : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float list -> mpfr_float
 
+(** Return the dot product of the lists (commun size of the list is determined
+    by the size of the smallest one). *)
+val dot : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float list -> mpfr_float list -> mpfr_float
+
 (** {2 Input and Output} *)
 
 (** The two following functions are {b deprecated}. Use

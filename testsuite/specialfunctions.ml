@@ -86,7 +86,10 @@ let all op1 op2 =
   in
   let l = (s 1000000) in
   let r = M.sum l in
-  printf "%s %s %d\n" (M.get_formatted_str r) (rounding_to_string r) (List.length l)
+  printf "%s %s %d\n" (M.get_formatted_str r) (rounding_to_string r) (List.length l);
+  let m = (s 100000) in
+  let r = M.dot l m in
+  printf "%s %s %d\n" (M.get_formatted_str r) (rounding_to_string r) (List.length m)
 
 let _ =
   all (M.make_from_float (1. /. 3.)) (M.make_from_float (1. /. 10.)); printf "\n";

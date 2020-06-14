@@ -1390,6 +1390,49 @@ caml_mpfr_sum (value rnd, value prec, value tab)
   CAMLreturn (mpfr_float (rop, val_some (val_ter (ter))));
 }
 
+CAMLprim value
+caml_mpfr_dot (value rnd, value prec, value a, value b)
+{
+  CAMLparam3 (a, b, rnd);
+  CAMLlocal2 (rop, tmp);
+  int i, ter, size, sizea, sizeb;
+
+  rop = caml_mpfr_init2_opt (prec);
+
+  // compute the size of tabs
+  sizea = 0;
+  sizeb = 0;
+  tmp = a;
+  while (Is_block (a))
+    {
+      a = Field (a, 1);
+      sizea++;
+    }
+  a = tmp;
+  tmp = b;
+  while (Is_block (b))
+    {
+      b = Field (b, 1);
+      sizeb++;
+    }
+  b = tmp;
+  size = sizea > sizeb ? sizeb : sizea;
+
+  mpfr_ptr pa[size], pb[size];
+
+  for (i = 0; i < size; i++)
+    {
+      pa[i] = MPFR_val2 (Field (a, 0));
+      a = Field (a, 1);
+      pb[i] = MPFR_val2 (Field (b, 0));
+      b = Field (b, 1);
+    }
+
+  ter = mpfr_dot (MPFR_val (rop), pa, pb, size, rnd_val_opt (rnd));
+
+  CAMLreturn (mpfr_float (rop, val_some (val_ter (ter))));
+}
+
 /*******************************************/
 /* Integer and Remainder Related Functions */
 /*******************************************/

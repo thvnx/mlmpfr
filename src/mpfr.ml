@@ -450,6 +450,9 @@ external free_cache
 external sum
   : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float list -> mpfr_float
   = "caml_mpfr_sum"
+external dot
+  : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float list -> mpfr_float list -> mpfr_float
+  = "caml_mpfr_dot"
 
 (* Integer and Remainder Related Functions *)
 external rint
