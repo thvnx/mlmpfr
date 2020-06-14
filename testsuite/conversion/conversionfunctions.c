@@ -44,6 +44,8 @@ int main(int argc, char **argv)
   mpfr_frexp (&e, y, x, MPFR_RNDN);
   printf("%ld\n", e);
 
+  printf("%zu\n", mpfr_get_str_ndigits(10, 100));
+
   char *buffer;
   buffer = mpfr_get_str (NULL, &e, 10, 0, x, MPFR_RNDN);
   printf("%s %ld\n", buffer, e);

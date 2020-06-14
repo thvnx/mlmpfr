@@ -394,6 +394,14 @@ caml_mpfr_get_str (value rnd, value base, value n, value op)
 }
 
 CAMLprim value
+caml_mpfr_get_str_ndigits (value base, value prec)
+{
+  CAMLparam2 (prec, base);
+  CAMLreturn (Val_int (mpfr_get_str_ndigits (Int_val (base),
+                                             (mpfr_prec_t) Int_val (prec))));
+}
+
+CAMLprim value
 caml_mpfr_fits_sint_p (value rnd, value op)
 {
   CAMLparam2 (op, rnd);

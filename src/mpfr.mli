@@ -180,6 +180,12 @@ val get_mpfr_2exp : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float * i
     base and default size is zero. *)
 val get_str : ?rnd:mpfr_rnd_t -> ?base:int -> ?size:int -> mpfr_float -> string * string
 
+(** [Mpfr.get_str_ndigits b p] returns the minimal integer [m] such that any
+    number of [p] bits, when output with [m] digits in radix [b] with rounding
+    to nearest, can be recovered exactly when read again, still with rounding
+    to nearest. *)
+val get_str_ndigits : int -> int -> int
+
 (** [Mpfr.get_formatted_str] is identical to [Mpfr.get_str] except that it
     returns a full-formatted string (equivalent to {e mpfr_printf("%.Re", x)}).
     Set [ktz] to false to remove trailing zeroes. *)

@@ -116,6 +116,9 @@ external get_mpfr_2exp
 external get_str
   : ?rnd:mpfr_rnd_t -> ?base:int -> ?size:int -> mpfr_float -> string * string
   = "caml_mpfr_get_str"
+external get_str_ndigits
+  : int -> int -> int
+  = "caml_mpfr_get_str_ndigits"
 external fits_int_p
   : ?rnd:mpfr_rnd_t -> mpfr_float -> bool
   = "caml_mpfr_fits_sint_p"

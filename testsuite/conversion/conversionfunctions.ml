@@ -25,6 +25,7 @@ let _ =
   printf "%e %d\n" m n;
   let _, n = M.get_mpfr_2exp x in
   printf "%d\n" n;
+  printf "%d\n" (M.get_str_ndigits 10 100);
   let m, n = M.get_str x in
   printf "%s %s\n" m n;
   printf "%s\n" (M.get_formatted_str x);
