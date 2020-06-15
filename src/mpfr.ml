@@ -89,7 +89,7 @@ external make_from_float
 external make_from_str
   : ?prec:int -> ?rnd:mpfr_rnd_t -> ?base:int -> string -> mpfr_float
   = "caml_mpfr_init_set_str"
-(* TODO implement mpfr_set_str with exception handling when str isn't valid *)
+(* FIXME: implement mpfr_set_str with exception handling when str isn't valid *)
 external make_nan
   : ?prec:int -> unit -> mpfr_float
   = "caml_mpfr_init_set_nan"
@@ -123,7 +123,7 @@ external fits_int_p
   : ?rnd:mpfr_rnd_t -> mpfr_float -> bool
   = "caml_mpfr_fits_sint_p"
 
-(* Basic Arithmetic Functions *)
+(* Arithmetic Functions *)
 external add
   : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> mpfr_float -> mpfr_float
   = "caml_mpfr_add"
@@ -187,12 +187,6 @@ external cbrt
 external rootn_int
   : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> int -> mpfr_float
   = "caml_mpfr_rootn_ui"
-external pow
-  : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> mpfr_float -> mpfr_float
-  = "caml_mpfr_pow"
-external pow_int
-  : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> int -> mpfr_float
-  = "caml_mpfr_pow_si"
 external neg
   : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> mpfr_float
   = "caml_mpfr_neg"
@@ -208,6 +202,30 @@ external mul_2int
 external div_2int
   : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> int -> mpfr_float
   = "caml_mpfr_div_2si"
+external fac_int
+  : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> int -> mpfr_float
+  = "caml_mpfr_fac_ui"
+external fma
+  : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> mpfr_float -> mpfr_float -> mpfr_float
+  = "caml_mpfr_fma"
+external fms
+  : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> mpfr_float -> mpfr_float -> mpfr_float
+  = "caml_mpfr_fms"
+external fmma
+  : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> mpfr_float -> mpfr_float -> mpfr_float -> mpfr_float
+  = "caml_mpfr_fmma_bytecode" "caml_mpfr_fmma_native"
+external fmms
+  : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> mpfr_float -> mpfr_float -> mpfr_float -> mpfr_float
+  = "caml_mpfr_fmms_bytecode" "caml_mpfr_fmms_native"
+external hypot
+  : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> mpfr_float -> mpfr_float
+  = "caml_mpfr_hypot"
+external sum
+  : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float list -> mpfr_float
+  = "caml_mpfr_sum"
+external dot
+  : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float list -> mpfr_float list -> mpfr_float
+  = "caml_mpfr_dot"
 
 (* Comparison Functions *)
 external cmp
@@ -271,7 +289,7 @@ external total_order_p
   : mpfr_float -> mpfr_float -> bool
   = "caml_mpfr_total_order_p"
 
-(* Special Functions *)
+(* Transcendental Functions *)
 external log
   : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> mpfr_float
   = "caml_mpfr_log"
@@ -293,6 +311,15 @@ external exp2
 external exp10
   : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> mpfr_float
   = "caml_mpfr_exp10"
+external expm1
+  : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> mpfr_float
+  = "caml_mpfr_expm1"
+external pow
+  : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> mpfr_float -> mpfr_float
+  = "caml_mpfr_pow"
+external pow_int
+  : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> int -> mpfr_float
+  = "caml_mpfr_pow_si"
 external cos
   : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> mpfr_float
   = "caml_mpfr_cos"
@@ -356,15 +383,9 @@ external asinh
 external atanh
   : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> mpfr_float
   = "caml_mpfr_atanh"
-external fac_int
-  : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> int -> mpfr_float
-  = "caml_mpfr_fac_ui"
 external log1p
   : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> mpfr_float
   = "caml_mpfr_log1p"
-external expm1
-  : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> mpfr_float
-  = "caml_mpfr_expm1"
 external eint
   : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> mpfr_float
   = "caml_mpfr_eint"
@@ -416,24 +437,9 @@ external y1
 external yn
   : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> int -> mpfr_float -> mpfr_float
   = "caml_mpfr_yn"
-external fma
-  : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> mpfr_float -> mpfr_float -> mpfr_float
-  = "caml_mpfr_fma"
-external fms
-  : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> mpfr_float -> mpfr_float -> mpfr_float
-  = "caml_mpfr_fms"
-external fmma
-  : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> mpfr_float -> mpfr_float -> mpfr_float -> mpfr_float
-  = "caml_mpfr_fmma_bytecode" "caml_mpfr_fmma_native"
-external fmms
-  : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> mpfr_float -> mpfr_float -> mpfr_float -> mpfr_float
-  = "caml_mpfr_fmms_bytecode" "caml_mpfr_fmms_native"
 external agm
   : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> mpfr_float -> mpfr_float
   = "caml_mpfr_agm"
-external hypot
-  : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> mpfr_float -> mpfr_float
-  = "caml_mpfr_hypot"
 external ai
   : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> mpfr_float
   = "caml_mpfr_ai"
@@ -449,16 +455,6 @@ external const_euler
 external const_catalan
   : ?rnd:mpfr_rnd_t -> mpfr_prec_t -> mpfr_float
   = "caml_mpfr_const_catalan"
-external free_cache
-  : unit -> unit
-  = "caml_mpfr_free_cache"
-(* NOTE implement mpfr_free_cache2, mpfr_free_pool and mpfr_mp_memory_cleanup *)
-external sum
-  : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float list -> mpfr_float
-  = "caml_mpfr_sum"
-external dot
-  : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float list -> mpfr_float list -> mpfr_float
-  = "caml_mpfr_dot"
 
 (* Integer and Remainder Related Functions *)
 external rint
@@ -725,3 +721,9 @@ external fpif_export
 external fpif_import
   : in_channel -> mpfr_float
   = "caml_mpfr_fpif_import"
+
+(* Memory Handling Functions *)
+external free_cache
+  : unit -> unit
+  = "caml_mpfr_free_cache"
+(* TODO: implement mpfr_free_cache2, mpfr_free_pool and mpfr_mp_memory_cleanup *)

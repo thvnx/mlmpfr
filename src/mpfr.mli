@@ -123,6 +123,8 @@ val get_default_prec : unit -> int
     [Mpfr.make_from_mpfr ~prec:prec x] instead. *)
 val get_prec : mpfr_float -> int
 
+(** {2 Assignment} *)
+
 (** Return a fresh [mpfr_float] number of precision [~prec] (optional),
     made from another [mpfr_float] number, in direction [~rnd] (optional). *)
 val make_from_mpfr : ?prec:int -> ?rnd:mpfr_rnd_t -> mpfr_float -> mpfr_float
@@ -195,7 +197,7 @@ val get_formatted_str : ?rnd:mpfr_rnd_t -> ?base:int -> ?size:int -> ?ktz:bool -
     integer in the direction [~rnd]. *)
 val fits_int_p : ?rnd:mpfr_rnd_t -> mpfr_float -> bool
 
-(** {2 Basic Arithmetic} *)
+(** {2 Arithmetic} *)
 
 (** If not provided, default values for [rnd] and [prec] are the defaults MPFR
     precision and rounding mode internal settings (use
@@ -264,12 +266,6 @@ val cbrt : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
 (** [Mpfr.rootn_int x k] returns the [k]-th root of [x]. *)
 val rootn_int : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> int -> mpfr_float
 
-(** [Mpfr.pow x y] returns [x] raised to [y]. *)
-val pow : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float -> mpfr_float
-
-(** [Mpfr.pow_int x y] returns [x] raised to [y]. *)
-val pow_int : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> int -> mpfr_float
-
 (** Compute the negation of an [mpfr_float] number. *)
 val neg : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
 
@@ -285,6 +281,40 @@ val mul_2int : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> int -> mpfr_float
 
 (** [Mpfr.div_2int x y] returns [x] divided by 2 raised to [y]. *)
 val div_2int : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> int -> mpfr_float
+
+(** Return the factorial of an [int]. Return NaN if input is negative. *)
+val fac_int : ?rnd:mpfr_rnd_t -> ?prec:int -> int -> mpfr_float
+
+(** Return the fused multiply and add of [mpfr_float] numbers.
+    [Mpfr.fma x y z] retuns [xy+z]. *)
+val fma : ?rnd:mpfr_rnd_t -> ?prec:int ->
+  mpfr_float -> mpfr_float -> mpfr_float -> mpfr_float
+
+(** Return the fused multiply and sub of [mpfr_float] numbers.
+    [Mpfr.fms x y z] retuns [xy-z]. *)
+val fms : ?rnd:mpfr_rnd_t -> ?prec:int ->
+  mpfr_float -> mpfr_float -> mpfr_float -> mpfr_float
+
+(** [Mpfr.fmma x y z t] retuns [xy+zt]. In case the computation of [xy]
+    overflows or underflows (or that of [zt]), the result is computed as if the
+    two intermediate products were computed with rounding toward zero.*)
+val fmma : ?rnd:mpfr_rnd_t -> ?prec:int ->
+  mpfr_float -> mpfr_float -> mpfr_float -> mpfr_float -> mpfr_float
+
+(** [Mpfr.fmms x y z t] retuns [xy-zt]. See [Mpfr.fmma] for further
+    comments *)
+val fmms : ?rnd:mpfr_rnd_t -> ?prec:int ->
+  mpfr_float -> mpfr_float -> mpfr_float -> mpfr_float -> mpfr_float
+
+(** Return the Euclidean norm of a [mpfr_float] number. *)
+val hypot : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float -> mpfr_float
+
+(** Return the sum of all the elements of the list. *)
+val sum : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float list -> mpfr_float
+
+(** Return the dot product of the lists (commun size of the list is determined
+    by the size of the smallest one). *)
+val dot : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float list -> mpfr_float list -> mpfr_float
 
 (** {2 Comparison} *)
 
@@ -353,7 +383,7 @@ val unordered_p : mpfr_float -> mpfr_float -> bool
 (** This function implements the totalOrder predicate from IEEE 754-2008. *)
 val total_order_p : mpfr_float -> mpfr_float -> bool
 
-(** {2 Special} *)
+(** {2 Transcendental} *)
 
 (** If not provided, default values for [rnd] and [prec] are the defaults MPFR
     precision and rounding mode internal settings (use
@@ -371,6 +401,9 @@ val log2 : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
 (** Return the log10 of a [mpfr_float]. *)
 val log10 : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
 
+(** Return the logarithm of one plus a [mpfr_float]. *)
+val log1p : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
+
 (** Return the exponential of a [mpfr_float]. *)
 val exp : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
 
@@ -379,6 +412,18 @@ val exp2 : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
 
 (** Return the 10 power of a [mpfr_float]. *)
 val exp10 : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
+
+(** Return the exponential of a [mpfr_float] followed by a subtraction by one. *)
+val expm1 : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
+
+(** [Mpfr.pow x y] returns [x] raised to [y]. *)
+val pow : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float -> mpfr_float
+
+(** [Mpfr.pow_int x y] returns [x] raised to [y]. *)
+val pow_int : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> int -> mpfr_float
+
+(** TODO: int_pow_int *)
+(** TODO: int_pow *)
 
 (** Return the cosine of a [mpfr_float]. *)
 val cos : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
@@ -445,15 +490,6 @@ val asinh : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
 (** Return the inverse hyperbolic tangent of a [mpfr_float]. *)
 val atanh : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
 
-(** Return the factorial of an [int]. Return NaN if input is negative. *)
-val fac_int : ?rnd:mpfr_rnd_t -> ?prec:int -> int -> mpfr_float
-
-(** Return the logarithm of one plus a [mpfr_float]. *)
-val log1p : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
-
-(** Return the exponential of a [mpfr_float] followed by a subtraction by one. *)
-val expm1 : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
-
 (** Return the exponential integral of a [mpfr_float]. *)
 val eint : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
 
@@ -513,32 +549,8 @@ val y1 : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
     [n] on [x]. Return NaN if [n] is negative. *)
 val yn : ?rnd:mpfr_rnd_t -> ?prec:int -> int -> mpfr_float -> mpfr_float
 
-(** Return the fused multiply and add of [mpfr_float] numbers.
-    [Mpfr.fma x y z] retuns [xy+z]. *)
-val fma : ?rnd:mpfr_rnd_t -> ?prec:int ->
-  mpfr_float -> mpfr_float -> mpfr_float -> mpfr_float
-
-(** Return the fused multiply and sub of [mpfr_float] numbers.
-    [Mpfr.fms x y z] retuns [xy-z]. *)
-val fms : ?rnd:mpfr_rnd_t -> ?prec:int ->
-  mpfr_float -> mpfr_float -> mpfr_float -> mpfr_float
-
-(** [Mpfr.fmma x y z t] retuns [xy+zt]. In case the computation of [xy]
-    overflows or underflows (or that of [zt]), the result is computed as if the
-    two intermediate products were computed with rounding toward zero.*)
-val fmma : ?rnd:mpfr_rnd_t -> ?prec:int ->
-  mpfr_float -> mpfr_float -> mpfr_float -> mpfr_float -> mpfr_float
-
-(** [Mpfr.fmms x y z t] retuns [xy-zt]. See [Mpfr.fmma] for further
-    comments *)
-val fmms : ?rnd:mpfr_rnd_t -> ?prec:int ->
-  mpfr_float -> mpfr_float -> mpfr_float -> mpfr_float -> mpfr_float
-
 (** Return the arithmetic-geometric mean of a [mpfr_float] number. *)
 val agm : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float -> mpfr_float
-
-(** Return the Euclidean norm of a [mpfr_float] number. *)
-val hypot : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float -> mpfr_float
 
 (** Return the value of the Airy function Ai on a [mpfr_float] number. *)
 val ai : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
@@ -554,16 +566,6 @@ val const_euler : ?rnd:mpfr_rnd_t -> int -> mpfr_float
 
 (** Return the value of Catalan's constant 0.915... *)
 val const_catalan : ?rnd:mpfr_rnd_t -> int -> mpfr_float
-
-(** Free all caches and pools used by MPFR internally. *)
-val free_cache : unit -> unit
-
-(** Return the sum of all the elements of the list. *)
-val sum : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float list -> mpfr_float
-
-(** Return the dot product of the lists (commun size of the list is determined
-    by the size of the smallest one). *)
-val dot : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float list -> mpfr_float list -> mpfr_float
 
 (** {2 Input and Output} *)
 
@@ -595,7 +597,6 @@ val fpif_export : out_channel -> mpfr_float -> unit
     is non-zero) and [op] is undefined. If the function fails for another reason,
     [op] is set to NaN. Ternary value is 0 iff the import was successful. *)
 val fpif_import : in_channel -> mpfr_float
-
 
 (** {2 Integer and Remainder Related} *)
 
@@ -813,6 +814,8 @@ val clear_inexflag : unit -> unit (** Clear the inexact flag. *)
 
 val clear_erangeflag : unit -> unit (** Clear the {e erange} flag. *)
 
+val clear_flags : unit -> unit (** Clear all global flags. *)
+
 val set_underflow : unit -> unit (** Set the underflow flag. *)
 
 val set_overflow : unit -> unit (** Set the overflow flag. *)
@@ -824,8 +827,6 @@ val set_nanflag : unit -> unit (** Set the invalid flag. *)
 val set_inexflag : unit -> unit (** Set the inexact flag. *)
 
 val set_erangeflag : unit -> unit (** Set the {e erange} flag. *)
-
-val clear_flags : unit -> unit (** Clear all global flags. *)
 
 val underflow_p : unit -> bool (** Is underflow flag set? *)
 
@@ -859,3 +860,8 @@ val flags_save : unit -> mpfr_flags_t list
 (** [Mpfr.flags_restore f1 f2] restores the flags specified by mask [f2] to
     their state represented in flags [f1]. *)
 val flags_restore : mpfr_flags_t list -> mpfr_flags_t list -> unit
+
+(** {2 Memory Handling} *)
+
+(** Free all caches and pools used by MPFR internally. *)
+val free_cache : unit -> unit
