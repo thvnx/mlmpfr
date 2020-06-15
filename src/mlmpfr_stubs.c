@@ -895,6 +895,13 @@ caml_mpfr_unordered_p (value op1, value op2)
   CAMLreturn (Val_bool (mpfr_unordered_p (MPFR_val2 (op1), MPFR_val2 (op2))));
 }
 
+CAMLprim value
+caml_mpfr_total_order_p (value op1, value op2)
+{
+  CAMLparam2 (op1, op2);
+  CAMLreturn (Val_bool (mpfr_total_order_p (MPFR_val2 (op1), MPFR_val2 (op2))));
+}
+
 static int
 custom_compare (value v1, value v2)
 {

@@ -36,7 +36,8 @@ let all op1 op2 =
   printf "%b\n" (M.lessequal_p op1 op2);
   printf "%b\n" (M.equal_p op1 op2);
   printf "%b\n" (M.lessgreater_p op1 op2);
-  printf "%b\n" (M.unordered_p op1 op2)
+  printf "%b\n" (M.unordered_p op1 op2);
+  printf "%b\n" (M.total_order_p op1 op2)
 
 let _ =
   all (M.make_from_float (1. /. 3.)) (M.make_from_float (1. /. 10.));

@@ -267,6 +267,9 @@ external lessgreater_p
 external unordered_p
   : mpfr_float -> mpfr_float -> bool
   = "caml_mpfr_unordered_p"
+external total_order_p
+  : mpfr_float -> mpfr_float -> bool
+  = "caml_mpfr_total_order_p"
 
 (* Special Functions *)
 external log

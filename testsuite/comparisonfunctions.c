@@ -43,6 +43,7 @@ void all (mpfr_t op1, mpfr_t op2)
   printf("%s\n", mpfr_equal_p (op1, op2) != 0 ? "true" : "false");
   printf("%s\n", mpfr_lessgreater_p (op1, op2) != 0 ? "true" : "false");
   printf("%s\n", mpfr_unordered_p (op1, op2) != 0 ? "true" : "false");
+  printf("%s\n", mpfr_total_order_p (op1, op2) != 0 ? "true" : "false");
 
   mpfr_clear (rop);
 }

@@ -350,6 +350,9 @@ val lessgreater_p : mpfr_float -> mpfr_float -> bool
     false otherwise. *)
 val unordered_p : mpfr_float -> mpfr_float -> bool
 
+(** This function implements the totalOrder predicate from IEEE 754-2008. *)
+val total_order_p : mpfr_float -> mpfr_float -> bool
+
 (** {2 Special} *)
 
 (** If not provided, default values for [rnd] and [prec] are the defaults MPFR
