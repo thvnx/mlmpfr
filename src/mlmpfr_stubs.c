@@ -793,7 +793,14 @@ CAMLprim value
 caml_mpfr_cmpabs (value op1, value op2)
 {
   CAMLparam2 (op1, op2);
-  CAMLreturn (Val_int (mpfr_cmp_abs (MPFR_val2 (op1), MPFR_val2 (op2))));
+  CAMLreturn (Val_int (mpfr_cmpabs (MPFR_val2 (op1), MPFR_val2 (op2))));
+}
+
+CAMLprim value
+caml_mpfr_cmpabs_ui (value op1, value op2)
+{
+  CAMLparam2 (op1, op2);
+  CAMLreturn (Val_int (mpfr_cmpabs_ui (MPFR_val2 (op1), labs (SI_val (op2)))));
 }
 
 CAMLprim value

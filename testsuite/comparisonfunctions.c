@@ -16,6 +16,8 @@
 
 #include <stdio.h>
 #include <mpfr.h>
+#include <math.h>
+#include <stdlib.h>
 
 void all (mpfr_t op1, mpfr_t op2)
 {
@@ -27,6 +29,7 @@ void all (mpfr_t op1, mpfr_t op2)
   printf("%d\n", mpfr_cmp_si (op1, mpfr_get_d (op2, MPFR_RNDN)));
   printf("%d\n", mpfr_cmp_si_2exp (op1, mpfr_get_si (op2, MPFR_RNDN), mpfr_get_si (op2, MPFR_RNDN)));
   printf("%d\n", mpfr_cmpabs (op1, op2));
+  printf("%d\n", mpfr_cmpabs_ui (op1, labs(mpfr_get_si (op2, MPFR_RNDN))));
   printf("%s\n", mpfr_nan_p (op1) != 0 ? "true" : "false");
   printf("%s\n", mpfr_inf_p (op1) != 0 ? "true" : "false");
   printf("%s\n", mpfr_number_p (op1) != 0 ? "true" : "false");

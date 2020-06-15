@@ -23,6 +23,7 @@ let all op1 op2 =
   printf "%d\n" (M.cmp_float op1 (M.get_float op2));
   printf "%d\n" (M.cmp_int_2exp op1 (M.get_int op2) (M.get_int op2));
   printf "%d\n" (M.cmpabs op1 op2);
+  printf "%d\n" (M.cmpabs_int op1 (M.get_int op2));
   printf "%b\n" (M.nan_p op1);
   printf "%b\n" (M.inf_p op1);
   printf "%b\n" (M.number_p op1);

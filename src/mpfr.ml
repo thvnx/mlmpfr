@@ -225,6 +225,9 @@ external cmp_int_2exp
 external cmpabs
   : mpfr_float -> mpfr_float -> int
   = "caml_mpfr_cmpabs"
+external cmpabs_int
+  : mpfr_float -> int -> int
+  = "caml_mpfr_cmpabs_ui"
 external nan_p
   : mpfr_float -> bool
   = "caml_mpfr_nan_p"

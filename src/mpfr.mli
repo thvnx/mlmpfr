@@ -310,6 +310,9 @@ val cmp_int_2exp : mpfr_float -> int -> int -> int
     [|a|] = [|b|], and a negative value if [|a|] < [|b|]. *)
 val cmpabs : mpfr_float -> mpfr_float -> int
 
+(** [Mpfr.cmpabs_int a b] compares [a] and [b]. Similar as above. *)
+val cmpabs_int : mpfr_float -> int -> int
+
 val nan_p : mpfr_float -> bool (** Its a NaN. *)
 
 val inf_p : mpfr_float -> bool (** Its an infinity. *)
