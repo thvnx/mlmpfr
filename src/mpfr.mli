@@ -64,6 +64,9 @@ exception Base_range of int
 (** Raised if mlmpfr fails to perfom some internal [mpfr_t] copies. *)
 exception Error of string
 
+(** Raised if mlmpfr tries to call a mpfr_*_ui function with a negative integer. *)
+exception Invalid_integer_input of int
+
 type sign = Positive | Negative
 
 (** Binding to C MPFR

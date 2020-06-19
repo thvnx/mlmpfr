@@ -47,6 +47,7 @@ type mpfr_flags_t =
 exception Base_range of int
 exception Precision_range of int
 exception Error of string
+exception Invalid_integer_input of int
 
 let _ = Callback.register_exception
     "precision range exception" (Precision_range 0)
@@ -54,7 +55,8 @@ let _ = Callback.register_exception
     "base range exception" (Base_range 0)
 let _ = Callback.register_exception
     "internal copy exception" (Error "function")
-
+let _ = Callback.register_exception
+    "invalid integer input" (Invalid_integer_input (-1))
 
 external mpfr_prec_min
   : unit -> int

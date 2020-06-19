@@ -56,6 +56,16 @@ base_in_range (value base)
                          Val_int (b));
 }
 
+void
+positive_si (value i)
+{
+  int p = Int_val (i);
+
+  if (p < 0)
+    caml_raise_with_arg (*caml_named_value ("invalid integer input"),
+                         Val_int (p));
+}
+
 /****************************/
 /* Initialization Functions */
 /****************************/
@@ -629,8 +639,7 @@ caml_mpfr_sqrt_ui (value rnd, value prec, value op)
   CAMLlocal1 (rop);
   int ter;
 
-  if (SI_val (op) < 0)
-    CAMLreturn (caml_mpfr_init_set_nan (prec));
+  positive_si (op); // raise exception if op is negative
 
   rop = caml_mpfr_init2_opt (prec);
   ter = mpfr_sqrt_ui (MPFR_val (rop), UI_val (op), rnd_val_opt (rnd));
@@ -670,8 +679,7 @@ caml_mpfr_rootn_ui (value rnd, value prec, value op, value k)
   CAMLlocal1 (rop);
   int ter;
 
-  if (SI_val (k) < 0)
-    CAMLreturn (caml_mpfr_init_set_nan (prec));
+  positive_si (k); // raise exception if k is negative
 
   rop = caml_mpfr_init2_opt (prec);
   ter = mpfr_rootn_ui (MPFR_val (rop), MPFR_val2 (op), UI_val (k),
@@ -930,8 +938,7 @@ caml_mpfr_log_ui (value rnd, value prec, value op)
   CAMLlocal1 (rop);
   int ter;
 
-  if (SI_val (op) < 0)
-    CAMLreturn (caml_mpfr_init_set_nan (prec));
+  positive_si (op); // raise exception if op is negative
 
   rop = caml_mpfr_init2_opt (prec);
   ter = mpfr_log_ui (MPFR_val (rop), SI_val (op), rnd_val_opt (rnd));
@@ -1092,8 +1099,7 @@ caml_mpfr_fac_ui (value rnd, value prec, value op)
   CAMLlocal1 (rop);
   int ter;
 
-  if (SI_val (op) < 0)
-    CAMLreturn (caml_mpfr_init_set_nan (prec));
+  positive_si (op); // raise exception if op is negative
 
   rop = caml_mpfr_init2_opt (prec);
   ter = mpfr_fac_ui (MPFR_val (rop), SI_val (op), rnd_val_opt (rnd));

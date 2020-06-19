@@ -35,7 +35,12 @@ let all op1 op2 =
   let r = M.div_float op1 (M.get_float op2) in printf "%s\n" (M.get_formatted_str r);
   let r = M.float_div (M.get_float op1) op2 in printf "%s\n" (M.get_formatted_str r);
   let r = M.sqrt op1 in printf "%s\n" (M.get_formatted_str r);
-  let r = M.sqrt_int (M.get_int op1) in printf "%s\n" (M.get_formatted_str r);
+  let r =
+    try
+      M.sqrt_int (M.get_int op1)
+    with M.Invalid_integer_input _ ->
+      M.make_nan ()
+  in printf "%s\n" (M.get_formatted_str r);
   let r = M.cbrt op1 in printf "%s\n" (M.get_formatted_str r);
   let r = M.rootn_int op1 10 in printf "%s\n" (M.get_formatted_str r);
   let r = M.pow op1 op2 in printf "%s\n" (M.get_formatted_str r);

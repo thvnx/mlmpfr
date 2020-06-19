@@ -20,7 +20,12 @@ module M = Mpfr
 
 let all op1 op2 =
   let r = M.log op1 in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);
-  let r = M.log_int (M.get_int op1) in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);
+  let r =
+    try
+      M.log_int (M.get_int op1)
+    with M.Invalid_integer_input _ ->
+      M.make_nan ()
+  in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);
   let r = M.log2 op1 in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);
   let r = M.log10 op1 in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);
   let r = M.exp op1 in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);
@@ -47,7 +52,12 @@ let all op1 op2 =
   let r = M.acosh op1 in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);
   let r = M.asinh op1 in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);
   let r = M.atanh op1 in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);
-  let r = M.fac_int (M.get_int op1) in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);
+  let r =
+    try
+      M.fac_int (M.get_int op1)
+    with M.Invalid_integer_input _ ->
+      M.make_nan ()
+  in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);
   let r = M.log1p op1 in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);
   let r = M.expm1 op1 in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);
   let r = M.eint op1 in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);
