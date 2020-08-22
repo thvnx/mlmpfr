@@ -18,7 +18,7 @@ depends: [
   "dune" {>= "1.11.0"}
 ]
 depexts: [
-  ["libmpfr-dev"] {os-family = "debian"}
+  ["libmpfr-dev=4.0.2-1"] {os-family = "debian"}
 ]
 post-messages: [
   "Make sure you had MPFR version 4.0.2 installed on your system." {failure}
