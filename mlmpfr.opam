@@ -17,7 +17,7 @@ depends: [
 ]
 x-ci-accept-failures: ["debian-unstable"]
 depexts: [
-  ["libmpfr-dev"] {os-family = "debian"}
+  ["libmpfr-dev=4.1.0-3"] {os-family = "debian"}
 ]
 post-messages: [
   "Make sure you had MPFR version 4.1.0 installed on your system." {failure}
