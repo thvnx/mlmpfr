@@ -2,6 +2,16 @@ mlmpfr
 
 # master branch
 
+# release_410
+
+- raise exception when passing negative integeter to any mpfr_*_ui
+- add support and tests for mpfr_total_order_p
+- add support and tests for mpfr_cmpabs_ui
+- add support and tests for mpfr_dot
+- add support and tests for mpfr_get_str_ndigits
+- add support for bases from -36 to -2
+- fix behavior of get_formatted_str WRT trailing zeros
+
 - support for mpfr_fpif_import and mpfr_fpif_export
 
 # release_400, release_401, release_402 branches
