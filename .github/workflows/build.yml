@@ -14,7 +14,7 @@ jobs:
     runs-on: ${{ matrix.platform }}
 
     steps:
-      - name: Setup opam
+      - name: Set up opam
         run: |
           sudo add-apt-repository ppa:ansible/bubblewrap -y && sudo apt-get update
           sudo apt-get install bubblewrap
@@ -28,11 +28,21 @@ jobs:
           wget https://www.mpfr.org/mpfr-4.1.0/mpfr-4.1.0.tar.gz
           tar xvzf mpfr-4.1.0.tar.gz
           mkdir build-mpfr
-          cd build-mpfr
+          pushd build-mpfr
           ../mpfr-4.1.0/configure
           make -j8
           sudo make install
           popd
+
+      - name: Build and test mlmpfr
+        run: |
+          dune build @install --profile dev
+          dune build @runtest --profile dev
+          dune build @doc
+          dune install
+          # LD_LIBRARY_PATH is not exported by dune for executables
+          # FIXME find a way to export LD_LIBRARY_PATH with dune
+          LD_LIBRARY_PATH=/usr/local/lib dune exec examples/example.exe
 
   macos:
     strategy:
@@ -41,7 +51,7 @@ jobs:
     runs-on: ${{ matrix.platform }}
 
     steps:
-      - name: Setup opam
+      - name: Set up opam
         run: |
           sudo add-apt-repository ppa:ansible/bubblewrap -y && sudo apt-get update
           sudo apt-get install bubblewrap
@@ -55,13 +65,22 @@ jobs:
           wget https://www.mpfr.org/mpfr-4.1.0/mpfr-4.1.0.tar.gz
           tar xvzf mpfr-4.1.0.tar.gz
           mkdir build-mpfr
-          cd build-mpfr
+          pushd build-mpfr
           ../mpfr-4.1.0/configure
           make -j8
           sudo make install
           popd
 
-# language: c
+      - name: Build and test mlmpfr
+        run: |
+          dune build @install --profile dev
+          dune build @runtest --profile dev
+          dune build @doc
+          dune install
+          # LD_LIBRARY_PATH is not exported by dune for executables
+          # FIXME find a way to export LD_LIBRARY_PATH with dune
+          LD_LIBRARY_PATH=/usr/local/lib dune exec examples/example.exe
+
 
 # env:
 #   global:
