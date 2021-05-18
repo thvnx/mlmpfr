@@ -7,32 +7,53 @@ on:
     - cron: '0 0 * * 0' # weekly
 
 jobs:
-  bwrap:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Install bwrap
-        run: |
-          sudo add-apt-repository ppa:ansible/bubblewrap -y && sudo apt-get update
-          sudo apt-get install bubblewrap
-
-  build:
-    needs: bwrap
-    
+  ubuntu:
     strategy:
       matrix:
-        platform: [ubuntu-latest, macos-latest] # todo: enable windows-latest
+        platform: [ubuntu-18.04, ubuntu-latest]
     runs-on: ${{ matrix.platform }}
 
     steps:
-      - name: Build mpfr
+      - name: Setup opam
         run: |
-          wget https://www.mpfr.org/mpfr-4.1.0/mpfr-4.1.0.tar.gz
-          tar xvzf mpfr-4.1.0.tar.gz
+          sudo add-apt-repository ppa:ansible/bubblewrap -y && sudo apt-get update
+          sudo apt-get install bubblewrap
           yes /usr/local/bin | sh <(curl -sL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh)
           opam init -a
           eval $(opam env)
           opam install dune odoc -y
+
+      - name: Build mpfr
+        run: |
+          wget https://www.mpfr.org/mpfr-4.1.0/mpfr-4.1.0.tar.gz
+          tar xvzf mpfr-4.1.0.tar.gz
+          mkdir build-mpfr
+          cd build-mpfr
+          ../mpfr-4.1.0/configure
+          make -j8
+          sudo make install
+          popd
+
+  macos:
+    strategy:
+      matrix:
+        platform: [macos-latest, macos-11.0]
+    runs-on: ${{ matrix.platform }}
+
+    steps:
+      - name: Setup opam
+        run: |
+          sudo add-apt-repository ppa:ansible/bubblewrap -y && sudo apt-get update
+          sudo apt-get install bubblewrap
+          yes /usr/local/bin | sh <(curl -sL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh)
+          opam init -a
+          eval $(opam env)
+          opam install dune odoc -y
+
+      - name: Build mpfr
+        run: |
+          wget https://www.mpfr.org/mpfr-4.1.0/mpfr-4.1.0.tar.gz
+          tar xvzf mpfr-4.1.0.tar.gz
           mkdir build-mpfr
           cd build-mpfr
           ../mpfr-4.1.0/configure
