@@ -7,6 +7,15 @@ on:
     - cron: '0 0 * * 0' # weekly
 
 jobs:
+  bwrap:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install bwrap
+        run: |
+          sudo add-apt-repository ppa:ansible/bubblewrap -y && sudo apt-get update
+          sudo apt-get install bubblewrap
+
   build:
     strategy:
       matrix:
