@@ -17,6 +17,8 @@ jobs:
           sudo apt-get install bubblewrap
 
   build:
+    needs: bwrap
+    
     strategy:
       matrix:
         platform: [ubuntu-latest, macos-latest] # todo: enable windows-latest
