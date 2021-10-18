@@ -1,8 +1,4 @@
-| master | mlmpfr.4.1.0 | mlmpfr.4.0.2 | mlmpfr.4.0.1 | mlmpfr.4.0.0 | mlmpfr.3.1.6 |
-|--------|--------------|--------------|--------------|--------------|--------------|
-| [![Build Status](https://travis-ci.com/thvnx/mlmpfr.svg?branch=master)](https://travis-ci.com/thvnx/mlmpfr) | [![Build Status](https://travis-ci.com/thvnx/mlmpfr.svg?branch=release_410)](https://travis-ci.com/thvnx/mlmpfr) | [![Build Status](https://travis-ci.com/thvnx/mlmpfr.svg?branch=release_402)](https://travis-ci.com/thvnx/mlmpfr) | [![Build Status](https://travis-ci.com/thvnx/mlmpfr.svg?branch=release_401)](https://travis-ci.com/thvnx/mlmpfr) | [![Build Status](https://travis-ci.com/thvnx/mlmpfr.svg?branch=release_400)](https://travis-ci.com/thvnx/mlmpfr) | [![Build Status](https://travis-ci.com/thvnx/mlmpfr.svg?branch=release_316)](https://travis-ci.com/thvnx/mlmpfr) |
-
-(tested on linux and osx)
+![master](https://github.com/thvnx/mlmpfr/actions/workflows/build.yml/badge.svg)
 
 # mlmpfr
 OCaml bindings for MPFR.
