@@ -46,8 +46,13 @@ static struct custom_operations mpfr_ops = {"https://github.com/thvnx/mlmpfr",
                                             custom_fixed_length_default};
 #endif
 
+// Val_none and Some_val were introduced in mlvalues.h from 4.12
+#ifndef Val_none
 #define Val_none Val_int (0)
+#endif
+#ifndef Some_val
 #define Some_val(v) Field (v, 0)
+#endif
 
 static value
 val_some (value v)
