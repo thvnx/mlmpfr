@@ -20,7 +20,7 @@
  (libraries mlmpfr)
  (action (run %{test} fpif_import.data)))
 
-(alias
- (name runtest)
+(rule
+ (alias runtest)
  (deps fpif_export.output fpif_export.expected)
  (action (run diff fpif_export.output fpif_export.expected)))

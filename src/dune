@@ -3,6 +3,5 @@
  (public_name mlmpfr)
  (wrapped false)
  (modules mpfr)
- (c_names mlmpfr_stubs)
- (c_flags -O2 -Wall -Wextra)
+ (foreign_stubs (language c) (names mlmpfr_stubs) (flags -O2 -Wall -Wextra -fPIC))
  (c_library_flags -lmpfr))
