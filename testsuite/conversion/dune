@@ -10,17 +10,17 @@
  (action (with-stdout-to conversionfunctions.expected (run %{deps}))))
 
 (rule
- (targets fpif_export.output converstionfunctions.output)
+ (targets fpif_export.output conversionfunctions2.output)
  (deps conversionfunctions.exe (file fpif_import.data))
- (action (with-stdout-to converstionfunctions.output (run %{deps}))))
+ (action (with-stdout-to conversionfunctions2.output (run %{deps}))))
 
 (test
- (deps conversionfunctions.expected)
+ (deps conversionfunctions.expected conversionfunctions2.output)
  (name conversionfunctions)
  (libraries mlmpfr)
  (action (run %{test} fpif_import.data)))
 
-(alias
- (name runtest)
+(rule
+ (alias runtest)
  (deps fpif_export.output fpif_export.expected)
  (action (run diff fpif_export.output fpif_export.expected)))
