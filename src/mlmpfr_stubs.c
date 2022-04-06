@@ -252,7 +252,7 @@ caml_mpfr_swap (value op1, value op2)
 CAMLprim value
 caml_mpfr_init_set_mpfr (value prec, value rnd, value op)
 {
-  CAMLparam0 ();
+  CAMLparam3 (prec, rnd, op);
   CAMLlocal2 (rop, ter);
 
   rop = caml_mpfr_init2_opt (prec);
@@ -264,7 +264,7 @@ caml_mpfr_init_set_mpfr (value prec, value rnd, value op)
 CAMLprim value
 caml_mpfr_init_set_si (value prec, value rnd, value op)
 {
-  CAMLparam0 ();
+  CAMLparam3 (prec, rnd, op);
   CAMLlocal2 (rop, ter);
 
   rop = caml_mpfr_init2_opt (prec);
@@ -276,7 +276,7 @@ caml_mpfr_init_set_si (value prec, value rnd, value op)
 CAMLprim value
 caml_mpfr_init_set_d (value prec, value rnd, value op)
 {
-  CAMLparam0 ();
+  CAMLparam3 (prec, rnd, op);
   CAMLlocal2 (rop, ter);
 
   rop = caml_mpfr_init2_opt (prec);
@@ -288,7 +288,7 @@ caml_mpfr_init_set_d (value prec, value rnd, value op)
 CAMLprim value
 caml_mpfr_init_set_str (value prec, value rnd, value base, value str)
 {
-  CAMLparam0 ();
+  CAMLparam4 (prec, rnd, base, str);
   CAMLlocal2 (rop, ter);
 
   rop = caml_mpfr_init2_opt (prec);
@@ -300,7 +300,7 @@ caml_mpfr_init_set_str (value prec, value rnd, value base, value str)
 CAMLprim value
 caml_mpfr_init_set_nan (value prec)
 {
-  CAMLparam0 ();
+  CAMLparam1 (prec);
   CAMLlocal1 (rop);
 
   rop = caml_mpfr_init2_opt (prec);
@@ -312,7 +312,7 @@ caml_mpfr_init_set_nan (value prec)
 CAMLprim value
 caml_mpfr_init_set_inf (value prec, value sign)
 {
-  CAMLparam0 ();
+  CAMLparam2 (prec, sign);
   CAMLlocal1 (rop);
 
   rop = caml_mpfr_init2_opt (prec);
@@ -324,7 +324,7 @@ caml_mpfr_init_set_inf (value prec, value sign)
 CAMLprim value
 caml_mpfr_init_set_zero (value prec, value sign)
 {
-  CAMLparam0 ();
+  CAMLparam2 (prec, sign);
   CAMLlocal1 (rop);
 
   rop = caml_mpfr_init2_opt (prec);

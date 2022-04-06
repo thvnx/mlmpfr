@@ -209,7 +209,10 @@ flags_val (value f)
 static value
 val_flags (int s)
 {
-  value head, tail = Val_emptylist;
+  CAMLparam0 ();
+  CAMLlocal2 (head, tail);
+  tail = Val_emptylist;
+
   int i = 0;
 
   while (i < 7)
@@ -230,16 +233,19 @@ val_flags (int s)
       i++;
     }
 
-  return tail;
+  CAMLreturn (tail);
 }
 
 static value
 caml_tuple2 (value e1, value e2)
 {
-  value t = caml_alloc_tuple (2);
+  CAMLparam2 (e1,e2);
+  CAMLlocal1 (t);
+
+  t = caml_alloc_tuple (2);
   Store_field (t, 0, e1);
   Store_field (t, 1, e2);
-  return t;
+  CAMLreturn (t);
 }
 
 static value
@@ -250,7 +256,7 @@ mpfr_float (value mpfr_t, value ternary)
 
 #define MPFR_REGULAR_FUNCTION0(N)                                              \
   {                                                                            \
-    CAMLparam1 (op);                                                           \
+    CAMLparam2 (op, prec);                                                     \
     CAMLlocal1 (rop);                                                          \
     int ter;                                                                   \
     rop = caml_mpfr_init2_opt (prec);                                          \
@@ -260,7 +266,7 @@ mpfr_float (value mpfr_t, value ternary)
 
 #define MPFR_REGULAR_FUNCTION1(N)                                              \
   {                                                                            \
-    CAMLparam2 (op, rnd);                                                      \
+    CAMLparam3 (op, rnd, prec);                                                \
     CAMLlocal1 (rop);                                                          \
     int ter;                                                                   \
     rop = caml_mpfr_init2_opt (prec);                                          \
@@ -270,7 +276,7 @@ mpfr_float (value mpfr_t, value ternary)
 
 #define MPFR_TWO_MPFR_OPERANDS(N)                                              \
   {                                                                            \
-    CAMLparam3 (op1, op2, rnd);                                                \
+    CAMLparam4 (op1, op2, rnd, prec);                                          \
     CAMLlocal1 (rop);                                                          \
     int ter;                                                                   \
     rop = caml_mpfr_init2_opt (prec);                                          \
