@@ -111,7 +111,7 @@ ter_val_opt (value r)
     }
 }
 
-static int
+static mpfr_rnd_t
 rnd_val (value r)
 {
   switch (Long_val (r))
@@ -133,10 +133,10 @@ rnd_val (value r)
     }
 }
 
-static int
+static mpfr_rnd_t
 rnd_val_opt (value r)
 {
-  return r == Val_none ? rnd_val (Val_int (mpfr_get_default_rounding_mode ()))
+  return r == Val_none ? mpfr_get_default_rounding_mode ()
                        : rnd_val (Some_val (r));
 }
 
