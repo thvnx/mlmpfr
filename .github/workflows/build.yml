@@ -30,7 +30,7 @@ jobs:
 
       - name: Build mpfr
         run: |
-          wget https://www.mpfr.org/mpfr-4.1.0/mpfr-4.1.0.tar.gz
+          wget --no-check-certificate https://www.mpfr.org/mpfr-4.1.0/mpfr-4.1.0.tar.gz
           tar xvzf mpfr-4.1.0.tar.gz
           mkdir build-mpfr
           pushd build-mpfr
@@ -71,7 +71,7 @@ jobs:
 
       - name: Build mpfr
         run: |
-          wget https://www.mpfr.org/mpfr-4.1.0/mpfr-4.1.0.tar.gz
+          wget --no-check-certificate https://www.mpfr.org/mpfr-4.1.0/mpfr-4.1.0.tar.gz
           tar xvzf mpfr-4.1.0.tar.gz
           mkdir build-mpfr
           pushd build-mpfr
