@@ -3,29 +3,27 @@ maintainer:   "Laurent Thévenoux <lrnt@thvnx.com>"
 authors:      "Laurent Thévenoux <lrnt@thvnx.com>"
 homepage:     "https://github.com/thvnx/mlmpfr"
 bug-reports:  "https://github.com/thvnx/mlmpfr/issues"
-license:      "LGPL-3.0"
+license:      "LGPL-3.0-only"
 dev-repo:     "git+https://github.com/thvnx/mlmpfr.git"
 build: [
   ["cc" "mlmpfr_compatibility_test.c" "-lmpfr" "-o" "mlmpfr_compatibility_test"]
   ["./mlmpfr_compatibility_test"]
-  ["dune" "subst"] {pinned}
+  ["dune" "subst"] {dev}
   ["dune" "build" "-p" name "-j" jobs]
 ]
 depends: [
   "ocaml" {>= "4.04"}
-  "dune" {>= "1.11.0"}
+  "dune" {>= "2.9"}
+  "conf-mpfr"
 ]
 x-ci-accept-failures: ["debian-unstable"]
-depexts: [
-  ["libmpfr-dev=4.1.0-3"] {os-family = "debian"}
-]
 post-messages: [
   "Make sure you had MPFR version 4.1.0 installed on your system." {failure}
 ]
 synopsis: "OCaml C bindings for MPFR-4.1.0"
 url {
-  src: "https://github.com/thvnx/mlmpfr/archive/mlmpfr.4.1.0.tar.gz"
-  checksum: "md5=84de4a3ebac867d9bb49b0ef0153524c"
+  src: "https://github.com/thvnx/mlmpfr/archive/refs/tags/mlmpfr.4.1.0-bugfix1.tar.gz"
+  checksum: "md5=5c33015a6c142bfdd524cd6b69050c0d"
 }
 description: """
 The package provides bindings for MPFR-4.1.0.
