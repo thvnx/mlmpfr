@@ -17,31 +17,33 @@
 (** OCaml bindings for MPFR.
 
     A [mpfr_float] is an immutable data structure that contains a {e mpfr_t}
-    number, as well as an optional ternary value, as provided by (and
-    described in) the {{:http://www.mpfr.org}MPFR library}.
+    number, as well as an optional ternary value, as provided by (and described
+    in) the {{:http://www.mpfr.org}MPFR library}.
 
     A few distinctions are made from the original C library:
 
     {ul {- the {e mpfr_} prefix is ommited for all functions;}
+
         {- {e mpfr_init*} and {e mpfr_set*} functions are not provided in order
-           to implement these bindings with respect to the functional paradigm
-           (i.e. immutability). Consequently, {e mpfr_clear*} functions are not
-           provided too, and so, the garbage collector is in charge of memory
-           management;}
-        {- functions managing the following types are not supported:
-           {e unsigned long int}, {e uintmax_t}, {e intmax_t}, {e float},
-           {e long double}, {e __float128}, {e _Decimal64}, {e _Decimal128},
-           {e mpz_t}, {e mpq_t}, and {e mpf_t}. Except for {e mpfr_sqrt_ui} and
-           {e mpfr_fac_ui} which are partially supported on the range of the
-           positive values of an OCaml signed integer. In fact, only the OCaml
-           native types ([int], [float], and [string]) are supported, assuming
-           that a [float] is a double-precision floating-point number and an
-           [int] is a 64-bits signed integer. Thus, all functions named with
-           {e *_ui*} or {e *_d*} are renamed here with {e *_int*} or {e *_float*},
-           respectively;}
-        {- bindings to functions {e mpfr_*printf}, {e mpfr_*random*},
-           {e mpfr_get_patches}, {e mpfr_buildopt_*}, and, macros
-           {e MPFR_VERSION*}, {e mpfr_round_nearest_away} are not implemented.}}
+        to implement these bindings with respect to the functional paradigm
+        (i.e. immutability). Consequently, {e mpfr_clear*} functions are not
+        provided too, and so, the garbage collector is in charge of memory
+        management;}
+
+        {- functions managing the following types are not supported: {e unsigned
+        long int}, {e uintmax_t}, {e intmax_t}, {e float}, {e long double}, {e
+        __float128}, {e _Decimal64}, {e _Decimal128}, {e mpz_t}, {e mpq_t}, and
+        {e mpf_t}. Except for {e mpfr_sqrt_ui} and {e mpfr_fac_ui} which are
+        partially supported on the range of the positive values of an OCaml
+        signed integer. In fact, only the OCaml native types ([int], [float],
+        and [string]) are supported, assuming that a [float] is a
+        double-precision floating-point number and an [int] is a 64-bits signed
+        integer. Thus, all functions named with {e *_ui*} or {e *_d*} are
+        renamed here with {e *_int*} or {e *_float*}, respectively;}
+
+        {- bindings to functions {e mpfr_*printf}, {e mpfr_*random*}, {e
+        mpfr_get_patches}, {e mpfr_buildopt_*}, and, macros {e MPFR_VERSION*},
+        {e mpfr_round_nearest_away} are not implemented.}}
 
     In the sequel, if not provided, optional parameters [prec] and [rnd] are set
     to MPFR's defaults precision and rounding mode. Functions which take a
@@ -49,29 +51,30 @@
     and [Base_range].
 
     Some of the comments below are derived from the
-    {{:http://www.mpfr.org/mpfr-current/mpfr.html}MPFR documentation}
-    itself. Nevertheless, please refer to the original documentation for further
+    {{:http://www.mpfr.org/mpfr-current/mpfr.html}MPFR documentation} itself.
+    Nevertheless, please refer to the original documentation for further
     explanations. *)
 
-(** Raised if precision is not included in
-    \[[Mlmpfr.mpfr_prec_min]; [Mlmpfr.mpfr_prec_max]\]. *)
+(** Raised if precision is not included in \[[Mlmpfr.mpfr_prec_min];
+    [Mlmpfr.mpfr_prec_max]\]. *)
 exception Precision_range of int
 
 (** Raised if base is not included in \[[2];[64]\], or [0] (automatic base
-     detection). *)
+    detection). *)
 exception Base_range of int
 
 (** Raised if mlmpfr fails to perfom some internal [mpfr_t] copies. *)
 exception Error of string
 
-(** Raised if mlmpfr tries to call a mpfr_*_ui function with a negative integer. *)
+(** Raised if mlmpfr tries to call a mpfr_*_ui function with a negative
+    integer. *)
 exception Invalid_integer_input of int
 
 type sign = Positive | Negative
 
-(** Binding to C MPFR
-    {e {{:http://www.mpfr.org/mpfr-current/mpfr.html#Nomenclature-and-Types}mpfr_t}}
-    type. *)
+(** Binding to C MPFR {e
+    {{:http://www.mpfr.org/mpfr-current/mpfr.html#Nomenclature-and-Types}
+       mpfr_t}} type. *)
 type mpfr_t
 
 (** Associated to an [mpfr_t] value, a
@@ -112,10 +115,10 @@ val mpfr_prec_max : int (** Maximum allowed precision. *)
 (** {2 Initialization} *)
 
 (** [Mlmpfr.set_default_prec p] modifies the default precision to be exactly [p]
-    bits. The precision of a variable means the number of bits used to store
-    its significand. All subsequent calls to any functions will use this
-    precision by default, but previously initialized variables are unaffected.
-    The default precision is set to 53 bits initially. *)
+    bits. The precision of a variable means the number of bits used to store its
+    significand. All subsequent calls to any functions will use this precision
+    by default, but previously initialized variables are unaffected. The default
+    precision is set to 53 bits initially. *)
 val set_default_prec : int -> unit
 
 (** Return the current default MPFR precision in bits. *)
@@ -128,8 +131,8 @@ val get_prec : mpfr_float -> int
 
 (** {2 Assignment} *)
 
-(** Return a fresh [mpfr_float] number of precision [~prec] (optional),
-    made from another [mpfr_float] number, in direction [~rnd] (optional). *)
+(** Return a fresh [mpfr_float] number of precision [~prec] (optional), made
+    from another [mpfr_float] number, in direction [~rnd] (optional). *)
 val make_from_mpfr : ?prec:int -> ?rnd:mpfr_rnd_t -> mpfr_float -> mpfr_float
 
 (** Return a fresh [mpfr_float] number of precision [~prec] (optional), made
@@ -143,7 +146,12 @@ val make_from_float : ?prec:int -> ?rnd:mpfr_rnd_t -> float -> mpfr_float
 (** [Mlmpfr.make_from_str s ~base:b ~prec:p ~rnd:r] returns a fresh [mpfr_float]
     of precision [p] from the string value [s] in base [b], rounded in direction
     [r] ([p], [b], and [r] are optional). *)
-val make_from_str : ?prec:int -> ?rnd:mpfr_rnd_t -> ?base:int -> string -> mpfr_float
+val make_from_str :
+  ?prec:int ->
+  ?rnd:mpfr_rnd_t ->
+  ?base:int ->
+  string ->
+  mpfr_float
 
 (** Return a NaN with precision [~prec] if provided, otherwise default precision
     is used. *)
@@ -161,11 +169,14 @@ val make_zero : ?prec:int -> sign -> mpfr_float
 
 (** If not provided, default values for [rnd] and [prec] are the defaults MPFR
     precision and rounding mode internal settings (use
-    [Mlmpfr.set_default_rounding_mode] or [Mlmpfr.set_default_prec] to modify them). *)
+    [Mlmpfr.set_default_rounding_mode] or [Mlmpfr.set_default_prec] to modify
+    them). *)
 
-val get_float : ?rnd:mpfr_rnd_t -> mpfr_float -> float (** Conversion to a [float]. *)
+(** Conversion to a [float]. *)
+val get_float : ?rnd:mpfr_rnd_t -> mpfr_float -> float
 
-val get_int : ?rnd:mpfr_rnd_t -> mpfr_float -> int (** Conversion to an [int]. *)
+(** Conversion to an [int]. *)
+val get_int : ?rnd:mpfr_rnd_t -> mpfr_float -> int
 
 (** [Mlmpfr.get_float_2exp x] returns [(n, exp)] such that [0.5 <= |n| < 1] and
     [n] times 2 raised to [exp] equals [x] rounded to float precision. *)
@@ -173,7 +184,11 @@ val get_float_2exp : ?rnd:mpfr_rnd_t -> mpfr_float -> float * int
 
 (** [Mlmpfr.get_mpfr_2exp x] returns [(n, exp)] such that [0.5 <= |n| < 1] and
     [n] times 2 raised to [exp] equals [x] rounded to [~prec] precision. *)
-val get_mpfr_2exp : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float * int
+val get_mpfr_2exp :
+  ?rnd:mpfr_rnd_t ->
+  ?prec:int ->
+  mpfr_float ->
+  mpfr_float * int
 
 (** [Mlmpfr.get_str ~rnd:r ~base:b ~size:s x] converts [x] to a tuple
     [(frac, exp)], where [frac] is a fraction (a string of digits in base [b])
@@ -183,18 +198,29 @@ val get_mpfr_2exp : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float * i
     value with the same precision, assuming both output and input use rounding
     to nearest, will recover the original value of [x]. Decimal is the default
     base and default size is zero. *)
-val get_str : ?rnd:mpfr_rnd_t -> ?base:int -> ?size:int -> mpfr_float -> string * string
+val get_str :
+  ?rnd:mpfr_rnd_t ->
+  ?base:int ->
+  ?size:int ->
+  mpfr_float ->
+  string * string
 
 (** [Mlmpfr.get_str_ndigits b p] returns the minimal integer [m] such that any
     number of [p] bits, when output with [m] digits in radix [b] with rounding
-    to nearest, can be recovered exactly when read again, still with rounding
-    to nearest. *)
+    to nearest, can be recovered exactly when read again, still with rounding to
+    nearest. *)
 val get_str_ndigits : int -> int -> int
 
 (** [Mlmpfr.get_formatted_str] is identical to [Mlmpfr.get_str] except that it
     returns a full-formatted string (equivalent to {e mpfr_printf("%.Re", x)}).
     Set [ktz] to false to remove trailing zeroes. *)
-val get_formatted_str : ?rnd:mpfr_rnd_t -> ?base:int -> ?size:int -> ?ktz:bool -> mpfr_float -> string
+val get_formatted_str :
+  ?rnd:mpfr_rnd_t ->
+  ?base:int ->
+  ?size:int ->
+  ?ktz:bool ->
+  mpfr_float ->
+  string
 
 (** Return true if the [mpfr_float] would fit in a [int], when rounded to an
     integer in the direction [~rnd]. *)
@@ -204,7 +230,8 @@ val fits_int_p : ?rnd:mpfr_rnd_t -> mpfr_float -> bool
 
 (** If not provided, default values for [rnd] and [prec] are the defaults MPFR
     precision and rounding mode internal settings (use
-    [Mlmpfr.set_default_rounding_mode] or [Mlmpfr.set_default_prec] to modify them). *)
+    [Mlmpfr.set_default_rounding_mode] or [Mlmpfr.set_default_prec] to modify
+    them). *)
 
 (** Addition of two [mpfr_float]. *)
 val add : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float -> mpfr_float
@@ -213,7 +240,12 @@ val add : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float -> mpfr_float
 val add_int : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> int -> mpfr_float
 
 (** Addition of a [mpfr_float] and a [float]. *)
-val add_float : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> float -> mpfr_float
+val add_float :
+  ?rnd:mpfr_rnd_t ->
+  ?prec:int ->
+  mpfr_float ->
+  float ->
+  mpfr_float
 
 (** Subtraction of two [mpfr_float]. *)
 val sub : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float -> mpfr_float
@@ -225,10 +257,20 @@ val sub_int : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> int -> mpfr_float
 val int_sub : ?rnd:mpfr_rnd_t -> ?prec:int -> int -> mpfr_float -> mpfr_float
 
 (** Addition of a [mpfr_float] and a [float]. *)
-val sub_float : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> float -> mpfr_float
+val sub_float :
+  ?rnd:mpfr_rnd_t ->
+  ?prec:int ->
+  mpfr_float ->
+  float ->
+  mpfr_float
 
 (** Subtraction of a [float] and an [mpfr_float]. *)
-val float_sub : ?rnd:mpfr_rnd_t -> ?prec:int -> float -> mpfr_float -> mpfr_float
+val float_sub :
+  ?rnd:mpfr_rnd_t ->
+  ?prec:int ->
+  float ->
+  mpfr_float ->
+  mpfr_float
 
 (** Multiplication of two [mpfr_float]. *)
 val mul : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float -> mpfr_float
@@ -237,7 +279,12 @@ val mul : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float -> mpfr_float
 val mul_int : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> int -> mpfr_float
 
 (** Multiplication of an [int] and a [mpfr_float]. *)
-val mul_float : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> float -> mpfr_float
+val mul_float :
+  ?rnd:mpfr_rnd_t ->
+  ?prec:int ->
+  mpfr_float ->
+  float ->
+  mpfr_float
 
 (** Division of two [mpfr_float]. *)
 val div : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float -> mpfr_float
@@ -249,10 +296,20 @@ val div_int : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> int -> mpfr_float
 val int_div : ?rnd:mpfr_rnd_t -> ?prec:int -> int -> mpfr_float -> mpfr_float
 
 (** Division of an [int] by a [mpfr_float]. *)
-val div_float : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> float -> mpfr_float
+val div_float :
+  ?rnd:mpfr_rnd_t ->
+  ?prec:int ->
+  mpfr_float ->
+  float ->
+  mpfr_float
 
 (** Division of a [float] by a [mpfr_float]. *)
-val float_div : ?rnd:mpfr_rnd_t -> ?prec:int -> float -> mpfr_float -> mpfr_float
+val float_div :
+  ?rnd:mpfr_rnd_t ->
+  ?prec:int ->
+  float ->
+  mpfr_float ->
+  mpfr_float
 
 (** Return the square root of a [mpfr_float] number. *)
 val sqrt : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
@@ -276,7 +333,7 @@ val neg : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
 val abs : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
 
 (** [Mlmpfr.dim x y] returs the positive difference of [x] and [y], i.e.,
-    [x - y] if [x > y], [+0] if [x <= y], and NaN if [x] or [y] is NaN. *)
+    [x -  y] if [x > y], [+0] if [x <= y], and NaN if [x] or [y] is NaN. *)
 val dim : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float -> mpfr_float
 
 (** [Mlmpfr.mul_2int x y] returns [x] times 2 raised to [y]. *)
@@ -290,24 +347,46 @@ val fac_int : ?rnd:mpfr_rnd_t -> ?prec:int -> int -> mpfr_float
 
 (** Return the fused multiply and add of [mpfr_float] numbers.
     [Mlmpfr.fma x y z] retuns [xy+z]. *)
-val fma : ?rnd:mpfr_rnd_t -> ?prec:int ->
-  mpfr_float -> mpfr_float -> mpfr_float -> mpfr_float
+val fma :
+  ?rnd:mpfr_rnd_t ->
+  ?prec:int ->
+  mpfr_float ->
+  mpfr_float ->
+  mpfr_float ->
+  mpfr_float
 
 (** Return the fused multiply and sub of [mpfr_float] numbers.
     [Mlmpfr.fms x y z] retuns [xy-z]. *)
-val fms : ?rnd:mpfr_rnd_t -> ?prec:int ->
-  mpfr_float -> mpfr_float -> mpfr_float -> mpfr_float
+val fms :
+  ?rnd:mpfr_rnd_t ->
+  ?prec:int ->
+  mpfr_float ->
+  mpfr_float ->
+  mpfr_float ->
+  mpfr_float
 
 (** [Mlmpfr.fmma x y z t] retuns [xy+zt]. In case the computation of [xy]
     overflows or underflows (or that of [zt]), the result is computed as if the
     two intermediate products were computed with rounding toward zero.*)
-val fmma : ?rnd:mpfr_rnd_t -> ?prec:int ->
-  mpfr_float -> mpfr_float -> mpfr_float -> mpfr_float -> mpfr_float
+val fmma :
+  ?rnd:mpfr_rnd_t ->
+  ?prec:int ->
+  mpfr_float ->
+  mpfr_float ->
+  mpfr_float ->
+  mpfr_float ->
+  mpfr_float
 
 (** [Mlmpfr.fmms x y z t] retuns [xy-zt]. See [Mlmpfr.fmma] for further
     comments *)
-val fmms : ?rnd:mpfr_rnd_t -> ?prec:int ->
-  mpfr_float -> mpfr_float -> mpfr_float -> mpfr_float -> mpfr_float
+val fmms :
+  ?rnd:mpfr_rnd_t ->
+  ?prec:int ->
+  mpfr_float ->
+  mpfr_float ->
+  mpfr_float ->
+  mpfr_float ->
+  mpfr_float
 
 (** Return the Euclidean norm of a [mpfr_float] number. *)
 val hypot : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float -> mpfr_float
@@ -317,7 +396,12 @@ val sum : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float list -> mpfr_float
 
 (** Return the dot product of the lists (commun size of the list is determined
     by the size of the smallest one). *)
-val dot : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float list -> mpfr_float list -> mpfr_float
+val dot :
+  ?rnd:mpfr_rnd_t ->
+  ?prec:int ->
+  mpfr_float list ->
+  mpfr_float list ->
+  mpfr_float
 
 (** {2 Comparison} *)
 
@@ -335,12 +419,12 @@ val cmp_int : mpfr_float -> int -> int
 (** [Mlmpfr.cmp_float a b] compares [a] and [b]. Similar as above. *)
 val cmp_float : mpfr_float -> float -> int
 
-(** [Mlmpfr.cmp_int_2exp a b e] compares [a] and [b] multiplied by two
-    to the power [e]. Similar as above. *)
+(** [Mlmpfr.cmp_int_2exp a b e] compares [a] and [b] multiplied by two to the
+    power [e]. Similar as above. *)
 val cmp_int_2exp : mpfr_float -> int -> int -> int
 
-(** [Mlmpfr.cmpabs a b] returns a positive value if [|a|] > [|b|], zero if
-    [|a|] = [|b|], and a negative value if [|a|] < [|b|]. *)
+(** [Mlmpfr.cmpabs a b] returns a positive value if [|a|] > [|b|], zero if [|a|]
+    = [|b|], and a negative value if [|a|] < [|b|]. *)
 val cmpabs : mpfr_float -> mpfr_float -> int
 
 (** [Mlmpfr.cmpabs_int a b] compares [a] and [b]. Similar as above. *)
@@ -353,7 +437,7 @@ val inf_p : mpfr_float -> bool (** Its an infinity. *)
 (** Its a ordinary number (i.e., neither NaN nor an infinity). *)
 val number_p : mpfr_float -> bool
 
-val zero_p : mpfr_float -> bool (** Its a zero. *)
+val zero_p : mpfr_float -> bool (** It's a zero. *)
 
 (** Its a regular number (i.e., neither NaN, nor an infinity nor zero). *)
 val regular_p : mpfr_float -> bool
@@ -390,7 +474,8 @@ val total_order_p : mpfr_float -> mpfr_float -> bool
 
 (** If not provided, default values for [rnd] and [prec] are the defaults MPFR
     precision and rounding mode internal settings (use
-    [Mlmpfr.set_default_rounding_mode] or [Mlmpfr.set_default_prec] to modify them). *)
+    [Mlmpfr.set_default_rounding_mode] or [Mlmpfr.set_default_prec] to modify
+    them). *)
 
 (** Return the natural logarithm of a [mpfr_float]. *)
 val log : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
@@ -416,7 +501,8 @@ val exp2 : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
 (** Return the 10 power of a [mpfr_float]. *)
 val exp10 : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
 
-(** Return the exponential of a [mpfr_float] followed by a subtraction by one. *)
+(** Return the exponential of a [mpfr_float] followed by a subtraction by
+    one. *)
 val expm1 : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
 
 (** [Mlmpfr.pow x y] returns [x] raised to [y]. *)
@@ -460,7 +546,12 @@ val asin : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
 val atan : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
 
 (** [Mlmpfr.atan2 x y] returns the arc-tangent2 of a [x] and [y]. *)
-val atan2 : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float -> mpfr_float
+val atan2 :
+  ?rnd:mpfr_rnd_t ->
+  ?prec:int ->
+  mpfr_float ->
+  mpfr_float ->
+  mpfr_float
 
 (** Return the hyperbolic cosine of a [mpfr_float]. *)
 val cosh : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
@@ -472,8 +563,12 @@ val sinh : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
 val tanh : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
 
 (** Return simultaneously the sine and cosine of an [mpfr_float] number. *)
-val sinh_cosh : ?rnd:mpfr_rnd_t -> ?sprec:int -> ?cprec:int ->
-  mpfr_float -> mpfr_float * mpfr_float
+val sinh_cosh :
+  ?rnd:mpfr_rnd_t ->
+  ?sprec:int ->
+  ?cprec:int ->
+  mpfr_float ->
+  mpfr_float * mpfr_float
 
 (** Return the hyperbolic secant of a [mpfr_float]. *)
 val sech : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
@@ -502,22 +597,34 @@ val li2 : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
 (** Return the Gamma function on a [mpfr_float]. *)
 val gamma : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
 
-(** [Mlmpfr.gamma_inc x y] returns the incomplete Gamma function on [x] and [y]. *)
-val gamma_inc : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float -> mpfr_float
+(** [Mlmpfr.gamma_inc x y] returns the incomplete Gamma function on [x] and
+    [y]. *)
+val gamma_inc :
+  ?rnd:mpfr_rnd_t ->
+  ?prec:int ->
+  mpfr_float ->
+  mpfr_float ->
+  mpfr_float
 
 (** Return the logarithm of the Gamma function on a [mpfr_float]. *)
 val lngamma : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
 
-(** Return the logarithm of the absolute value of the Gamma function
-    and the sign of the Gamma function on a [mpfr_float]. *)
+(** Return the logarithm of the absolute value of the Gamma function and the
+    sign of the Gamma function on a [mpfr_float]. *)
 val lgamma : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float * sign
 
 (** Return the Digamma (sometimes also called Psi) function on a
     [mpfr_float]. *)
 val digamma : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
 
-(** [Mlmpfr.beta op1 op2] returns the Beta function at arguments [op1] and [op2]. *)
-val beta : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float -> mpfr_float
+(** [Mlmpfr.beta op1 op2] returns the Beta function at arguments [op1] and
+    [op2]. *)
+val beta :
+  ?rnd:mpfr_rnd_t ->
+  ?prec:int ->
+  mpfr_float ->
+  mpfr_float ->
+  mpfr_float
 
 (** Return the Riemann Zeta function on a [mpfr_float]. *)
 val zeta : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
@@ -548,8 +655,8 @@ val y0 : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
     [mpfr_float]. *)
 val y1 : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
 
-(** [Mlmpfr.jn n x] returns the value of the second kind Bessel function of order
-    [n] on [x]. Return NaN if [n] is negative. *)
+(** [Mlmpfr.jn n x] returns the value of the second kind Bessel function of
+    order [n] on [x]. Return NaN if [n] is negative. *)
 val yn : ?rnd:mpfr_rnd_t -> ?prec:int -> int -> mpfr_float -> mpfr_float
 
 (** Return the arithmetic-geometric mean of a [mpfr_float] number. *)
@@ -576,36 +683,39 @@ val const_catalan : ?rnd:mpfr_rnd_t -> int -> mpfr_float
     [Mlmpfr.get_formatted_str] and [Mlmpfr.make_from_str]. *)
 
 (** [Mlmpfr.out_str stdout b s x Mlmpfr.To_Nearest] outputs [x], in base [b], to
-    [stdout], in the direction [Mlmpfr.To_Nearest]. The size of the printed output
-    is [s] digits long. It uses [Printf.fprintf] and [Mlmpfr.get_formatted_string]. *)
+    [stdout], in the direction [Mlmpfr.To_Nearest]. The size of the printed
+    output is [s] digits long. It uses [Printf.fprintf] and
+    [Mlmpfr.get_formatted_string]. *)
 val out_str : out_channel -> int -> int -> mpfr_float -> mpfr_rnd_t -> unit
 
-(** [Mlmpfr.inp_str stdin b p Mlmpfr.To_Nearest] returns a [mpfr_float] number of
-    precision [p] from a string in base [b] read on [stdin]. It uses
+(** [Mlmpfr.inp_str stdin b p Mlmpfr.To_Nearest] returns a [mpfr_float] number
+    of precision [p] from a string in base [b] read on [stdin]. It uses
     [Pervasives.input_line] and [Mlmpfr.make_from_str]. *)
 val inp_str : in_channel -> int -> int -> mpfr_rnd_t -> mpfr_float
 
-(** [Mlmpfr.fpif_export chan op] exports the number [op] to the stream [chan] in a
-    floating-point interchange format. In particular one can export on a 32-bit
-    computer and import on a 64-bit computer, or export on a little-endian
-    computer and import on a big-endian computer. The precision of op and the
-    sign bit of a NaN are stored too. *)
+(** [Mlmpfr.fpif_export chan op] exports the number [op] to the stream [chan] in
+    a floating-point interchange format. In particular one can export on a
+    32-bit computer and import on a 64-bit computer, or export on a
+    little-endian computer and import on a big-endian computer. The precision of
+    op and the sign bit of a NaN are stored too. *)
 val fpif_export : out_channel -> mpfr_float -> unit
 
-(** [Mlmpfr.fpif_import chan] imports a [mpfr_float] number from the stream [chan]
-    in a floating-point interchange format (see [Mlmpfr.mpfr_fpif_export]). Note
-    that the precision of [op] is set to the one read from the stream, and the
-    sign bit is always retrieved (even for NaN). If the stored precision is zero
-    or greater than [Mlmpfr.mpfr_prec_max], the function fails (its ternary value
-    is non-zero) and [op] is undefined. If the function fails for another reason,
-    [op] is set to NaN. Ternary value is 0 iff the import was successful. *)
+(** [Mlmpfr.fpif_import chan] imports a [mpfr_float] number from the stream
+    [chan] in a floating-point interchange format (see
+    [Mlmpfr.mpfr_fpif_export]). Note that the precision of [op] is set to the
+    one read from the stream, and the sign bit is always retrieved (even for
+    NaN). If the stored precision is zero or greater than
+    [Mlmpfr.mpfr_prec_max], the function fails (its ternary value is non-zero)
+    and [op] is undefined. If the function fails for another reason, [op] is set
+    to NaN. Ternary value is 0 iff the import was successful. *)
 val fpif_import : in_channel -> mpfr_float
 
 (** {2 Integer and Remainder Related} *)
 
 (** If not provided, default values for [rnd] and [prec] are the defaults MPFR
     precision and rounding mode internal settings (use
-    [Mlmpfr.set_default_rounding_mode] or [Mlmpfr.set_default_prec] to modify them). *)
+    [Mlmpfr.set_default_rounding_mode] or [Mlmpfr.set_default_prec] to modify
+    them). *)
 
 (** Retrun the input rounded to an integer, i.e. the nearest representable
     integer in the direction [~rnd]. *)
@@ -633,13 +743,13 @@ val roundeven : ?prec:int -> mpfr_float -> mpfr_float
 val trunc : ?prec:int -> mpfr_float -> mpfr_float
 
 (** Retrun the input rounded to an integer, i.e. the next higher or equal
-    representable integer. If the result is not representable, it is rounded
-    in the direction [~rnd] *)
+    representable integer. If the result is not representable, it is rounded in
+    the direction [~rnd] *)
 val rint_ceil : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
 
 (** Retrun the input rounded to an integer, i.e. the next lower or equal
-    representable integer. If the result is not representable, it is rounded
-    in the direction [~rnd] *)
+    representable integer. If the result is not representable, it is rounded in
+    the direction [~rnd] *)
 val rint_floor : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
 
 (** Retrun the input rounded to an integer, i.e. the nearest representable
@@ -648,8 +758,8 @@ val rint_floor : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
 val rint_round : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
 
 (** Retrun the input rounded to an integer, i.e. the nearest representable
-    integer (rounding halfway cases to the nearest even integer). If the
-    result is not representable, it is rounded in the direction [~rnd] *)
+    integer (rounding halfway cases to the nearest even integer). If the result
+    is not representable, it is rounded in the direction [~rnd] *)
 val rint_roundeven : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
 
 (** Retrun the input rounded to an integer, i.e. the next integer toward zero.
@@ -661,26 +771,47 @@ val frac : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
 
 (** Return simultaneously the integral part and the fractional part of an
     [mpfr_float]. *)
-val modf : ?rnd:mpfr_rnd_t -> ?iprec:int -> ?fprec:int -> mpfr_float -> mpfr_float * mpfr_float
+val modf :
+  ?rnd:mpfr_rnd_t ->
+  ?iprec:int ->
+  ?fprec:int ->
+  mpfr_float ->
+  mpfr_float * mpfr_float
 
 (** [Mlmpfr.fmod x y] returns the value [x - ny], where [n] is the integer
     quotient of [x / y] (rounded toward zero). *)
 val fmod : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float -> mpfr_float
 
-(** [Mlmpfr.fmodquo x y] returns the tuple [(x - ny, q)]. See [Mlmpfr.remquo] for
-    the meanings of [n] and [q]. *)
-val fmodquo : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float -> mpfr_float * int
+(** [Mlmpfr.fmodquo x y] returns the tuple [(x - ny, q)]. See [Mlmpfr.remquo]
+    for the meanings of [n] and [q]. *)
+val fmodquo :
+  ?rnd:mpfr_rnd_t ->
+  ?prec:int ->
+  mpfr_float ->
+  mpfr_float ->
+  mpfr_float * int
 
 (** [Mlmpfr.remainder x y] returns the value [x - ny], where [n] is the integer
-    quotient of [x / y] (rounded to the nearest integer, ties rounded to even). *)
-val remainder : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float -> mpfr_float
+    quotient of [x / y] (rounded to the nearest integer, ties rounded to
+    even). *)
+val remainder :
+  ?rnd:mpfr_rnd_t ->
+  ?prec:int ->
+  mpfr_float ->
+  mpfr_float ->
+  mpfr_float
 
 (** [Mlmpfr.remquo x y] returns the tuple ([x - ny], [q]), where [n] is the
     integer quotient of [x / y] (rounded to the nearest integer, ties rounded to
     even), and [q] are the low significant bits from the quotient [n] with the
     sign of [x] divided by [y] (except if those low bits are all zero, in which
     case zero is returned). *)
-val remquo : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float -> mpfr_float * int
+val remquo :
+  ?rnd:mpfr_rnd_t ->
+  ?prec:int ->
+  mpfr_float ->
+  mpfr_float ->
+  mpfr_float * int
 
 (** Return true iff the input [mpfr_float] is an integer. *)
 val integer_p : mpfr_float -> bool
@@ -694,12 +825,13 @@ val set_default_rounding_mode : mpfr_rnd_t -> unit
 (** Get the default rounding mode. *)
 val get_default_rounding_mode : unit -> mpfr_rnd_t
 
-(** [Mlmpfr.prec_round ~rnd:r x p] rounds [x] according to [r] with precision [p]. *)
+(** [Mlmpfr.prec_round ~rnd:r x p] rounds [x] according to [r] with precision
+    [p]. *)
 val prec_round : ?rnd:mpfr_rnd_t -> mpfr_float -> int -> mpfr_float
 
 (** Assuming [b] is an approximation of an unknown [mpfr_number] [x] in the
-    direction [r1] with error at most two to the power {e E([b])-[err]} where
-    {e E([b])} is the exponent of [b], return [true] if
+    direction [r1] with error at most two to the power {e E([b])-[err]} where {e
+    E([b])} is the exponent of [b], return [true] if
     [Mlmpfr.can_round x err r1 r2 p] is able to round correctly [x] to precision
     [p] with the direction [r2], and [false] otherwise (including for NaN and
     Inf). *)
@@ -741,8 +873,8 @@ val nextbelow : mpfr_float -> mpfr_float
 val min : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float -> mpfr_float
 
 (** Return the maximum of two [mpfr_float]. If operands are both NaN, then
-    return NaN. If one operand is NaN, then return the other value. If
-    operands are zeros of different signs, then return +0. *)
+    return NaN. If one operand is NaN, then return the other value. If operands
+    are zeros of different signs, then return +0. *)
 val max : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float -> mpfr_float
 
 (** Return the exponent of a [mpfr_float]. *)
@@ -760,7 +892,12 @@ val setsign : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> sign -> mpfr_float
 
 (** [Mlmpfr.copysign x y ~rnd:r] returns a fresh copy of [x] with the sign of
     [y], with precision [p] in direction [r]. *)
-val copysign : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float -> mpfr_float
+val copysign :
+  ?rnd:mpfr_rnd_t ->
+  ?prec:int ->
+  mpfr_float ->
+  mpfr_float ->
+  mpfr_float
 
 (** Return the MPFR version. *)
 val get_version : unit -> string
@@ -793,14 +930,14 @@ val get_emax_max : unit -> int
 
 (** [Mlmpfr.check_range ~rnd:r x] assumes that [x] is the correctly-rounded
     value of some real value [y] in the direction [r] and some extended exponent
-    range. Note that this function doesn't modify [x] as mpfr does (it returns
-    a copy, or fails with [Error]). *)
+    range. Note that this function doesn't modify [x] as mpfr does (it returns a
+    copy, or fails with [Error]). *)
 val check_range : ?rnd:mpfr_rnd_t -> mpfr_float -> mpfr_float
 
 (** [Mlmpfr.subnormalize ~rnd:r x] rounds [x] emulating subnormal number
-    arithmetic: if [x] is outside the subnormal exponent range, it just return
-    a copy of [x]; otherwise, it returns a roudning of [x] to precision
-    {e EXP([x])-emin+1} according to rounding mode [r]. Note that this function
+    arithmetic: if [x] is outside the subnormal exponent range, it just return a
+    copy of [x]; otherwise, it returns a roudning of [x] to precision {e
+    EXP([x])-emin+1} according to rounding mode [r]. Note that this function
     doesn't modify [x] as mpfr does (it returns a copy, or fails with
     [Error]). *)
 val subnormalize : ?rnd:mpfr_rnd_t -> mpfr_float -> mpfr_float
@@ -845,19 +982,21 @@ val erangeflag_p : unit -> bool (** Is {e erange} flag set? *)
 
 (** The [Mlmpfr.flags_*] functions below that take or return an argument mask
     (i.e., a list of [mpfr_flags_t] flags) can operate on any subset of the
-     exception flags. *)
+    exception flags. *)
 
 (** [Mlmpfr.flags_clear f] clears (lowers) the group of flags specified by mask
     [f]. *)
 val flags_clear : mpfr_flags_t list -> unit
 
-(** [Mlmpfr.flags_clear f] sets (raises) the group of flags specified by mask [f]. *)
+(** [Mlmpfr.flags_clear f] sets (raises) the group of flags specified by mask
+    [f]. *)
 val flags_set : mpfr_flags_t list -> unit
 
 (** Return the flags specified by mask. *)
 val flags_test : mpfr_flags_t list -> mpfr_flags_t list
 
-(** Return all the flags. It is equivalent to [Mlmpfr.flags_test [Mlmpfr.All]]. *)
+(** Return all the flags. It is equivalent to [Mlmpfr.flags_test
+    [Mlmpfr.All]]. *)
 val flags_save : unit -> mpfr_flags_t list
 
 (** [Mlmpfr.flags_restore f1 f2] restores the flags specified by mask [f2] to
