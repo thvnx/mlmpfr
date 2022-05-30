@@ -16,7 +16,7 @@
 
 open Printf
 open Common
-module M = Mpfr
+module M = Mlmpfr
 
 let _ =
   M.set_default_prec 12345;

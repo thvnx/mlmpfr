@@ -15,7 +15,7 @@
   <http://www.gnu.org/licenses/>. *)
 
 open Printf
-module M = Mpfr
+module M = Mlmpfr
 
 let _ =
   let x = M.make_from_float (1. /. 3.) in

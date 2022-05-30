@@ -15,7 +15,7 @@
   <http://www.gnu.org/licenses/>. *)
 
 open Printf
-module M = Mpfr
+module M = Mlmpfr
 
 (** Convert flags list to MPFR mask *)
 let rec flags_to_mask acc f =

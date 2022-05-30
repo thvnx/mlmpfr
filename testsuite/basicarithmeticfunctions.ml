@@ -15,7 +15,7 @@
   <http://www.gnu.org/licenses/>. *)
 
 open Printf
-module M = Mpfr
+module M = Mlmpfr
 
 let all op1 op2 =
   let r = M.add op1 op2 in printf "%s\n" (M.get_formatted_str r);

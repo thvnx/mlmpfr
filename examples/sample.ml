@@ -19,7 +19,7 @@
      ../_build/src/mpfr.cmo sample.ml ../_build/src/mlmpfr_stubs.o \
       -ccopt -L/usr/local/lib -cclib -lmpfr *)
 
-module M = Mpfr
+module M = Mlmpfr
 
 let main =
   let one = M.make_from_float ~prec:200 ~rnd:M.Toward_Minus_Infinity 1.0 in

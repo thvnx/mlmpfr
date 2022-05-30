@@ -15,7 +15,7 @@
   <http://www.gnu.org/licenses/>. *)
 
 open Printf
-module M = Mpfr
+module M = Mlmpfr
 
 let all op p r1 r2 err =
   M.set_default_rounding_mode M.To_Nearest;

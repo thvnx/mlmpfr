@@ -20,7 +20,7 @@
       -ccopt -L/usr/local/lib -cclib -lmpfr -w -24 *)
 
 open Printf
-module M = Mpfr
+module M = Mlmpfr
 
 let () =
   if Array.length Sys.argv <> 4 then begin

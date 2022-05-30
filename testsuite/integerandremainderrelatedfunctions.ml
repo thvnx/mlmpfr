@@ -16,7 +16,7 @@
 
 open Printf
 open Common
-module M = Mpfr
+module M = Mlmpfr
 
 let all op1 op2 =
   let r = M.rint op1 in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);

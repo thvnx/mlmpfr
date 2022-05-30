@@ -15,7 +15,7 @@
   <http://www.gnu.org/licenses/>. *)
 
 open Printf
-module M = Mpfr
+module M = Mlmpfr
 
 let all op1 op2 =
   printf "%d\n" (M.cmp op1 op2);

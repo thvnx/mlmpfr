@@ -15,5 +15,5 @@
   <http://www.gnu.org/licenses/>. *)
 
 let rounding_to_string = function
-    _, Some r -> Mpfr.print_ternary r
+    _, Some r -> Mlmpfr.print_ternary r
   | _         -> "None"
