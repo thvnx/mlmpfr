@@ -14,7 +14,7 @@
   License along with mlmpfr. If not, see
   <http://www.gnu.org/licenses/>. *)
 
-module M = Mpfr
+module M = Mlmpfr
 
 let _ =
 let op = M.make_from_float (~-. 1. /. 3.) in

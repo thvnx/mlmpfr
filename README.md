@@ -14,7 +14,7 @@ A few distinctions are made from the original C library:
   these bindings with respect to the functional paradigm (and immutability).
   Consequently, `mpfr_clear*` functions are not provided too, and so, the
   garbage collector is in charge of memory management. See [initilization
-  functions](https://thvnx.github.io/mlmpfr/mlmpfr/Mpfr/index.html#initialization);
+  functions](https://thvnx.github.io/mlmpfr/mlmpfr/Mlmpfr/index.html#initialization);
 - functions managing the following C types are not supported: `unsigned long
   int`, `uintmax_t`, `intmax_t`, `float`, `long double`, `__float128`,
   `_Decimal64`, `_Decimal128`, `mpz_t`, `mpq_t`, and `mpf_t`. Except for
@@ -72,7 +72,7 @@ is available [here](https://thvnx.github.io/mlmpfr/index.html).
 For example, let _example.ml_ as follows:
 
 ```ocaml
-module M = Mpfr
+module M = Mlmpfr
 
 let _ =
   let op = M.make_from_float (~-. 1. /. 3.) in
