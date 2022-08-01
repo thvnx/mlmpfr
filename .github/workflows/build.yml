@@ -43,7 +43,7 @@ jobs:
         run: |
           eval $(opam env --switch=${{ matrix.ocaml }})
           dune build @install --profile dev
-          dune build @runtest --profile dev --verbose || ls -l _build/default/testsuite/conversion
+          sudo dune build @runtest --profile dev --verbose --debug-backtraces || ls -l _build/default/testsuite/conversion
           dune build @doc
           dune install
           # LD_LIBRARY_PATH is not exported by dune for executables
