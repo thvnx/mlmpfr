@@ -19,3 +19,5 @@
  (alias runtest)
  (deps conversionfunctions.output fpif_export.expected)
  (action (run diff fpif_export.output fpif_export.expected)))
+
+; fpif_export.output is created by the test conversionfunction action
