@@ -20,8 +20,6 @@ jobs:
 
       - name: Set up opam
         run: |
-          sudo add-apt-repository ppa:ansible/bubblewrap -y && sudo apt update
-          sudo apt install bubblewrap
           sudo add-apt-repository ppa:avsm/ppa -y && sudo apt update
           sudo apt install opam
           opam init -y -c ${{ matrix.ocaml }}
