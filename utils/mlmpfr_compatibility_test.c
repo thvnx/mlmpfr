@@ -9,7 +9,7 @@ int main(int argc, char **argv)
   memcpy(subversion, version, 5);
   subversion[5] = '\0';
 
-  if(strcmp(subversion, "4.1.0") == 0)
+  if(strcmp(subversion, "4.1.1") == 0)
     return 0;
 
   return 1;
