@@ -29,15 +29,15 @@ A few distinctions are made from the original C library:
 
 ## build and install
 
-Building *mlmpfr.4.1.0* depends on [_dune_](https://github.com/ocaml/dune) (an
-OCaml build system), _ocaml_ version >= 4.04, and _MPFR_ library version 4.1.0
+Building *mlmpfr.4.1.1* depends on [_dune_](https://github.com/ocaml/dune) (an
+OCaml build system), _ocaml_ version >= 4.04, and _MPFR_ library version 4.1.1
 (see footnote for building older _mlmpfr_ releases). Basically you just need to
 install _mlmpfr_ via the _opam_ package manager, which will triggers all the
 dependencies (such as _dune_ for example).
 
 - From sources (github repo or with latest
 [releases](https://github.com/thvnx/mlmpfr/releases)): in _mlmpfr_ main
-directory, on branch `master` or `release_410`. Make sure that you have the
+directory, on branch `master` or `release_411`. Make sure that you have the
 proper _MPFR_ library version installed on your system because _mlmpfr_ won't
 check for it (see `utils/mpfr_version.c`).
 
