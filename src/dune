@@ -3,5 +3,9 @@
  (public_name mlmpfr)
  (wrapped false)
  (modules mlmpfr)
- (foreign_stubs (language c) (names mlmpfr_stubs) (flags -O2 -Wall -Wextra -fPIC))
- (c_library_flags -lmpfr))
+ (foreign_stubs (language c) (names mlmpfr_stubs) (flags (:include c_flags.sexp)))
+ (c_library_flags (:include c_library_flags.sexp)))
+
+(rule
+ (targets c_flags.sexp c_library_flags.sexp)
+ (action  (run ./config/discover.exe)))
