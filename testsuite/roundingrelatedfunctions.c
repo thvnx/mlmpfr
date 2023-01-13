@@ -24,7 +24,7 @@ void all (mpfr_t op, mpfr_rnd_t r1, mpfr_rnd_t r2, mpfr_exp_t err, mpfr_prec_t p
   mpfr_set_default_rounding_mode (r1);
   printf ("%s\n", mpfr_print_rnd_mode (mpfr_get_default_rounding_mode ()));
   mpfr_prec_round (op, prec, r1);
-  mpfr_printf ("%.Re\n", op);
+  mpfr_printf ("%Re\n", op);
   printf ("%s\n", mpfr_print_rnd_mode (mpfr_get_default_rounding_mode ()));
   printf ("%s\n", (mpfr_can_round (op, err, r1, r2, prec)) != 0 ? "true" : "false");
   printf ("%ld\n", mpfr_min_prec (op));

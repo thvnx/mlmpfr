@@ -45,48 +45,48 @@ void all (mpfr_t op1, mpfr_t op2)
   int ter;
 
   ter = mpfr_rint (rop, op1, MPFR_RNDN);
-  mpfr_printf ("%.Re %s\n", rop, rounding_to_string (ter));
+  mpfr_printf ("%Re %s\n", rop, rounding_to_string (ter));
   ter = mpfr_ceil (rop, op1);
-  mpfr_printf ("%.Re %s\n", rop, rounding_to_string (ter));
+  mpfr_printf ("%Re %s\n", rop, rounding_to_string (ter));
   ter = mpfr_floor (rop, op1);
-  mpfr_printf ("%.Re %s\n", rop, rounding_to_string (ter));
+  mpfr_printf ("%Re %s\n", rop, rounding_to_string (ter));
   ter = mpfr_round (rop, op1);
-  mpfr_printf ("%.Re %s\n", rop, rounding_to_string (ter));
+  mpfr_printf ("%Re %s\n", rop, rounding_to_string (ter));
   ter = mpfr_roundeven (rop, op1);
-  mpfr_printf ("%.Re %s\n", rop, rounding_to_string (ter));
+  mpfr_printf ("%Re %s\n", rop, rounding_to_string (ter));
   ter = mpfr_trunc (rop, op1);
-  mpfr_printf ("%.Re %s\n", rop, rounding_to_string (ter));
+  mpfr_printf ("%Re %s\n", rop, rounding_to_string (ter));
 
   ter = mpfr_rint_ceil (rop, op1, MPFR_RNDN);
-  mpfr_printf ("%.Re %s\n", rop, rounding_to_string (ter));
+  mpfr_printf ("%Re %s\n", rop, rounding_to_string (ter));
   ter = mpfr_rint_floor (rop, op1, MPFR_RNDN);
-  mpfr_printf ("%.Re %s\n", rop, rounding_to_string (ter));
+  mpfr_printf ("%Re %s\n", rop, rounding_to_string (ter));
   ter = mpfr_rint_round (rop, op1, MPFR_RNDN);
-  mpfr_printf ("%.Re %s\n", rop, rounding_to_string (ter));
+  mpfr_printf ("%Re %s\n", rop, rounding_to_string (ter));
   ter = mpfr_rint_roundeven (rop, op1, MPFR_RNDN);
-  mpfr_printf ("%.Re %s\n", rop, rounding_to_string (ter));
+  mpfr_printf ("%Re %s\n", rop, rounding_to_string (ter));
   ter = mpfr_rint_trunc (rop, op1, MPFR_RNDN);
-  mpfr_printf ("%.Re %s\n", rop, rounding_to_string (ter));
+  mpfr_printf ("%Re %s\n", rop, rounding_to_string (ter));
 
   ter = mpfr_frac (rop, op1, MPFR_RNDN);
-  mpfr_printf ("%.Re %s\n", rop, rounding_to_string (ter));
+  mpfr_printf ("%Re %s\n", rop, rounding_to_string (ter));
 
   ter = mpfr_modf (rop, sop, op1, MPFR_RNDN);
-  mpfr_printf ("%.Re %s %.Re %s\n", rop, rounding_to_string (ter), sop, rounding_to_string (ter));
+  mpfr_printf ("%Re %s %Re %s\n", rop, rounding_to_string (ter), sop, rounding_to_string (ter));
 
   ter = mpfr_fmod (rop, op1, op2, MPFR_RNDN);
-  mpfr_printf ("%.Re %s\n", rop, rounding_to_string (ter));
+  mpfr_printf ("%Re %s\n", rop, rounding_to_string (ter));
 
   long q = 0;
   ter = mpfr_fmodquo (rop, &q, op1, op2, MPFR_RNDN);
-  mpfr_printf ("%.Re %s %ld\n", rop, rounding_to_string (ter), q);
+  mpfr_printf ("%Re %s %ld\n", rop, rounding_to_string (ter), q);
 
   ter = mpfr_remainder (rop, op1, op2, MPFR_RNDN);
-  mpfr_printf ("%.Re %s\n", rop, rounding_to_string (ter));
+  mpfr_printf ("%Re %s\n", rop, rounding_to_string (ter));
 
   q = 0;
   ter = mpfr_remquo (rop, &q, op1, op2, MPFR_RNDN);
-  mpfr_printf ("%.Re %s %ld\n", rop, rounding_to_string (ter), q);
+  mpfr_printf ("%Re %s %ld\n", rop, rounding_to_string (ter), q);
 
   ter = mpfr_integer_p (op1);
   printf ("%s\n", ter == 0 ? "false" : "true");

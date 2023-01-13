@@ -50,7 +50,7 @@ int main(int argc, char **argv)
   buffer = mpfr_get_str (NULL, &e, 10, 0, x, MPFR_RNDN);
   printf("%s %ld\n", buffer, e);
 
-  mpfr_printf ("%.Re\n", x);
+  mpfr_printf ("%Re\n", x);
 
   FILE *stream;
   stream = fopen ("fpif_export.expected", "w");
@@ -60,7 +60,7 @@ int main(int argc, char **argv)
   mpfr_init (z);
   stream = fopen (argv[1], "r");
   mpfr_fpif_import (z, stream);
-  mpfr_printf ("%.Re\n", z);
+  mpfr_printf ("%Re\n", z);
   fclose (stream);
 
   if (mpfr_fits_sint_p (x, MPFR_RNDN))

@@ -42,11 +42,11 @@ void all (mpfr_t op, int t, mpfr_exp_t em1, mpfr_exp_t em2)
 
   mpfr_set (rop, op, MPFR_RNDN);
   mpfr_check_range (rop, t, MPFR_RNDN);
-  mpfr_printf ("%.Re\n", rop);
+  mpfr_printf ("%Re\n", rop);
 
   mpfr_set (rop, op, MPFR_RNDN);
   mpfr_subnormalize (rop, t, MPFR_RNDN);
-  mpfr_printf ("%.Re\n", rop);
+  mpfr_printf ("%Re\n", rop);
 
   flags ();
 

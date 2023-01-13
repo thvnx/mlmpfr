@@ -212,7 +212,7 @@ val get_str :
 val get_str_ndigits : int -> int -> int
 
 (** [Mlmpfr.get_formatted_str] is identical to [Mlmpfr.get_str] except that it
-    returns a full-formatted string (equivalent to {e mpfr_printf("%.Re", x)}).
+    returns a full-formatted string (equivalent to {e mpfr_printf("%Re", x)}).
     Set [ktz] to false to remove trailing zeroes. *)
 val get_formatted_str :
   ?rnd:mpfr_rnd_t ->

@@ -24,19 +24,19 @@ void all (mpfr_t op1, mpfr_t op2, mpfr_exp_t exp)
 
   mpfr_set (rop, op1, MPFR_RNDN);
   mpfr_nexttoward (rop, op2);
-  mpfr_printf ("%.Re\n", rop);
+  mpfr_printf ("%Re\n", rop);
 
   mpfr_set (rop, op1, MPFR_RNDN);
   mpfr_nextabove (rop);
-  mpfr_printf ("%.Re\n", rop);
+  mpfr_printf ("%Re\n", rop);
   mpfr_set (rop, op1, MPFR_RNDN);
   mpfr_nextbelow (rop);
-  mpfr_printf ("%.Re\n", rop);
+  mpfr_printf ("%Re\n", rop);
 
   mpfr_min (rop, op1, op2, MPFR_RNDN);
-  mpfr_printf ("%.Re\n", rop);
+  mpfr_printf ("%Re\n", rop);
   mpfr_max (rop, op1, op2, MPFR_RNDN);
-  mpfr_printf ("%.Re\n", rop);
+  mpfr_printf ("%Re\n", rop);
 
   printf ("%ld\n", mpfr_get_exp (op1));
   mpfr_set (rop, op1, MPFR_RNDN);
@@ -46,7 +46,7 @@ void all (mpfr_t op1, mpfr_t op2, mpfr_exp_t exp)
   printf ("%s\n", mpfr_signbit (op1) == 0 ? "Positive" : "Negative");
 
   mpfr_copysign (rop, op1, op2, MPFR_RNDN);
-  mpfr_printf ("%.Re\n", rop);
+  mpfr_printf ("%Re\n", rop);
 
   printf ("%s\n", mpfr_get_version ());
 

@@ -17,7 +17,7 @@
 #include <stdio.h>
 #include <mpfr.h>
 
-#define PRINTM(X)  mpfr_printf ("%.Re\n", X)
+#define PRINTM(X)  mpfr_printf ("%Re\n", X)
 
 #define INIT(X)    mpfr_t X; mpfr_init (X)
 #define CLEAR(X)   mpfr_clear (X)
@@ -72,27 +72,27 @@ all (mpfr_t op1, mpfr_t op2)
   UNAOP_M   (cbrt, op1, rop);
 
   mpfr_rootn_ui (rop, op1, 10, MPFR_RNDN);
-  mpfr_printf ("%.Re\n", rop);
+  mpfr_printf ("%Re\n", rop);
 
   mpfr_pow (rop, op1, op2, MPFR_RNDN);
-  mpfr_printf ("%.Re\n", rop);
+  mpfr_printf ("%Re\n", rop);
   mpfr_pow_si (rop, op1, mpfr_get_si (op2, MPFR_RNDN), MPFR_RNDN);
-  mpfr_printf ("%.Re\n", rop);
+  mpfr_printf ("%Re\n", rop);
 
   mpfr_neg (rop, op1, MPFR_RNDN);
-  mpfr_printf ("%.Re\n", rop);
+  mpfr_printf ("%Re\n", rop);
 
   mpfr_abs (rop, op1, MPFR_RNDN);
-  mpfr_printf ("%.Re\n", rop);
+  mpfr_printf ("%Re\n", rop);
 
   mpfr_dim (rop, op1, op2, MPFR_RNDN);
-  mpfr_printf ("%.Re\n", rop);
+  mpfr_printf ("%Re\n", rop);
 
   mpfr_mul_2si (rop, op1, mpfr_get_si (op2, MPFR_RNDN), MPFR_RNDN);
-  mpfr_printf ("%.Re\n", rop);
+  mpfr_printf ("%Re\n", rop);
 
   mpfr_div_2si (rop, op1, mpfr_get_si (op2, MPFR_RNDN), MPFR_RNDN);
-  mpfr_printf ("%.Re\n", rop);
+  mpfr_printf ("%Re\n", rop);
 
   mpfr_clear (rop);
 }
