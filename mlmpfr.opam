@@ -23,7 +23,7 @@ post-messages: [
 synopsis: "OCaml C bindings for MPFR-4.1.1"
 url {
   src: "https://github.com/thvnx/mlmpfr/archive/refs/tags/mlmpfr.4.1.1.tar.gz"
-  checksum: "md5=d2f9fa3238e971678567834034e84429"
+  checksum: "md5=ba4a4b5327d5863c53169546107cab76"
 }
 description: """
 The package provides bindings for MPFR-4.1.1.
