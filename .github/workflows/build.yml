@@ -23,8 +23,6 @@ jobs:
         with:
           ocaml-compiler: ${{ matrix.ocaml-compiler }}
 
-      - run: opam install dune dune-configurator odoc
-
       - name: Build mpfr from sources
         run: |
           wget --no-check-certificate https://www.mpfr.org/mpfr-4.2.0/mpfr-4.2.0.tar.gz
@@ -38,11 +36,11 @@ jobs:
 
       - name: Build and test mlmpfr
         run: |
-          eval $(opam env --switch=${{ matrix.ocaml }})
-          dune build @install --profile dev
-          dune build @runtest --profile dev --verbose
-          dune build @doc
-          dune install
+          opam install . --deps-only --with-doc --with-test
+          opam exec -- dune build @install --profile dev
+          opam exec -- dune build @runtest --profile dev --verbose
+          opam exec -- dune build @doc
+          opam exec -- dune install
           # LD_LIBRARY_PATH is not exported by dune for executables
           # FIXME find a way to export LD_LIBRARY_PATH with dune
-          LD_LIBRARY_PATH=/usr/local/lib dune exec examples/example.exe
+          LD_LIBRARY_PATH=/usr/local/lib opam exec -- dune exec examples/example.exe
