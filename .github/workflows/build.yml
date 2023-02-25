@@ -23,7 +23,7 @@ jobs:
           sudo apt install opam
           opam init -y -c ${{ matrix.ocaml }}
           eval $(opam env --switch=${{ matrix.ocaml }})
-          opam install dune odoc -y
+          opam install dune dune-configurator odoc -y
 
       - name: Build mpfr
         run: |
@@ -64,7 +64,7 @@ jobs:
           brew install opam
           opam init -y -c ${{ matrix.ocaml }}
           eval $(opam env --switch=${{ matrix.ocaml }})
-          opam install dune odoc -y
+          opam install dune dune-configurator odoc -y
 
       - name: Build mpfr
         run: |
