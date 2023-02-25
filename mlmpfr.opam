@@ -14,21 +14,22 @@ build: [
 depends: [
   "ocaml" {>= "4.04"}
   "dune" {>= "2.9"}
+  "dune-configurator"
   "conf-mpfr"
 ]
 x-ci-accept-failures: ["debian-unstable"]
 post-messages: [
-  "Make sure you had MPFR version 4.1.1 installed on your system." {failure}
+  "Make sure you had MPFR version 4.2.0 installed on your system." {failure}
 ]
-synopsis: "OCaml C bindings for MPFR-4.1.1"
+synopsis: "OCaml C bindings for MPFR-4.2.0"
 url {
-  src: "https://github.com/thvnx/mlmpfr/archive/refs/tags/mlmpfr.4.1.1.tar.gz"
+  src: "https://github.com/thvnx/mlmpfr/archive/refs/tags/mlmpfr.4.2.0.tar.gz"
   checksum: "md5=ba4a4b5327d5863c53169546107cab76"
 }
 description: """
-The package provides bindings for MPFR-4.1.1.
+The package provides bindings for MPFR-4.2.0.
 
-You need to have MPFR-4.1.1 installed on your system. See opam info mlmpfr for
+You need to have MPFR-4.2.0 installed on your system. See opam info mlmpfr for
 all available versions."""
 extra-files: ["mlmpfr_compatibility_test.c"
               "md5=e0072684415485936f3eb158a86fe38c"]
