@@ -7,25 +7,26 @@ on:
     - cron: '0 0 * * 0' # weekly
 
 jobs:
-  ubuntu:
+  main:
     strategy:
       matrix:
-        platform: [ubuntu-latest]
-        ocaml: [4.08.1, 4.10.2, 4.12.1, 4.14.0, 5.0.0]
+        platform: [ubuntu-latest, macos-latest]
+        ocaml-compiler: [4.08.1, 4.10.2, 4.12.1, 4.14.0, 5.0.0]
     runs-on: ${{ matrix.platform }}
 
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Set up opam
-        run: |
-          sudo apt install opam
-          opam init -y -c ${{ matrix.ocaml }}
-          eval $(opam env --switch=${{ matrix.ocaml }})
-          opam install dune dune-configurator odoc -y
+      - name: Use OCaml ${{ matrix.ocaml-compiler }}
+        uses: ocaml/setup-ocaml@v2
+        with:
+          ocaml-compiler: ${{ matrix.ocaml-compiler }}
 
-      - name: Build mpfr
+      - name: Deploy odoc
+        uses: ocaml/setup-ocaml/deploy-doc@v2
+
+      - name: Build mpfr from sources
         run: |
           wget --no-check-certificate https://www.mpfr.org/mpfr-4.2.0/mpfr-4.2.0.tar.gz
           tar xvzf mpfr-4.2.0.tar.gz
@@ -38,52 +39,11 @@ jobs:
 
       - name: Build and test mlmpfr
         run: |
-          eval $(opam env --switch=${{ matrix.ocaml }})
-          dune build @install --profile dev
-          dune build @runtest --profile dev --verbose
-          dune build @doc
-          dune install
+          opam install . --deps-only --with-doc --with-test
+          opam exec -- dune build @install --profile dev
+          opam exec -- dune build @runtest --profile dev --verbose
+          opam exec -- dune build @doc
+          opam exec -- dune install
           # LD_LIBRARY_PATH is not exported by dune for executables
           # FIXME find a way to export LD_LIBRARY_PATH with dune
-          LD_LIBRARY_PATH=/usr/local/lib dune exec examples/example.exe
-
-  macos:
-    strategy:
-      matrix:
-        platform: [macos-latest]
-        ocaml: [4.08.1, 4.10.2, 4.12.1, 4.14.0, 5.0.0]
-    runs-on: ${{ matrix.platform }}
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Set up opam
-        run: |
-          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-          brew install opam
-          opam init -y -c ${{ matrix.ocaml }}
-          eval $(opam env --switch=${{ matrix.ocaml }})
-          opam install dune dune-configurator odoc -y
-
-      - name: Build mpfr
-        run: |
-          wget --no-check-certificate https://www.mpfr.org/mpfr-4.2.0/mpfr-4.2.0.tar.gz
-          tar xvzf mpfr-4.2.0.tar.gz
-          mkdir build-mpfr
-          pushd build-mpfr
-          ../mpfr-4.2.0/configure
-          make -j8
-          sudo make install
-          popd
-
-      - name: Build and test mlmpfr
-        run: |
-          eval $(opam env --switch=${{ matrix.ocaml }})
-          dune build @install --profile dev
-          dune build @runtest --profile dev --verbose
-          dune build @doc
-          dune install
-          # LD_LIBRARY_PATH is not exported by dune for executables
-          # FIXME find a way to export LD_LIBRARY_PATH with dune
-          LD_LIBRARY_PATH=/usr/local/lib dune exec examples/example.exe
+          LD_LIBRARY_PATH=/usr/local/lib opam exec -- dune exec examples/example.exe
