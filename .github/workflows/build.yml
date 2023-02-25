@@ -23,6 +23,9 @@ jobs:
         with:
           ocaml-compiler: ${{ matrix.ocaml-compiler }}
 
+      - name: Deploy odoc
+        uses: ocaml/setup-ocaml/deploy-doc@v2
+
       - name: Build mpfr from sources
         run: |
           wget --no-check-certificate https://www.mpfr.org/mpfr-4.2.0/mpfr-4.2.0.tar.gz
