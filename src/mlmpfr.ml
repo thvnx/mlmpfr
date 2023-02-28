@@ -331,6 +331,15 @@ external sin
 external tan
   : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> mpfr_float
   = "caml_mpfr_tan"
+external cosu
+  : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> int -> mpfr_float
+  = "caml_mpfr_cosu"
+external sinu
+  : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> int -> mpfr_float
+  = "caml_mpfr_sinu"
+external tanu
+  : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> int -> mpfr_float
+  = "caml_mpfr_tanu"
 external sin_cos
   : ?rnd:mpfr_rnd_t -> ?sprec:mpfr_prec_t -> ?cprec:mpfr_prec_t -> mpfr_float -> mpfr_float * mpfr_float
   = "caml_mpfr_sin_cos"
@@ -352,9 +361,21 @@ external asin
 external atan
   : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> mpfr_float
   = "caml_mpfr_atan"
+external acosu
+  : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> int -> mpfr_float
+  = "caml_mpfr_acosu"
+external asinu
+  : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> int -> mpfr_float
+  = "caml_mpfr_asinu"
+external atanu
+  : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> int -> mpfr_float
+  = "caml_mpfr_atanu"
 external atan2
   : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> mpfr_float -> mpfr_float
   = "caml_mpfr_atan2"
+external atan2u
+  : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> mpfr_float -> int -> mpfr_float
+  = "caml_mpfr_atan2u"
 external cosh
   : ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> mpfr_float
   = "caml_mpfr_cosh"

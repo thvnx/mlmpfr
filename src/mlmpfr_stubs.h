@@ -274,6 +274,18 @@ mpfr_float (value mpfr_t, value ternary)
     CAMLreturn (mpfr_float (rop, val_some (val_ter (ter))));                   \
   }
 
+#define MPFR_REGULAR_FUNCTION1U(N)                                             \
+  {                                                                            \
+    CAMLparam4 (op, rnd, prec, u);                                             \
+    CAMLlocal1 (rop);                                                          \
+    int ter;                                                                   \
+    rop = caml_mpfr_init2_opt (prec);                                          \
+    if (Int_val (u) < 0)                                                       \
+      caml_failwith (__FUNCTION__);                                            \
+    ter = N (MPFR_val (rop), MPFR_val2 (op), Int_val (u), rnd_val_opt (rnd));  \
+    CAMLreturn (mpfr_float (rop, val_some (val_ter (ter))));                   \
+  }
+
 #define MPFR_TWO_MPFR_OPERANDS(N)                                              \
   {                                                                            \
     CAMLparam4 (op1, op2, rnd, prec);                                          \

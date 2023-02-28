@@ -523,6 +523,18 @@ val sin : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
 (** Return the tangent of a [mpfr_float]. *)
 val tan : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
 
+(** [Mlmpfr.cosu x u] returns the cosine of a [x] multiplied by Pi and divided
+    by [u]. *)
+val cosu : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> int -> mpfr_float
+
+(** [Mlmpfr.sinu x u] returns the cosine of a [x] multiplied by Pi and divided
+    by [u]. *)
+val sinu : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> int -> mpfr_float
+
+(** [Mlmpfr.tanu x u] returns the cosine of a [x] multiplied by Pi and divided
+    by [u]. *)
+val tanu : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> int -> mpfr_float
+
 (** Return simultaneously the sine and cosine of an [mpfr_float] number. *)
 val sin_cos : ?rnd:mpfr_rnd_t -> ?sprec:int -> ?cprec:int ->
   mpfr_float -> mpfr_float * mpfr_float
@@ -545,12 +557,34 @@ val asin : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
 (** Return the arc-tangent of a [mpfr_float]. *)
 val atan : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
 
-(** [Mlmpfr.atan2 x y] returns the arc-tangent2 of a [x] and [y]. *)
+(** [Mlmpfr.acosu x u] returns a [mpfr_float] set to [a] multiplied by [u] and
+    divided by 2 Pi, where [a] is the arc-cosine of [x] *)
+val acosu : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> int -> mpfr_float
+
+(** [Mlmpfr.acosu x u] returns a [mpfr_float] set to [a] multiplied by [u] and
+    divided by 2 Pi, where [a] is the arc-sine of [x] *)
+val asinu : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> int -> mpfr_float
+
+(** [Mlmpfr.acosu x u] returns a [mpfr_float] set to [a] multiplied by [u] and
+    divided by 2 Pi, where [a] is the arc-tangent of [x] *)
+val atanu : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> int -> mpfr_float
+
+(** [Mlmpfr.atan2 x y] returns the arc-tangent2 of [x] and [y]. *)
 val atan2 :
   ?rnd:mpfr_rnd_t ->
   ?prec:int ->
   mpfr_float ->
   mpfr_float ->
+  mpfr_float
+
+(** [Mlmpfr.atan2u x y u] returns the arc-tangent2 of [x] and [y], multiplied
+    by [u] and divided by 2 Pi. *)
+val atan2u :
+  ?rnd:mpfr_rnd_t ->
+  ?prec:int ->
+  mpfr_float ->
+  mpfr_float ->
+  int ->
   mpfr_float
 
 (** Return the hyperbolic cosine of a [mpfr_float]. *)
