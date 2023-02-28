@@ -19,17 +19,17 @@ depends: [
 ]
 x-ci-accept-failures: ["debian-unstable"]
 post-messages: [
-  "Make sure you had MPFR version 4.2.0 installed on your system." {failure}
+  "This version of mlmpfr requires MPFR >= 4.2.0 installed on your system." {failure}
 ]
-synopsis: "OCaml C bindings for MPFR-4.2.0"
+synopsis: "OCaml C bindings for MPFR >= 4.2.0"
 url {
   src: "https://github.com/thvnx/mlmpfr/archive/refs/tags/mlmpfr.4.2.0.tar.gz"
   checksum: "md5=ba4a4b5327d5863c53169546107cab76"
 }
 description: """
-The package provides bindings for MPFR-4.2.0.
+The package provides bindings for the C MPFR library.
 
-You need to have MPFR-4.2.0 installed on your system. See opam info mlmpfr for
-all available versions."""
+You need to have MPFR 4.2.0 or above installed on your system.
+See opam info mlmpfr for all available versions."""
 extra-files: ["mlmpfr_compatibility_test.c"
               "md5=e0072684415485936f3eb158a86fe38c"]

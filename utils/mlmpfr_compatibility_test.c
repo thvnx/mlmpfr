@@ -1,19 +1,16 @@
-#include <string.h>
-#include <stdio.h>
 #include <mpfr.h>
 
-int main(int argc, char **argv)
+// Define the minimal version of MPFR MLMPFR is based on (4.2.0).
+#define MLMPFR_MPFR_VERSION_MAFOR 4
+#define MLMPFR_MPFR_VERSION_MINOR 2
+#define MLMPFR_MPFR_VERSION_PATCHLEVEL 0
+
+int
+main (int argc, char **argv)
 {
-  const char *version = mpfr_get_version();
-  char subversion[6];
-  memcpy(subversion, version, 5);
-  subversion[5] = '\0';
-
-  if(strcmp(subversion, "4.1.1") == 0)
-    return 0;
-
-  // Version 4.1.1 is also compatible with 4.2.0
-  if(strcmp(subversion, "4.2.0") == 0)
+  if (MPFR_VERSION_MAJOR >= MLMPFR_MPFR_VERSION_MAFOR
+      && MPFR_VERSION_MINOR >= MLMPFR_MPFR_VERSION_MINOR
+      && MPFR_VERSION_PATCHLEVEL >= MLMPFR_MPFR_VERSION_PATCHLEVEL)
     return 0;
 
   return 1;
