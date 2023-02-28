@@ -239,7 +239,7 @@ val_flags (int s)
 static value
 caml_tuple2 (value e1, value e2)
 {
-  CAMLparam2 (e1,e2);
+  CAMLparam2 (e1, e2);
   CAMLlocal1 (t);
 
   t = caml_alloc_tuple (2);

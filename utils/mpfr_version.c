@@ -4,7 +4,8 @@
 #include <stdio.h>
 #include <mpfr.h>
 
-int main (void)
+int
+main (void)
 {
   printf ("%s\n", mpfr_get_version ());
 
