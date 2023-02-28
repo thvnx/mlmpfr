@@ -154,6 +154,17 @@ sign_val (value s)
     }
 }
 
+static int
+uint_val (value i)
+{
+  int val = Int_val (i);
+
+  if (val < 0)
+    caml_raise_with_arg (*caml_named_value ("invalid integer input"), i);
+
+  return val;
+}
+
 static value
 val_sign (int s)
 {
@@ -280,9 +291,7 @@ mpfr_float (value mpfr_t, value ternary)
     CAMLlocal1 (rop);                                                          \
     int ter;                                                                   \
     rop = caml_mpfr_init2_opt (prec);                                          \
-    if (Int_val (u) < 0)                                                       \
-      caml_failwith (__FUNCTION__);                                            \
-    ter = N (MPFR_val (rop), MPFR_val2 (op), Int_val (u), rnd_val_opt (rnd));  \
+    ter = N (MPFR_val (rop), MPFR_val2 (op), uint_val (u), rnd_val_opt (rnd)); \
     CAMLreturn (mpfr_float (rop, val_some (val_ter (ter))));                   \
   }
 
