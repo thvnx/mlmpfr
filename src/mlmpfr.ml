@@ -749,4 +749,3 @@ external fpif_import
 external free_cache
   : unit -> unit
   = "caml_mpfr_free_cache"
-(* TODO: implement mpfr_free_cache2, mpfr_free_pool and mpfr_mp_memory_cleanup *)
