@@ -968,6 +968,18 @@ caml_mpfr_tanu (value rnd, value prec, value op, value u)
   MPFR_REGULAR_FUNCTION1U (mpfr_tanu);
 
 CAMLprim value
+caml_mpfr_sinpi (value rnd, value prec, value op)
+  MPFR_REGULAR_FUNCTION1 (mpfr_sinpi);
+
+CAMLprim value
+caml_mpfr_cospi (value rnd, value prec, value op)
+  MPFR_REGULAR_FUNCTION1 (mpfr_cospi);
+
+CAMLprim value
+caml_mpfr_tanpi (value rnd, value prec, value op)
+  MPFR_REGULAR_FUNCTION1 (mpfr_tanpi);
+
+CAMLprim value
 caml_mpfr_sin_cos (value rnd, value sprec, value cprec, value op)
 {
   CAMLparam2 (op, rnd);
@@ -1024,6 +1036,18 @@ caml_mpfr_atanu (value rnd, value prec, value op, value u)
   MPFR_REGULAR_FUNCTION1U (mpfr_atanu);
 
 CAMLprim value
+caml_mpfr_acospi (value rnd, value prec, value op)
+  MPFR_REGULAR_FUNCTION1 (mpfr_acospi);
+
+CAMLprim value
+caml_mpfr_asinpi (value rnd, value prec, value op)
+  MPFR_REGULAR_FUNCTION1 (mpfr_asinpi);
+
+CAMLprim value
+caml_mpfr_atanpi (value rnd, value prec, value op)
+  MPFR_REGULAR_FUNCTION1 (mpfr_atanpi);
+
+CAMLprim value
 caml_mpfr_atan2 (value rnd, value prec, value x, value y)
 {
   CAMLparam3 (x, y, rnd);
@@ -1047,6 +1071,20 @@ caml_mpfr_atan2u (value rnd, value prec, value x, value y, value u)
   rop = caml_mpfr_init2_opt (prec);
   ter = mpfr_atan2u (MPFR_val (rop), MPFR_val2 (x), MPFR_val2 (y), uint_val (u),
                      rnd_val_opt (rnd));
+
+  CAMLreturn (mpfr_float (rop, val_some (val_ter (ter))));
+}
+
+CAMLprim value
+caml_mpfr_atan2pi (value rnd, value prec, value x, value y)
+{
+  CAMLparam3 (x, y, rnd);
+  CAMLlocal1 (rop);
+  int ter;
+
+  rop = caml_mpfr_init2_opt (prec);
+  ter = mpfr_atan2pi (MPFR_val (rop), MPFR_val2 (x), MPFR_val2 (y),
+                      rnd_val_opt (rnd));
 
   CAMLreturn (mpfr_float (rop, val_some (val_ter (ter))));
 }
