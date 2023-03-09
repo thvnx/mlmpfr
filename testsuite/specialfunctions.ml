@@ -18,7 +18,7 @@ open Printf
 open Common
 module M = Mlmpfr
 
-let all op1 op2 =
+let all op1 op2 u =
   let r = M.log op1 in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);
   let r =
     try
@@ -34,6 +34,12 @@ let all op1 op2 =
   let r = M.sin op1 in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);
   let r = M.cos op1 in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);
   let r = M.tan op1 in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);
+  let r = M.sinu op1 u in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);
+  let r = M.cosu op1 u in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);
+  let r = M.tanu op1 u in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);
+  let r = M.sinpi op1 in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);
+  let r = M.cospi op1 in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);
+  let r = M.tanpi op1 in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);
   let r, s = M.sin_cos op1 in printf "%s %s %s\n" (M.get_formatted_str r) (M.get_formatted_str s) (rounding_to_string r);
   let r = M.sec op1 in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);
   let r = M.csc op1 in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);
@@ -41,7 +47,15 @@ let all op1 op2 =
   let r = M.acos op1 in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);
   let r = M.asin op1 in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);
   let r = M.atan op1 in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);
+  let r = M.acosu op1 u in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);
+  let r = M.asinu op1 u in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);
+  let r = M.atanu op1 u in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);
+  let r = M.acospi op1 in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);
+  let r = M.asinpi op1 in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);
+  let r = M.atanpi op1 in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);
   let r = M.atan2 op1 op2 in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);
+  let r = M.atan2u op1 op2 u in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);
+  let r = M.atan2pi op1 op2 in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);
   let r = M.sinh op1 in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);
   let r = M.cosh op1 in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);
   let r = M.tanh op1 in printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);
@@ -102,9 +116,9 @@ let all op1 op2 =
   printf "%s %s %d\n" (M.get_formatted_str r) (rounding_to_string r) (List.length m)
 
 let _ =
-  all (M.make_from_float (1. /. 3.)) (M.make_from_float (1. /. 10.)); printf "\n";
-  all (M.make_from_float ((~-. 4.) /. 3.)) (M.make_from_float (1. /. 10.)); printf "\n";
-  all (M.make_from_float (1. /. 3.)) (M.make_from_float ((~-. 113.) /. 10.)); printf "\n";
-  all (M.make_zero M.Positive) (M.make_from_float ((~-. 1.) /. 10.)); printf "\n";
-  all (M.make_zero M.Negative) (M.make_zero M.Negative);
+  all (M.make_from_float (1. /. 3.)) (M.make_from_float (1. /. 10.)) 3; printf "\n";
+  all (M.make_from_float ((~-. 4.) /. 3.)) (M.make_from_float (1. /. 10.)) 3; printf "\n";
+  all (M.make_from_float (1. /. 3.)) (M.make_from_float ((~-. 113.) /. 10.)) 3; printf "\n";
+  all (M.make_zero M.Positive) (M.make_from_float ((~-. 1.) /. 10.)) 3; printf "\n";
+  all (M.make_zero M.Negative) (M.make_zero M.Negative) 3;
   Gc.full_major (); (* garbage collector full major *)

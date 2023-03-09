@@ -39,7 +39,7 @@ char *rounding_to_string (int r)
 
 void all (mpfr_t op1, mpfr_t op2)
 {
-  int ter;
+  int ter, u = 3;
   mpfr_t rop, sop, op22;
   mpfr_init (rop);
   mpfr_init (sop);
@@ -77,6 +77,18 @@ void all (mpfr_t op1, mpfr_t op2)
   mpfr_printf ("%Re %s\n", rop, rounding_to_string (ter));
   ter = mpfr_tan (rop, op1, MPFR_RNDN);
   mpfr_printf ("%Re %s\n", rop, rounding_to_string (ter));
+  ter = mpfr_sinu (rop, op1, u, MPFR_RNDN);
+  mpfr_printf ("%Re %s\n", rop, rounding_to_string (ter));
+  ter = mpfr_cosu (rop, op1, u, MPFR_RNDN);
+  mpfr_printf ("%Re %s\n", rop, rounding_to_string (ter));
+  ter = mpfr_tanu (rop, op1, u, MPFR_RNDN);
+  mpfr_printf ("%Re %s\n", rop, rounding_to_string (ter));
+  ter = mpfr_sinpi (rop, op1, MPFR_RNDN);
+  mpfr_printf ("%Re %s\n", rop, rounding_to_string (ter));
+  ter = mpfr_cospi (rop, op1, MPFR_RNDN);
+  mpfr_printf ("%Re %s\n", rop, rounding_to_string (ter));
+  ter = mpfr_tanpi (rop, op1, MPFR_RNDN);
+  mpfr_printf ("%Re %s\n", rop, rounding_to_string (ter));
   ter = mpfr_sin_cos (rop, sop, op1, MPFR_RNDN);
   mpfr_printf ("%Re %Re %s\n", rop, sop, ter == 0 ? rounding_to_string (ter) : "None");
 
@@ -92,8 +104,24 @@ void all (mpfr_t op1, mpfr_t op2)
   mpfr_printf ("%Re %s\n", rop, rounding_to_string (ter));
   ter = mpfr_atan (rop, op1, MPFR_RNDN);
   mpfr_printf ("%Re %s\n", rop, rounding_to_string (ter));
+  ter = mpfr_acosu (rop, op1, u, MPFR_RNDN);
+  mpfr_printf ("%Re %s\n", rop, rounding_to_string (ter));
+  ter = mpfr_asinu (rop, op1, u, MPFR_RNDN);
+  mpfr_printf ("%Re %s\n", rop, rounding_to_string (ter));
+  ter = mpfr_atanu (rop, op1, u, MPFR_RNDN);
+  mpfr_printf ("%Re %s\n", rop, rounding_to_string (ter));
+  ter = mpfr_acospi (rop, op1, MPFR_RNDN);
+  mpfr_printf ("%Re %s\n", rop, rounding_to_string (ter));
+  ter = mpfr_asinpi (rop, op1, MPFR_RNDN);
+  mpfr_printf ("%Re %s\n", rop, rounding_to_string (ter));
+  ter = mpfr_atanpi (rop, op1, MPFR_RNDN);
+  mpfr_printf ("%Re %s\n", rop, rounding_to_string (ter));
 
   ter = mpfr_atan2 (rop, op1, op2, MPFR_RNDN);
+  mpfr_printf ("%Re %s\n", rop, rounding_to_string (ter));
+  ter = mpfr_atan2u (rop, op1, op2, u, MPFR_RNDN);
+  mpfr_printf ("%Re %s\n", rop, rounding_to_string (ter));
+  ter = mpfr_atan2pi (rop, op1, op2, MPFR_RNDN);
   mpfr_printf ("%Re %s\n", rop, rounding_to_string (ter));
 
   ter = mpfr_sinh (rop, op1, MPFR_RNDN);
