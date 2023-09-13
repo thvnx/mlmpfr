@@ -742,8 +742,11 @@ let get_formatted_str ?rnd:(rnd = To_Nearest) ?base:(base = 10) ?size:(size = 0)
     Printf.sprintf "%s%s%c+00" (if neg then "-" else "") (if ktz then "0.0000000000000000" else "0") (if base > 10 then '@' else 'e')
   else
   if String.contains significand '@' (* nan or inf *)
-  then String.lowercase_ascii (String.concat "" (String.split_on_char '@' significand))
-  else begin
+  then begin
+    let nan_or_inf = String.lowercase_ascii (String.concat "" (String.split_on_char '@' significand)) in
+    (* if NaN, add the bitsign since get_str doesn't return the sign of NaNs *)
+    (if nan_or_inf == "nan" then (match signbit x with Positive -> "" | Negative -> "-") else "") ^ nan_or_inf
+  end else begin
     let mantissa = if ktz then significand else remove_trailing_zeros significand in
     let exponent = (int_of_string exponent) - 1 in
     Printf.sprintf "%s%s%s%c%+03d" (if neg then String.sub mantissa 0 2 else Char.escaped mantissa.[0])
