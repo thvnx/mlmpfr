@@ -19,6 +19,8 @@
 #include <stdio.h>
 #include <mpfr.h>
 
+#define ZERO(X) mpfr_set_zero (X, 1)
+
 char *rounding_to_string (int r)
 {
   char * buf = malloc (32);
@@ -74,16 +76,20 @@ void all (mpfr_t op1, mpfr_t op2)
   ter = mpfr_modf (rop, sop, op1, MPFR_RNDN);
   mpfr_printf ("%Re %s %Re %s\n", rop, rounding_to_string (ter), sop, rounding_to_string (ter));
 
+  ZERO(rop);
   ter = mpfr_fmod (rop, op1, op2, MPFR_RNDN);
   mpfr_printf ("%Re %s\n", rop, rounding_to_string (ter));
 
+  ZERO(rop);
   long q = 0;
   ter = mpfr_fmodquo (rop, &q, op1, op2, MPFR_RNDN);
   mpfr_printf ("%Re %s %ld\n", rop, rounding_to_string (ter), q);
 
+  ZERO(rop);
   ter = mpfr_remainder (rop, op1, op2, MPFR_RNDN);
   mpfr_printf ("%Re %s\n", rop, rounding_to_string (ter));
 
+  ZERO(rop);
   q = 0;
   ter = mpfr_remquo (rop, &q, op1, op2, MPFR_RNDN);
   mpfr_printf ("%Re %s %ld\n", rop, rounding_to_string (ter), q);

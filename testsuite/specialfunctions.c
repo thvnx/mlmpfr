@@ -19,6 +19,8 @@
 #include <stdio.h>
 #include <mpfr.h>
 
+#define ZERO(X) mpfr_set_zero (X, 1)
+
 char *rounding_to_string (int r)
 {
   char * buf = malloc (32);
@@ -96,21 +98,21 @@ void all (mpfr_t op1, mpfr_t op2)
   mpfr_printf ("%Re %s\n", rop, rounding_to_string (ter));
   ter = mpfr_csc (rop, op1, MPFR_RNDN);
   mpfr_printf ("%Re %s\n", rop, rounding_to_string (ter));
-  ter = mpfr_cot (rop, op1, MPFR_RNDN);
+  ZERO(rop); ter = mpfr_cot (rop, op1, MPFR_RNDN);
   mpfr_printf ("%Re %s\n", rop, rounding_to_string (ter));
-  ter = mpfr_acos (rop, op1, MPFR_RNDN);
+  ZERO(rop); ter = mpfr_acos (rop, op1, MPFR_RNDN);
   mpfr_printf ("%Re %s\n", rop, rounding_to_string (ter));
   ter = mpfr_asin (rop, op1, MPFR_RNDN);
   mpfr_printf ("%Re %s\n", rop, rounding_to_string (ter));
-  ter = mpfr_atan (rop, op1, MPFR_RNDN);
+  ZERO(rop); ter = mpfr_atan (rop, op1, MPFR_RNDN);
   mpfr_printf ("%Re %s\n", rop, rounding_to_string (ter));
-  ter = mpfr_acosu (rop, op1, u, MPFR_RNDN);
+  ZERO(rop); ter = mpfr_acosu (rop, op1, u, MPFR_RNDN);
   mpfr_printf ("%Re %s\n", rop, rounding_to_string (ter));
   ter = mpfr_asinu (rop, op1, u, MPFR_RNDN);
   mpfr_printf ("%Re %s\n", rop, rounding_to_string (ter));
-  ter = mpfr_atanu (rop, op1, u, MPFR_RNDN);
+  ZERO(rop); ter = mpfr_atanu (rop, op1, u, MPFR_RNDN);
   mpfr_printf ("%Re %s\n", rop, rounding_to_string (ter));
-  ter = mpfr_acospi (rop, op1, MPFR_RNDN);
+  ZERO(rop); ter = mpfr_acospi (rop, op1, MPFR_RNDN);
   mpfr_printf ("%Re %s\n", rop, rounding_to_string (ter));
   ter = mpfr_asinpi (rop, op1, MPFR_RNDN);
   mpfr_printf ("%Re %s\n", rop, rounding_to_string (ter));
@@ -139,11 +141,11 @@ void all (mpfr_t op1, mpfr_t op2)
   mpfr_printf ("%Re %s\n", rop, rounding_to_string (ter));
   ter = mpfr_coth (rop, op1, MPFR_RNDN);
   mpfr_printf ("%Re %s\n", rop, rounding_to_string (ter));
-  ter = mpfr_acosh (rop, op1, MPFR_RNDN);
+  ZERO (rop); ter = mpfr_acosh (rop, op1, MPFR_RNDN);
   mpfr_printf ("%Re %s\n", rop, rounding_to_string (ter));
   ter = mpfr_asinh (rop, op1, MPFR_RNDN);
   mpfr_printf ("%Re %s\n", rop, rounding_to_string (ter));
-  ter = mpfr_atanh (rop, op1, MPFR_RNDN);
+  ZERO (rop); ter = mpfr_atanh (rop, op1, MPFR_RNDN);
   mpfr_printf ("%Re %s\n", rop, rounding_to_string (ter));
 
   if (mpfr_sgn (op1) >= 0)
@@ -153,11 +155,11 @@ void all (mpfr_t op1, mpfr_t op2)
     }
   else
     {
-      mpfr_set_nan (rop);
+      ZERO (rop); mpfr_set_nan (rop);
       mpfr_printf ("%Re None\n", rop);
     }
 
-  ter = mpfr_log1p (rop, op1, MPFR_RNDN);
+  ZERO (rop); ter = mpfr_log1p (rop, op1, MPFR_RNDN);
   mpfr_printf ("%Re %s\n", rop, rounding_to_string (ter));
   ter = mpfr_expm1 (rop, op1, MPFR_RNDN);
   mpfr_printf ("%Re %s\n", rop, rounding_to_string (ter));
@@ -215,7 +217,7 @@ void all (mpfr_t op1, mpfr_t op2)
   ter = mpfr_fmms (rop, op1, op2, rop, rop, MPFR_RNDN);
   mpfr_printf ("%Re %s\n", rop, rounding_to_string (ter));
 
-  ter = mpfr_agm (rop, op1, op2, MPFR_RNDN);
+  ZERO (rop); ter = mpfr_agm (rop, op1, op2, MPFR_RNDN);
   mpfr_printf ("%Re %s\n", rop, rounding_to_string (ter));
   ter = mpfr_hypot (rop, op1, op2, MPFR_RNDN);
   mpfr_printf ("%Re %s\n", rop, rounding_to_string (ter));

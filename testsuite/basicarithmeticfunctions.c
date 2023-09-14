@@ -22,6 +22,10 @@
 #define INIT(X)    mpfr_t X; mpfr_init (X)
 #define CLEAR(X)   mpfr_clear (X)
 
+// ZERO(X) is used to clean mpfr number to not have -nan printed out by printf
+// since we use get_str on the binding side which doesn't print nan sign (since
+// 4.2.1).
+#define ZERO(X)    mpfr_set_zero (X, 1)
 #define NAN(X)     mpfr_set_nan (X); PRINTM (X)
 
 #define M_TO_SI(X) mpfr_get_si (X, MPFR_RNDN)
@@ -57,24 +61,24 @@ all (mpfr_t op1, mpfr_t op2)
   BINOP_MD  (mul, op1, op2, rop);
 
   BINOP_MM  (div, op1, op2, rop);
-  BINOP_MSI (div, op1, op2, rop);
+  ZERO (rop); BINOP_MSI (div, op1, op2, rop);
   BINOP_SIM (div, op1, op2, rop);
   BINOP_MD  (div, op1, op2, rop);
   BINOP_DM  (div, op1, op2, rop);
 
-  UNAOP_M   (sqrt, op1, rop);
+   ZERO (rop); UNAOP_M   (sqrt, op1, rop);
   if (mpfr_sgn (op1) < 0) {
-    NAN (rop);
+    ZERO (rop); NAN (rop);
   } else {
     UNAOP_UI (sqrt, op1, rop);
   }
 
   UNAOP_M   (cbrt, op1, rop);
 
-  mpfr_rootn_ui (rop, op1, 10, MPFR_RNDN);
+  ZERO (rop); mpfr_rootn_ui (rop, op1, 10, MPFR_RNDN);
   mpfr_printf ("%Re\n", rop);
 
-  mpfr_pow (rop, op1, op2, MPFR_RNDN);
+  ZERO (rop); mpfr_pow (rop, op1, op2, MPFR_RNDN);
   mpfr_printf ("%Re\n", rop);
   mpfr_pow_si (rop, op1, mpfr_get_si (op2, MPFR_RNDN), MPFR_RNDN);
   mpfr_printf ("%Re\n", rop);
