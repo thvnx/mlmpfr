@@ -1,18 +1,18 @@
 (* This file is part of mlmpfr.
 
-  mlmpfr is free software: you can redistribute it and/or modify it
-  under the terms of the GNU Lesser General Public License as
-  published by the Free Software Foundation, either version 3 of the
-  License, or (at your option) any later version.
+   mlmpfr is free software: you can redistribute it and/or modify it
+   under the terms of the GNU Lesser General Public License as
+   published by the Free Software Foundation, either version 3 of the
+   License, or (at your option) any later version.
 
-  mlmpfr is distributed in the hope that it will be useful, but
-  WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-  Lesser General Public License for more details.
+   mlmpfr is distributed in the hope that it will be useful, but
+   WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+   Lesser General Public License for more details.
 
-  You should have received a copy of the GNU Lesser General Public
-  License along with mlmpfr. If not, see
-  <http://www.gnu.org/licenses/>. *)
+   You should have received a copy of the GNU Lesser General Public
+   License along with mlmpfr. If not, see
+   <http://www.gnu.org/licenses/>. *)
 
 (* Direct translation of mpfr's examples/rndo-add.c,
    local build with: ocamlc -I ../_build/src -custom -o rndo-add \
@@ -23,16 +23,14 @@ open Printf
 module M = Mlmpfr
 
 let () =
-  if Array.length Sys.argv <> 4 then begin
+  if Array.length Sys.argv <> 4 then (
     fprintf stderr "Usage: rndo-add <prec> <x> <y>\n";
-    exit 1
-  end;
+    exit 1);
 
   let prec = int_of_string Sys.argv.(1) in
-  if prec < 2 then begin
+  if prec < 2 then (
     fprintf stderr "rndo-add: bad precision\n";
-    exit 1
-  end;
+    exit 1);
   let pprec = prec - 1 in
 
   (* Note: make_from_str uses mpfr_strtofr. We can't check that x and y values

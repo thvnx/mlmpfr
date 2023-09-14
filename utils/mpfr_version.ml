@@ -2,5 +2,4 @@
 
 module M = Mlmpfr
 
-let _ =
-  Printf.printf "%s\n" (M.get_version ())
+let _ = Printf.printf "%s\n" (M.get_version ())
