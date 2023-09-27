@@ -24,6 +24,7 @@ jobs:
           ocaml-compiler: ${{ matrix.ocaml-compiler }}
 
       - name: Deploy odoc
+        if: ${{ github.event_name == 'push' }}
         uses: ocaml/setup-ocaml/deploy-doc@v2
 
       - name: Build mpfr from sources
