@@ -268,42 +268,50 @@ mpfr_float (value mpfr_t, value ternary)
 #define MPFR_REGULAR_FUNCTION0(N)                                              \
   {                                                                            \
     CAMLparam2 (op, prec);                                                     \
-    CAMLlocal1 (rop);                                                          \
+    CAMLlocal3 (rop, tval, sval);                                              \
     int ter;                                                                   \
     rop = caml_mpfr_init2_opt (prec);                                          \
     ter = N (MPFR_val (rop), MPFR_val2 (op));                                  \
-    CAMLreturn (mpfr_float (rop, val_some (val_ter (ter))));                   \
+    tval = val_ter (ter);                                                      \
+    sval = val_some (tval);                                                    \
+    CAMLreturn (mpfr_float (rop, sval));                                       \
   }
 
 #define MPFR_REGULAR_FUNCTION1(N)                                              \
   {                                                                            \
     CAMLparam3 (op, rnd, prec);                                                \
-    CAMLlocal1 (rop);                                                          \
+    CAMLlocal3 (rop, tval, sval);                                              \
     int ter;                                                                   \
     rop = caml_mpfr_init2_opt (prec);                                          \
     ter = N (MPFR_val (rop), MPFR_val2 (op), rnd_val_opt (rnd));               \
-    CAMLreturn (mpfr_float (rop, val_some (val_ter (ter))));                   \
+    tval = val_ter (ter);                                                      \
+    sval = val_some (tval);                                                    \
+    CAMLreturn (mpfr_float (rop, sval));                                       \
   }
 
 #define MPFR_REGULAR_FUNCTION1U(N)                                             \
   {                                                                            \
     CAMLparam4 (op, rnd, prec, u);                                             \
-    CAMLlocal1 (rop);                                                          \
+    CAMLlocal3 (rop, tval, sval);                                              \
     int ter;                                                                   \
     rop = caml_mpfr_init2_opt (prec);                                          \
     ter = N (MPFR_val (rop), MPFR_val2 (op), uint_val (u), rnd_val_opt (rnd)); \
-    CAMLreturn (mpfr_float (rop, val_some (val_ter (ter))));                   \
+    tval = val_ter (ter);                                                      \
+    sval = val_some (tval);                                                    \
+    CAMLreturn (mpfr_float (rop, sval));                                       \
   }
 
 #define MPFR_TWO_MPFR_OPERANDS(N)                                              \
   {                                                                            \
     CAMLparam4 (op1, op2, rnd, prec);                                          \
-    CAMLlocal1 (rop);                                                          \
+    CAMLlocal3 (rop, tval, sval);                                              \
     int ter;                                                                   \
     rop = caml_mpfr_init2_opt (prec);                                          \
     ter = N (MPFR_val (rop), MPFR_val2 (op1), MPFR_val2 (op2),                 \
              rnd_val_opt (rnd));                                               \
-    CAMLreturn (mpfr_float (rop, val_some (val_ter (ter))));                   \
+    tval = val_ter (ter);                                                      \
+    sval = val_some (tval);                                                    \
+    CAMLreturn (mpfr_float (rop, sval));                                       \
   }
 
 value
