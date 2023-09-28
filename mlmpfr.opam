@@ -16,6 +16,7 @@ depends: [
   "dune" {>= "2.9"}
   "dune-configurator"
   "conf-mpfr"
+  "odoc" {with-doc}
 ]
 x-ci-accept-failures: ["debian-unstable"]
 post-messages: [
