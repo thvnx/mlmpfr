@@ -35,7 +35,7 @@ void all (mpfr_t op1, mpfr_t op2)
   printf("%s\n", mpfr_number_p (op1) != 0 ? "true" : "false");
   printf("%s\n", mpfr_zero_p (op1) != 0 ? "true" : "false");
   printf("%s\n", mpfr_regular_p (op1) != 0 ? "true" : "false");
-  printf("%s\n", mpfr_sgn (op1) >= 0 ? "Positive" : "Negative");
+  printf("%d\n", mpfr_sgn (op1));
   printf("%s\n", mpfr_greater_p (op1, op2) != 0 ? "true" : "false");
   printf("%s\n", mpfr_greaterequal_p (op1, op2) != 0 ? "true" : "false");
   printf("%s\n", mpfr_less_p (op1, op2) != 0 ? "true" : "false");
