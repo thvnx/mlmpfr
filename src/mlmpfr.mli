@@ -405,7 +405,7 @@ val zero_p : mpfr_float -> bool
 val regular_p : mpfr_float -> bool
 (** Its a regular number (i.e., neither NaN, nor an infinity nor zero). *)
 
-val sgn : mpfr_float -> sign
+val sgn : mpfr_float -> int
 (** Return the sign of a [mpfr_float] number. *)
 
 val greater_p : mpfr_float -> mpfr_float -> bool

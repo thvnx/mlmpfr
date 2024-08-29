@@ -271,7 +271,7 @@ external inf_p : mpfr_float -> bool = "caml_mpfr_inf_p"
 external number_p : mpfr_float -> bool = "caml_mpfr_number_p"
 external zero_p : mpfr_float -> bool = "caml_mpfr_zero_p"
 external regular_p : mpfr_float -> bool = "caml_mpfr_regular_p"
-external sgn : mpfr_float -> sign = "caml_mpfr_sgn"
+external sgn : mpfr_float -> int = "caml_mpfr_sgn"
 external greater_p : mpfr_float -> mpfr_float -> bool = "caml_mpfr_greater_p"
 
 external greaterequal_p : mpfr_float -> mpfr_float -> bool
