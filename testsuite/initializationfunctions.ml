@@ -36,5 +36,7 @@ let _ =
   let x = M.make_zero M.Negative in
   printf "%s\n" (rounding_to_string x);
   printf "%d\n" (M.get_prec x);
+  (* Should not raise Precision_range exception *)
+  let _ = M.make_zero ~prec:M.mpfr_prec_min M.Positive in ();
   Gc.full_major ()
 (* garbage collector full major *)
