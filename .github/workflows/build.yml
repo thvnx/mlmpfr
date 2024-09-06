@@ -10,9 +10,9 @@ jobs:
   main:
     strategy:
       matrix:
-        platform: [ubuntu-latest] # macos-latest
+        os: [ubuntu-latest, macos-latest]
         ocaml-compiler: [4.12.1, 4.14.0, 5.0.0, 5.1.1, 5.2.0]
-    runs-on: ${{ matrix.platform }}
+    runs-on: ${{ matrix.os }}
 
     steps:
       - name: Checkout
@@ -23,16 +23,12 @@ jobs:
         with:
           ocaml-compiler: ${{ matrix.ocaml-compiler }}
 
-      - name: Build mpfr from sources
+      - if: matrix.os == 'ubuntu-latest'
         run: |
-          wget --no-check-certificate https://www.mpfr.org/mpfr-4.2.1/mpfr-4.2.1.tar.gz
-          tar xvzf mpfr-4.2.1.tar.gz
-          mkdir build-mpfr
-          pushd build-mpfr
-          ../mpfr-4.2.1/configure
-          make -j8
-          sudo make install
-          popd
+          apt install libmpfr-dev
+      - if: matrix.os == 'macos-latest'
+        run: |
+          brew install mpfr
 
       - name: Build and test mlmpfr
         run: |
