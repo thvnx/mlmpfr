@@ -23,12 +23,7 @@ jobs:
         with:
           ocaml-compiler: ${{ matrix.ocaml-compiler }}
 
-      - if: matrix.os == 'ubuntu-latest'
-        run: |
-          apt install libmpfr-dev
-      - if: matrix.os == 'macos-latest'
-        run: |
-          brew install mpfr
+      # setup-ocaml automatically install mlmpfr dependencies (i.e.: gmp/mpfr)
 
       - name: Build and test mlmpfr
         run: |
