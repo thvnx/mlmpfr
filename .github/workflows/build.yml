@@ -24,6 +24,9 @@ jobs:
           ocaml-compiler: ${{ matrix.ocaml-compiler }}
 
       # setup-ocaml automatically install mlmpfr dependencies (i.e.: gmp/mpfr)
+      - if: matrix.os == 'macos-latest'
+        run: |
+          export "CFLAGS=-I/usr/local/include -L/usr/local/lib"
 
       - name: Build and test mlmpfr
         run: |
