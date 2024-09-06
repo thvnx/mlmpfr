@@ -10,9 +10,9 @@ jobs:
   main:
     strategy:
       matrix:
-        platform: [ubuntu-latest] # macos-latest
-        ocaml-compiler: [4.12.1, 4.14.0, 5.0.0, 5.1.1, 5.2.0]
-    runs-on: ${{ matrix.platform }}
+        os: [ubuntu-latest, macos-latest]
+        ocaml-compiler: [4.14.0, 5.0.0, 5.2.0]
+    runs-on: ${{ matrix.os }}
 
     steps:
       - name: Checkout
@@ -23,8 +23,17 @@ jobs:
         with:
           ocaml-compiler: ${{ matrix.ocaml-compiler }}
 
+      # Even if setup-ocaml automatically installs mlmpfr dependencies (i.e.: gmp/mpfr),
+      # build mpfr from sources on Ubuntu 22.04 because mpfr 4.2.0 is not the version
+      # present in the ubuntu repository. That will be the case for Ubuntu 24.04 but the
+      # GitHub image is not working yet with the ocaml-setup step
+      # (https://github.com/actions/runner-images/issues/10476).
+      #
+      # Rely on dune configurator for C and link flags.
       - name: Build mpfr from sources
+        if: runner.os == 'linux'
         run: |
+          sudo apt remove libmpfr-dev
           wget --no-check-certificate https://www.mpfr.org/mpfr-4.2.2/mpfr-4.2.2.tar.gz
           tar xvzf mpfr-4.2.2.tar.gz
           mkdir build-mpfr
@@ -41,6 +50,4 @@ jobs:
           opam exec -- dune build @runtest --profile dev --verbose
           opam exec -- dune build @doc
           opam exec -- dune install
-          # LD_LIBRARY_PATH is not exported by dune for executables
-          # FIXME find a way to export LD_LIBRARY_PATH with dune
-          LD_LIBRARY_PATH=/usr/local/lib opam exec -- dune exec examples/example.exe
+          opam exec -- dune exec examples/example.exe
