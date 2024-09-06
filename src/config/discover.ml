@@ -16,6 +16,6 @@ let () =
             | Some deps -> deps)
       in
 
-      C.Flags.write_sexp "c_flags.sexp" (List.concat [ cflags; (conf "mpfr").cflags; (conf "mpfr").libs ]);
+      C.Flags.write_sexp "c_flags.sexp" (List.concat [ cflags; (conf "mpfr").cflags; (conf "gmp").libs ]);
       C.Flags.write_sexp "c_library_flags.sexp" (List.concat [ (conf "mpfr").libs; (conf "gmp").libs ])
   )
