@@ -886,7 +886,7 @@ CAMLprim value
 caml_mpfr_sgn (value op)
 {
   CAMLparam1 (op);
-  CAMLreturn (Val_int (mpfr_sgn (MPFR_val2 (op))));
+  CAMLreturn (val_sign( mpfr_sgn (MPFR_val2 (op))));
 }
 
 CAMLprim value
@@ -1874,7 +1874,6 @@ CAMLprim value
 caml_mpfr_signbit (value op)
 {
   CAMLparam1 (op);
-
   CAMLreturn (mpfr_signbit (MPFR_val2 (op)));
 }
 

@@ -405,7 +405,7 @@ val zero_p : mpfr_float -> bool
 val regular_p : mpfr_float -> bool
 (** Its a regular number (i.e., neither NaN, nor an infinity nor zero). *)
 
-val sgn : mpfr_float -> int
+val sgn : mpfr_float -> sign
 (** Return the sign of a [mpfr_float] number. If the operand is NaN, set the
     [Erange] flag and return zero.*)
 

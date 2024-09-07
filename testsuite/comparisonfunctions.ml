@@ -29,7 +29,11 @@ let all op1 op2 =
   printf "%b\n" (M.number_p op1);
   printf "%b\n" (M.zero_p op1);
   printf "%b\n" (M.regular_p op1);
-  printf "%d\n" (M.sgn op1);
+  printf "%s\n"
+    (match M.sgn op1 with
+    | Positive -> "Positive"
+    | Negative -> "Negative"
+    | Zero -> "Zero");
   printf "%b\n" (M.greater_p op1 op2);
   printf "%b\n" (M.greaterequal_p op1 op2);
   printf "%b\n" (M.less_p op1 op2);
