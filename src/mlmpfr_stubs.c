@@ -1281,6 +1281,11 @@ caml_mpfr_lgamma (value rnd, value prec, value op)
   rop = caml_mpfr_init2_opt (prec);
   ter = mpfr_lgamma (MPFR_val (rop), &signp, MPFR_val2 (op), rnd_val_opt (rnd));
 
+  // sign is undefined when rop is NaN, -Inf, or a negative integer
+  if ( mpfr_nan_p (MPFR_val2 (op)) ||
+       ( mpfr_sgn (MPFR_val2 (op)) < 0 && (mpfr_inf_p (MPFR_val2 (op)) || mpfr_integer_p (MPFR_val2 (op))) ))
+    signp = 0;
+
   tval = val_ter (ter);
   sval = val_some (tval);
   CAMLreturn (
