@@ -407,7 +407,7 @@ val regular_p : mpfr_float -> bool
 
 val sgn : mpfr_float -> sign
 (** Return the sign of a [mpfr_float] number. If the operand is NaN, set the
-    [Erange] flag and return zero.*)
+    [Erange] flag and return [Zero].*)
 
 val greater_p : mpfr_float -> mpfr_float -> bool
 (** Operator [>] in MPFR syntax style. *)
@@ -623,7 +623,9 @@ val lngamma : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
 
 val lgamma : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float * sign
 (** Return the logarithm of the absolute value of the Gamma function and the
-    sign of the Gamma function on a [mpfr_float]. *)
+    sign of the Gamma function on a [mpfr_float]. When [x] is NaN, −Inf or
+    a negative integer, the sign is [Zero] is undefined; when [x] is +0.0,
+    the sign is [Positive]; and when [x] is -0.0, the sign is [Negative]. *)
 
 val digamma : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
 (** Return the Digamma (sometimes also called Psi) function on a
