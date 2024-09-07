@@ -70,7 +70,7 @@ exception Invalid_integer_input of int
 (** Raised if mlmpfr tries to call a mpfr_*_ui function with a negative
     integer. *)
 
-type sign = Positive | Negative
+type sign = Positive | Negative | Zero
 
 type mpfr_t
 (** Binding to C MPFR {e
@@ -880,8 +880,8 @@ val get_exp : mpfr_float -> int
 val set_exp : mpfr_float -> int -> mpfr_float
 (** Return a fresh [mpfr_float] from input with new precision. *)
 
-val signbit : mpfr_float -> sign
-(** Return the sign of a [mpfr_float]. *)
+val signbit : mpfr_float -> bool
+(** Return true if the signbit of a [mpfr_float] is set. *)
 
 val setsign : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> sign -> mpfr_float
 (** [Mlmpfr.setsign x s ~rnd:r] returns a fresh copy of [x] with the sign [s],

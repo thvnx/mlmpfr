@@ -149,6 +149,8 @@ sign_val (value s)
       return 1;
     case 1:
       return -1;
+    case 2:
+      return 0;
     default:
       caml_failwith (__FUNCTION__);
     }
@@ -170,10 +172,12 @@ val_sign (int s)
 {
   CAMLparam0 ();
 
-  if (s >= 0)
+  if (s > 0)
     CAMLreturn (Val_int (0));
-  else
+  else if (s < 0)
     CAMLreturn (Val_int (1));
+  else
+    CAMLreturn (Val_int (2));
 }
 
 static int
