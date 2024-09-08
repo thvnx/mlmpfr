@@ -33,6 +33,4 @@ jobs:
           opam exec -- dune build @runtest --profile dev --verbose
           opam exec -- dune build @doc
           opam exec -- dune install
-          # LD_LIBRARY_PATH is not exported by dune for executables
-          # FIXME find a way to export LD_LIBRARY_PATH with dune
-          LD_LIBRARY_PATH=/usr/local/lib opam exec -- dune exec examples/example.exe
+          opam exec -- dune exec examples/example.exe
