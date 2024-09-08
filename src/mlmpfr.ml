@@ -758,8 +758,8 @@ let get_formatted_str ?(rnd = To_Nearest) ?(base = 10) ?(size = 0) ?(ktz = true)
     Printf.sprintf "%s%s%s%c%+03d"
       (if neg then String.sub mantissa 0 2 else Char.escaped mantissa.[0])
       (if
-         (neg && String.length mantissa == 2)
-         || (neg == false && String.length mantissa == 1)
+        (neg && String.length mantissa == 2)
+        || (neg == false && String.length mantissa == 1)
        then ""
        else ".")
       (String.sub mantissa
