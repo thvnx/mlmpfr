@@ -22,7 +22,7 @@ type mpfr_rnd_t =
   | Away_From_Zero
   | Faithful
 
-type sign = Positive | Negative
+type sign = Positive | Negative | Zero
 type mpfr_prec_t = int
 type mpfr_exp_t = int
 type mpfr_t
@@ -664,7 +664,7 @@ external max :
 
 external get_exp : mpfr_float -> mpfr_prec_t = "caml_mpfr_get_exp"
 external set_exp : mpfr_float -> mpfr_exp_t -> mpfr_float = "caml_mpfr_set_exp"
-external signbit : mpfr_float -> sign = "caml_mpfr_signbit"
+external signbit : mpfr_float -> bool = "caml_mpfr_signbit"
 
 external setsign :
   ?rnd:mpfr_rnd_t -> ?prec:mpfr_prec_t -> mpfr_float -> sign -> mpfr_float
@@ -748,9 +748,7 @@ let get_formatted_str ?(rnd = To_Nearest) ?(base = 10) ?(size = 0) ?(ktz = true)
         (String.concat "" (String.split_on_char '@' significand))
     in
     (* if NaN, add the bitsign since get_str doesn't return the sign of NaNs *)
-    (if nan_or_inf == "nan" then
-     match signbit x with Positive -> "" | Negative -> "-"
-    else "")
+    (if nan_or_inf == "nan" then if signbit x then "-" else "" else "")
     ^ nan_or_inf
   else
     let mantissa =
@@ -760,10 +758,10 @@ let get_formatted_str ?(rnd = To_Nearest) ?(base = 10) ?(size = 0) ?(ktz = true)
     Printf.sprintf "%s%s%s%c%+03d"
       (if neg then String.sub mantissa 0 2 else Char.escaped mantissa.[0])
       (if
-       (neg && String.length mantissa == 2)
-       || (neg == false && String.length mantissa == 1)
-      then ""
-      else ".")
+        (neg && String.length mantissa == 2)
+        || (neg == false && String.length mantissa == 1)
+       then ""
+       else ".")
       (String.sub mantissa
          (if neg then 2 else 1)
          (String.length mantissa - if neg then 2 else 1))

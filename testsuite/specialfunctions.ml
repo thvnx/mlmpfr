@@ -131,7 +131,10 @@ let all op1 op2 u =
   printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);
   let r, s = M.lgamma op1 in
   printf "%s %s %s\n" (M.get_formatted_str r)
-    (match s with M.Positive -> "Positive" | M.Negative -> "Negative")
+    (match s with
+    | M.Positive -> "Positive"
+    | M.Negative -> "Negative"
+    | M.Zero -> "Zero")
     (rounding_to_string r);
   let r = M.digamma op1 in
   printf "%s %s\n" (M.get_formatted_str r) (rounding_to_string r);

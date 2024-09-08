@@ -1281,10 +1281,15 @@ caml_mpfr_lgamma (value rnd, value prec, value op)
   rop = caml_mpfr_init2_opt (prec);
   ter = mpfr_lgamma (MPFR_val (rop), &signp, MPFR_val2 (op), rnd_val_opt (rnd));
 
+  // sign is undefined when rop is NaN, -Inf, or a negative integer
+  if (mpfr_nan_p (MPFR_val2 (op))
+      || (mpfr_sgn (MPFR_val2 (op)) < 0
+          && (mpfr_inf_p (MPFR_val2 (op)) || mpfr_integer_p (MPFR_val2 (op)))))
+    signp = 0;
+
   tval = val_ter (ter);
   sval = val_some (tval);
-  CAMLreturn (
-    caml_tuple2 (mpfr_float (rop, sval), val_sign (signp)));
+  CAMLreturn (caml_tuple2 (mpfr_float (rop, sval), val_sign (signp)));
 }
 
 CAMLprim value
@@ -1869,13 +1874,7 @@ CAMLprim value
 caml_mpfr_signbit (value op)
 {
   CAMLparam1 (op);
-  int s;
-
-  s = mpfr_signbit (MPFR_val2 (op));
-  if (s == 0)
-    CAMLreturn (Val_int (0));
-  else
-    CAMLreturn (Val_int (1));
+  CAMLreturn (Val_bool (mpfr_signbit (MPFR_val2 (op))));
 }
 
 CAMLprim value

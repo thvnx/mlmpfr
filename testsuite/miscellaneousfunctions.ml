@@ -25,10 +25,7 @@ let all op1 op2 exp =
   printf "%s\n" (M.get_formatted_str (M.max op1 op2));
   printf "%d\n" (M.get_exp op1);
   printf "%d\n" (M.get_exp (M.set_exp op1 exp));
-  printf "%s\n"
-    (match M.signbit op1 with
-    | M.Positive -> "Positive"
-    | M.Negative -> "Negative");
+  printf "%s\n" (if M.signbit op1 then "Negative" else "Positive");
   printf "%s\n" (M.get_formatted_str (M.copysign op1 op2));
   printf "%s\n" (M.get_version ())
 

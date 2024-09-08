@@ -70,7 +70,7 @@ exception Invalid_integer_input of int
 (** Raised if mlmpfr tries to call a mpfr_*_ui function with a negative
     integer. *)
 
-type sign = Positive | Negative
+type sign = Positive | Negative | Zero
 
 type mpfr_t
 (** Binding to C MPFR {e
@@ -406,7 +406,8 @@ val regular_p : mpfr_float -> bool
 (** Its a regular number (i.e., neither NaN, nor an infinity nor zero). *)
 
 val sgn : mpfr_float -> sign
-(** Return the sign of a [mpfr_float] number. *)
+(** Return the sign of a [mpfr_float] number. If the operand is NaN, set the
+    [Erange] flag and return [Zero].*)
 
 val greater_p : mpfr_float -> mpfr_float -> bool
 (** Operator [>] in MPFR syntax style. *)
@@ -622,7 +623,9 @@ val lngamma : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
 
 val lgamma : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float * sign
 (** Return the logarithm of the absolute value of the Gamma function and the
-    sign of the Gamma function on a [mpfr_float]. *)
+    sign of the Gamma function on a [mpfr_float]. When [x] is NaN, −Inf or
+    a negative integer, the sign is [Zero] is undefined; when [x] is +0.0,
+    the sign is [Positive]; and when [x] is -0.0, the sign is [Negative]. *)
 
 val digamma : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> mpfr_float
 (** Return the Digamma (sometimes also called Psi) function on a
@@ -879,8 +882,8 @@ val get_exp : mpfr_float -> int
 val set_exp : mpfr_float -> int -> mpfr_float
 (** Return a fresh [mpfr_float] from input with new precision. *)
 
-val signbit : mpfr_float -> sign
-(** Return the sign of a [mpfr_float]. *)
+val signbit : mpfr_float -> bool
+(** Return true if the signbit of a [mpfr_float] is set. *)
 
 val setsign : ?rnd:mpfr_rnd_t -> ?prec:int -> mpfr_float -> sign -> mpfr_float
 (** [Mlmpfr.setsign x s ~rnd:r] returns a fresh copy of [x] with the sign [s],
