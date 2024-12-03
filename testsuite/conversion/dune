@@ -25,7 +25,7 @@
 
 (rule
  (alias runtest)
- (deps conversionfunctions.output fpif_export.expected)
+ (deps conversionfunctions.exe.output fpif_export.expected)
  (action
   (run diff fpif_export.output fpif_export.expected)))
 
