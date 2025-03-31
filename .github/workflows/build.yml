@@ -10,7 +10,7 @@ jobs:
   main:
     strategy:
       matrix:
-        platform: [ubuntu-latest] # macos-latest
+        platform: [ubuntu-latest, macos-latest]
         ocaml-compiler: [4.12.1, 4.14.0, 5.0.0, 5.1.1, 5.2.0]
     runs-on: ${{ matrix.platform }}
 
