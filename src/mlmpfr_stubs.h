@@ -17,6 +17,13 @@
 #ifndef MLMPFR_STUBS_H
 #define MLMPFR_STUBS_H
 
+#include <unistd.h>
+// FIXME: We need to define CAML_INTERNALS here so that Channel is visible in
+// file_of_file_descr (see end of this file). This is a workaround and should
+// be fixed.
+#define CAML_INTERNALS
+#include <caml/io.h>
+#undef CAML_INTERNALS
 #include <caml/alloc.h>
 #include <caml/callback.h>
 #include <caml/custom.h>
@@ -320,12 +327,6 @@ mpfr_float (value mpfr_t, value ternary)
 
 value
 caml_mpfr_get_default_prec ();
-
-#include <unistd.h>
-// FIXME Try a way to not include CAML_INTERNALS things
-#define CAML_INTERNALS
-#include <caml/io.h>
-#undef CAML_INTERNALS
 
 static FILE *
 file_of_file_descr (value file_descr, const char *mode)
