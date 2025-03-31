@@ -37,11 +37,11 @@ jobs:
 
       - name: Build mpfr from sources
         run: |
-          wget --no-check-certificate https://www.mpfr.org/mpfr-4.2.1/mpfr-4.2.1.tar.gz
-          tar xvzf mpfr-4.2.1.tar.gz
+          wget --no-check-certificate https://www.mpfr.org/mpfr-4.2.2/mpfr-4.2.2.tar.gz
+          tar xvzf mpfr-4.2.2.tar.gz
           mkdir build-mpfr
           pushd build-mpfr
-          ../mpfr-4.2.1/configure
+          ../mpfr-4.2.2/configure
           make -j8
           sudo make install
           popd
@@ -56,10 +56,10 @@ jobs:
         uses: actions/configure-pages@v4
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v3
         with:
           path: _build/default/_doc/_html
 
       - name: Deploy odoc to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v3
+        uses: actions/deploy-pages@v4
