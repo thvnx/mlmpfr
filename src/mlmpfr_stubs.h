@@ -30,8 +30,11 @@
 #include <caml/fail.h>
 #include <caml/memory.h>
 #include <caml/mlvalues.h>
+#include <caml/intext.h>
+#include <caml/hash.h>
 #include <limits.h>
 #include <stdio.h>
+
 /* Prototypes for MPFR functions with FILE * parameters are provided only if
    <stdio.h> is included too (before mpfr.h) */
 #include <mpfr.h>
@@ -40,12 +43,18 @@ static int custom_compare(value, value);
 
 static void custom_finalize(value);
 
+static void custom_serialize(value, uintnat*, uintnat*);
+
+static uintnat custom_deserialize(void*);
+
+static intnat custom_hash(value v);
+
 static struct custom_operations mpfr_ops = {"https://github.com/thvnx/mlmpfr",
                                             custom_finalize,
                                             custom_compare,
-                                            custom_hash_default,
-                                            custom_serialize_default,
-                                            custom_deserialize_default,
+                                            custom_hash,
+                                            custom_serialize,
+                                            custom_deserialize,
 #ifndef custom_fixed_length_default
                                             custom_compare_ext_default};
 #else
