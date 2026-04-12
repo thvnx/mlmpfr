@@ -190,7 +190,19 @@ let all op1 op2 u =
   let m = s 100000 in
   let r = M.dot l m in
   printf "%s %s %d\n" (M.get_formatted_str r) (rounding_to_string r)
-    (List.length m)
+    (List.length m);
+  let op1' = Marshal.from_string (Marshal.to_string op1 []) 0 in
+  let op2' = Marshal.from_string (Marshal.to_string op2 []) 0 in
+  let h1 = Hashtbl.hash(op1) in
+  let h2 = Hashtbl.hash(op2) in
+  let h1' = Hashtbl.hash(op1') in
+  let h2' = Hashtbl.hash(op2') in
+  assert ((M.cmp op1 op1') = 0);
+  assert ((M.cmp op2 op2') = 0);
+  assert (op1 = op1');
+  assert (op2 = op2');
+  assert (h1 = h1' && h2 = h2');
+  assert ((h1 = h2) = (op1 = op2))
 
 let _ =
   all (M.make_from_float (1. /. 3.)) (M.make_from_float (1. /. 10.)) 3;

@@ -782,71 +782,72 @@ CAMLprim value caml_mpfr_total_order_p(value op1, value op2) {
 }
 
 static int custom_compare(value v1, value v2) {
-  return mpfr_cmp(MPFR_val(v1), MPFR_val(v2));
+  int r = mpfr_cmp(MPFR_val(v1), MPFR_val(v2));
+  return r;
 }
 
 static void custom_serialize(value v,
 			     uintnat *wsize_32,
 			     uintnat *wsize_64)
 {
-    mpfr_t *x = (mpfr_t *) Data_custom_val(v);
-    long sign = mpfr_signbit(*x) ? -1 : 1;
-    mpfr_prec_t prec = mpfr_get_prec(*x);
-    mpfr_exp_t exp = mpfr_get_exp(*x);
-    size_t nlimbs = (prec + GMP_NUMB_BITS - 1) / GMP_NUMB_BITS;
+  // unsafe between architecture where mpfr_t differs
+  mpfr_t *x = (mpfr_t *) Data_custom_val(v);
+  mpfr_sign_t sign = (*x)->_mpfr_sign;
+  mpfr_prec_t prec = (*x)->_mpfr_prec;
+  mpfr_exp_t exp = (*x)->_mpfr_exp;
+  size_t nlimbs = (prec + GMP_NUMB_BITS - 1) / GMP_NUMB_BITS;
 
-    mp_limb_t *limbs = (mp_limb_t *) (*x)->_mpfr_d;
+  mp_limb_t *limbs = (mp_limb_t *) (*x)->_mpfr_d;
 
-    caml_serialize_int_1((int64_t) sign);
-    caml_serialize_int_8((int64_t) prec);
-    caml_serialize_int_8((int64_t) exp);
-
-    for (size_t i = 0; i < nlimbs; i++) {
-        caml_serialize_int_8((int64_t) limbs[i]);
-    }
-    // does not allow exchange between 32 bits and 64 bits
-    *wsize_32 = *wsize_64 = sizeof(mpfr_t);
+  caml_serialize_int_4((int64_t) sign);
+  caml_serialize_int_8((int64_t) prec);
+  caml_serialize_int_8((int64_t) exp);
+  for (size_t i = 0; i < nlimbs; i++) {
+    caml_serialize_int_8((int64_t) limbs[i]);
+  }
+  *wsize_32 = *wsize_64 = sizeof(mpfr_t);
 }
 
 static uintnat custom_deserialize(void *dst)
 {
-    mpfr_t *x = (mpfr_t *) dst;
+  // unsafe between architecture where mpfr_t differs
+  mpfr_t *x = (mpfr_t *) dst;
 
-    long sign        = caml_deserialize_sint_1();
-    mpfr_prec_t prec = caml_deserialize_uint_8();
-    mpfr_exp_t exp   = caml_deserialize_sint_8();
-    size_t nlimbs = (prec + GMP_NUMB_BITS - 1) / GMP_NUMB_BITS;
+  mpfr_sign_t sign = caml_deserialize_sint_4();
+  mpfr_prec_t prec = caml_deserialize_uint_8();
+  mpfr_exp_t exp   = caml_deserialize_sint_8();
+  size_t nlimbs = (prec + GMP_NUMB_BITS - 1) / GMP_NUMB_BITS;
 
-    mpfr_init2(*x, prec);
+  mpfr_init2(*x, prec);
+  (*x)->_mpfr_sign = sign;
+  (*x)->_mpfr_exp  = exp;
 
-    (*x)->_mpfr_sign = sign;
-    (*x)->_mpfr_exp  = exp;
+  mp_limb_t *limbs = (mp_limb_t *) (*x)->_mpfr_d;
 
-    mp_limb_t *limbs = (mp_limb_t *) (*x)->_mpfr_d;
-
-    for (size_t i = 0; i < nlimbs; i++) {
-        limbs[i] = (mp_limb_t) caml_deserialize_uint_8();
-    }
-    return sizeof(mpfr_t);
+  for (size_t i = 0; i < nlimbs; i++) {
+    limbs[i] = (mp_limb_t) caml_deserialize_sint_8();
+  }
+  return sizeof(mpfr_t);
 }
 
 static intnat custom_hash(value v)
 {
-    mpfr_t *x = (mpfr_t *) Data_custom_val(v);
-    long sign = mpfr_signbit(*x) ? -1 : 1;
-    mpfr_prec_t prec = mpfr_get_prec(*x);
-    mpfr_exp_t exp = mpfr_get_exp(*x);
-    size_t nlimbs = (prec + GMP_NUMB_BITS - 1) / GMP_NUMB_BITS;
-    mp_limb_t *limbs = (mp_limb_t *) (*x)->_mpfr_d;
-    uint32_t h = 0;
+  // hash changes between architecture where mpfr_t differs
+  mpfr_t *x = (mpfr_t *) Data_custom_val(v);
+  long sign = (*x)->_mpfr_sign;
+  mpfr_prec_t prec = (*x)->_mpfr_prec;
+  mpfr_exp_t exp = (*x)->_mpfr_exp;
+  size_t nlimbs = (prec + GMP_NUMB_BITS - 1) / GMP_NUMB_BITS;
+  mp_limb_t *limbs = (mp_limb_t *) (*x)->_mpfr_d;
+  uint32_t h = 0;
 
-    caml_hash_mix_uint32(h, sign);
-    caml_hash_mix_int64(h, prec);
-    caml_hash_mix_int64(h, exp);
-    for (size_t i = 0; i < nlimbs; i++) {
-         caml_hash_mix_int64(h, limbs[i]);
-    }
-    return h;
+  h = caml_hash_mix_uint32(h, sign);
+  h = caml_hash_mix_int64(h, prec);
+  h = caml_hash_mix_int64(h, exp);
+  for (size_t i = 0; i < nlimbs; i++) {
+    h = caml_hash_mix_int64(h, limbs[i]);
+  }
+  return h;
 }
 
 /*********************/
