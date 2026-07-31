@@ -7,15 +7,16 @@ let () =
       let default : C.Pkg_config.package_conf =
         { libs = [ "-lmpfr"; "-lgmp" ]; cflags }
       in
-      let conf p =
+      (* pkg-config reports gmp transitively via mpfr.pc, so a separate
+         query would only duplicate -lgmp. *)
+      let conf =
         match C.Pkg_config.get c with
         | None -> default
         | Some pc -> (
-            match C.Pkg_config.query pc ~package:p with
+            match C.Pkg_config.query pc ~package:"mpfr" with
             | None -> default
             | Some deps -> deps)
       in
 
-      C.Flags.write_sexp "c_flags.sexp" (List.concat [ cflags; (conf "mpfr").cflags; (conf "gmp").cflags ]);
-      C.Flags.write_sexp "c_library_flags.sexp" (List.concat [ (conf "mpfr").libs; (conf "gmp").libs ])
-  )
+      C.Flags.write_sexp "c_flags.sexp" (cflags @ conf.cflags);
+      C.Flags.write_sexp "c_library_flags.sexp" conf.libs)
