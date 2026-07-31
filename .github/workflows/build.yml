@@ -33,7 +33,6 @@ jobs:
       - name: Build mpfr from sources
         if: runner.os == 'linux'
         run: |
-          sudo apt remove libmpfr-dev
           wget --no-check-certificate https://www.mpfr.org/mpfr-4.2.2/mpfr-4.2.2.tar.gz
           tar xvzf mpfr-4.2.2.tar.gz
           mkdir build-mpfr
@@ -41,6 +40,7 @@ jobs:
           ../mpfr-4.2.2/configure
           make -j8
           sudo make install
+          sudo ldconfig
           popd
 
       - name: Build and test mlmpfr
