@@ -60,6 +60,9 @@ let mpfr_prec_min = mpfr_prec_min ()
 let mpfr_prec_max = mpfr_prec_max ()
 
 (* Initialization Functions *)
+external init_custom : unit -> unit = "mlmpfr_init_custom"
+let () = init_custom ()
+
 external set_default_prec : mpfr_prec_t -> unit = "caml_mpfr_set_default_prec"
 external get_default_prec : unit -> mpfr_prec_t = "caml_mpfr_get_default_prec"
 external get_prec : mpfr_float -> mpfr_prec_t = "caml_mpfr_get_prec"
