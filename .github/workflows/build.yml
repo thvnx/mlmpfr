@@ -21,6 +21,11 @@ jobs:
         uses: ocaml/setup-ocaml@v3
         with:
           ocaml-compiler: ${{ matrix.ocaml-compiler }}
+          # Use the HTTP repository to prevent intermittent CI setup failures:
+          # the Git-backed default can race with detached Git maintenance while
+          # OPAM scans it (https://github.com/ocaml/opam/issues/7031).
+          opam-repositories: |
+            default: https://opam.ocaml.org
 
       # Even if setup-ocaml automatically installs mlmpfr dependencies (i.e.: gmp/mpfr),
       # build mpfr from sources on Ubuntu 22.04 because mpfr 4.2.0 is not the version
